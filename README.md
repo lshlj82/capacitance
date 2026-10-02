@@ -1,10 +1,10 @@
 # Capacitance — Interactive Lecture Notes · 전기용량 인터랙티브 강의 노트
 
-An interactive, single-page explainer of **capacitance**, built from handwritten lecture notes by **Prof. Sang-Hoon Lee (이상훈 교수), Department of Physics, Gyeongsang National University (경상국립대학교 물리학과)**. Created by **Claude Opus 5.5**.
+An interactive, single-page explainer of **capacitance**, built from handwritten lecture notes by **Prof. Sang Hoon Lee (이상훈 교수), Department of Physics, Gyeongsang National University (경상국립대학교 물리학과)**. Created by **Claude Opus 5.5**.
 
 The page follows the order of the notes. Each topic has an interactive model you can play with: sliders, toggles and live diagrams that update as you change the physics.
 
-> 경상국립대학교 물리학과 이상훈 교수님의 강의 노트를 바탕으로 Claude Opus 5.5가 제작한 전기용량 인터랙티브 학습 페이지입니다. 한국어판과 영어판이 있습니다.
+> 경상국립대학교 물리학과 이상훈 교수의 강의 노트를 바탕으로 Claude Opus 5.5가 제작한 전기용량 인터랙티브 학습 페이지입니다. 한국어판과 영어판이 있습니다.
 
 ## Files
 
@@ -64,7 +64,7 @@ Two points in the page go slightly beyond or correct the original notes:
 
 ## Credits
 
-- **Lecture notes:** Prof. Sang-Hoon Lee (이상훈 교수), Department of Physics, Gyeongsang National University (경상국립대학교 물리학과)
+- **Lecture notes:** Prof. Sang Hoon Lee (이상훈 교수), Department of Physics, Gyeongsang National University (경상국립대학교 물리학과)
 - **Interactive pages:** created by Claude Opus 5.5 (Anthropic)
 
 ## License
