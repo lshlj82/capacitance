@@ -56,6 +56,7 @@ a{color:var(--accent)}
 header.hero{padding:56px 0 24px;display:grid;grid-template-columns:1fr;gap:24px}
 .hero-sub{font-size:1.15rem;color:var(--muted);max-width:620px}
 .hero-sub b{color:var(--ink);font-weight:600}
+.credit{font-family:var(--display);font-size:.95rem;color:var(--ink);border-left:4px solid var(--accent);padding:2px 0 2px 12px;margin:14px 0 18px}
 nav.toc{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
 nav.toc a{font-family:var(--display);font-weight:500;font-size:.92rem;text-decoration:none;color:var(--ink);border:1.5px solid var(--line);background:var(--paper);padding:5px 12px;border-radius:999px}
 nav.toc a:hover,nav.toc a:focus-visible{border-color:var(--ink)}
@@ -139,6 +140,7 @@ svg .gridl{stroke:var(--line);stroke-width:1}
   <div>
     <h1>Capacitance<br><span class="kr" style="font-size:.4em">전기용량</span></h1>
     <p class="hero-sub">An interactive companion to the handwritten lecture notes. A <b>capacitor</b> is two isolated conductors that hold <b>+q</b> and <b>−q</b>; capacitance tells you how much charge it stores per volt. Start by charging one below.</p>
+    <p class="credit">Created by Claude Opus 5.5 based on the lecture notes by Prof. Sang Hoon Lee, Department of Physics, Gyeongsang National University.</p>
     <nav class="toc" aria-label="Sections">
       <a href="#s1">1 What it is</a><a href="#s2">2 How to compute C</a><a href="#s3">3 Shapes</a><a href="#s4">4 Parallel & series</a><a href="#s5">5 Stored energy</a><a href="#s6">6 Dielectrics</a><a href="#s7">7 Partial slab</a><a href="#s8">8 Check yourself</a>
     </nav>
@@ -419,7 +421,7 @@ svg .gridl{stroke:var(--line);stroke-width:1}
   <div class="quiz" id="quiz"></div>
 </section>
 
-<footer>Built from handwritten lecture notes on capacitance. Numerical values use ε₀ = 8.854 × 10⁻¹² F/m.</footer>
+<footer>Created by Claude Opus 5.5 based on the lecture notes on capacitance by Prof. Sang Hoon Lee, Department of Physics, Gyeongsang National University. Numerical values use ε₀ = 8.854 × 10⁻¹² F/m.</footer>
 </div>
 
 <script>
