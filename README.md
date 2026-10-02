@@ -66,7 +66,3 @@ Two points in the page go slightly beyond or correct the original notes:
 
 - **Lecture notes:** Prof. Sang Hoon Lee (이상훈 교수), Department of Physics, Gyeongsang National University (경상국립대학교 물리학과)
 - **Interactive pages:** created by Claude Opus 5.5 (Anthropic)
-
-## License
-
-No license has been chosen yet. Before you publish this repository, add a `LICENSE` file, and confirm with the author of the lecture notes how their material may be shared.
