@@ -141,7 +141,7 @@ svg .gridl{stroke:var(--line);stroke-width:1}
   <div>
     <h1>전기용량<br><span class="kr" style="font-size:.4em">Capacitance</span></h1>
     <p class="hero-sub">손글씨 강의 노트를 바탕으로 만든 인터랙티브 학습 페이지입니다. <b>축전기(capacitor)</b>는 <b>+q</b>와 <b>−q</b>를 띤, 전기적으로 고립된 두 도체입니다. <b>전기용량(capacitance)</b>은 1볼트당 얼마나 많은 전하를 저장할 수 있는지를 나타냅니다. 아래에서 직접 축전기를 충전해 보세요.</p>
-    <p class="credit">경상국립대학교 물리학과 이상훈 교수의 강의 노트를 바탕으로 Claude Opus 5.5가 제작했습니다.</p>
+    <p class="credit">경상국립대학교 물리학과 이상훈 교수님의 강의 노트를 바탕으로 Claude Opus 5.5가 제작했습니다.</p>
     <nav class="toc" aria-label="목차">
       <a href="#s1">1 축전기란</a><a href="#s2">2 C 계산법</a><a href="#s3">3 모양별 공식</a><a href="#s4">4 병렬과 직렬</a><a href="#s5">5 저장된 에너지</a><a href="#s6">6 유전체</a><a href="#s7">7 일부만 채운 유전체</a><a href="#s8">8 확인 문제</a>
     </nav>
@@ -310,7 +310,7 @@ svg .gridl{stroke:var(--line);stroke-width:1}
   <h2><span class="num">5</span>전기장에 저장된 에너지 <span class="kr">Stored Energy</span></h2>
   <div class="prose">
     <p>축전기를 충전하려면 일(work)이 필요합니다. 이미 <i class="m">q′</i>만큼 옮긴 상태에서 미소량 <i class="m">dq′</i>를 더 옮길 때 해야 하는 일은 <span class="m">d<i>W</i> = <i>V′</i>d<i>q′</i> = (<i>q′</i>/<i>C</i>)d<i>q′</i></span>입니다. 직관적으로, <i>q′</i>가 쌓일수록 <i>V′</i>가 높아져서 에너지를 쌓기가 (정확히 <i>q′</i>에 비례해서) 어려워집니다. 이 조각들을 모두 더한 것이 직선 아래의 넓이이며, 이것이 축전기에 저장된 퍼텐셜 에너지(potential energy) <i>U</i>입니다.</p>
-    <div class="eq"><i>U</i> = <span class="frac"><span><i>q</i>²</span><span>2<i>C</i></span></span> = ½<i>CV</i>²</div>
+    <div class="eq"><i>U</i> = <span class="frac"><span><i>q</i>²</span><span>2<i>C</i></span></span> = <span class="frac"><span>1</span><span>2</span></span><i>CV</i>²</div>
     <p class="small">이 식은 축전기 모양과 무관합니다. 모양은 <i>C</i> 값 자체에만 반영됩니다.</p>
   </div>
   <div class="lab flip">
@@ -328,8 +328,8 @@ svg .gridl{stroke:var(--line);stroke-width:1}
   <div class="prose">
     <h3 style="margin-top:28px">에너지 밀도 (energy density)</h3>
     <p>평행판 축전기에서는 전기장이 균일하므로, 단위 부피당 퍼텐셜 에너지인 에너지 밀도 <i>u</i>도 균일합니다. 부피 <i>Ad</i>로 나누면:</p>
-    <p class="m" style="font-size:1.25rem"><i>u</i> = <span class="frac"><span><i>U</i></span><span><i>Ad</i></span></span> = <span class="frac"><span><i>CV</i>²</span><span>2<i>Ad</i></span></span> = ½<i>ε</i><sub>0</sub>(<i>V</i>/<i>d</i>)²</p>
-    <div class="eq"><i>u</i> = ½<i>ε</i><sub>0</sub><i>E</i>²</div>
+    <p class="m" style="font-size:1.25rem"><i>u</i> = <span class="frac"><span><i>U</i></span><span><i>Ad</i></span></span> = <span class="frac"><span><i>CV</i>²</span><span>2<i>Ad</i></span></span> = <span class="frac"><span>1</span><span>2</span></span><i>ε</i><sub>0</sub>(<i>V</i>/<i>d</i>)²</p>
+    <div class="eq"><i>u</i> = <span class="frac"><span>1</span><span>2</span></span><i>ε</i><sub>0</sub><i>E</i>²</div>
     <p>이 마지막 식은 극판 사이뿐 아니라 일반적으로 성립합니다. 전기장 <i>E</i>가 있는 곳이면 어디든, 단위 부피당 이만큼의 전기 퍼텐셜 에너지가 공간에 저장되어 있습니다.</p>
   </div>
 </section>
@@ -389,7 +389,7 @@ svg .gridl{stroke:var(--line);stroke-width:1}
       <dl class="readout"><dt>C</dt><dd id="pC"></dd><dt>C / C<sub>진공</sub></dt><dd id="pR"></dd></dl>
       <h3 style="margin-top:6px">축전기 3개의 직렬연결로 봐도 같은 결과</h3>
       <dl class="readout" style="border-top:none;padding-top:0">
-        <dt>C₁ = C₃ = ε₀A / ½(d−b)</dt><dd id="pC1"></dd>
+        <dt>C₁ = C₃ = ε₀A / [(d−b)/2]</dt><dd id="pC1"></dd>
         <dt>C₂ = κε₀A / b</dt><dd id="pC2"></dd>
         <dt>1/(2/C₁ + 1/C₂)</dt><dd id="pCs"></dd>
       </dl>
@@ -411,14 +411,14 @@ svg .gridl{stroke:var(--line);stroke-width:1}
     <div><b>원통형</b><span class="m"><i>C</i> = 2π<i>ε</i>₀<i>L</i>/ln(<i>b</i>/<i>a</i>)</span></div>
     <div><b>구형 / 고립된 구</b><span class="m"><i>C</i> = 4π<i>ε</i>₀<i>ab</i>/(<i>b</i>−<i>a</i>), &nbsp;4π<i>ε</i>₀<i>R</i></span></div>
     <div><b>연결</b><span class="m">병렬: Σ<i>C<sub>j</sub></i>; &nbsp;직렬: 1/<i>C</i><sub>eq</sub> = Σ1/<i>C<sub>j</sub></i></span></div>
-    <div><b>에너지</b><span class="m"><i>U</i> = <i>q</i>²/2<i>C</i> = ½<i>CV</i>², &nbsp;<i>u</i> = ½<i>ε</i>₀<i>E</i>²</span></div>
+    <div><b>에너지</b><span class="m"><i>U</i> = <i>q</i>²/2<i>C</i> = (1/2)<i>CV</i>², &nbsp;<i>u</i> = (1/2)<i>ε</i>₀<i>E</i>²</span></div>
     <div><b>유전체</b><span class="m"><i>C</i> → <i>κC</i>; &nbsp;V 일정: <i>q</i> → <i>κq</i>; &nbsp;q 일정: <i>V</i> → <i>V</i>/<i>κ</i></span></div>
     <div><b>일부만 채운 유전체</b><span class="m"><i>C</i> = <i>ε</i>₀<i>A</i>/[<i>d</i> − (1−1/<i>κ</i>)<i>b</i>]</span></div>
   </div>
   <div class="quiz" id="quiz"></div>
 </section>
 
-<footer>경상국립대학교 물리학과 이상훈 교수의 전기용량 강의 노트를 바탕으로 Claude Opus 5.5가 제작했습니다. 수치 계산에는 ε₀ = 8.854 × 10⁻¹² F/m를 사용했습니다.</footer>
+<footer>경상국립대학교 물리학과 이상훈 교수님의 전기용량 강의 노트를 바탕으로 Claude Opus 5.5가 제작했습니다. 수치 계산에는 ε₀ = 8.854 × 10⁻¹² F/m를 사용했습니다.</footer>
 </div>
 
 <script>
@@ -819,7 +819,7 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     pts.forEach(p => s += `<circle cx="${GX(p[0])}" cy="${VY(p[1])}" r="3.5" fill="var(--pos)"/>`);
     s += `<text x="${GX(1)-4}" y="${VY(1)+6}" text-anchor="end" font-size="12" fill="var(--muted)">점선: 유전체 없음</text>`;
     s += `<text x="${gx-6}" y="${VY(Vtot)+4}" text-anchor="end" font-size="12" fill="var(--muted)">${Vtot.toFixed(2)}</text>`;
-    [[x1,'½(d−b)'],[x2,'½(d+b)'],[1,'d']].forEach(([x,l]) => { s += `<line x1="${GX(x)}" y1="${gE.y0-gE.h}" x2="${GX(x)}" y2="${gV.y0}" stroke="var(--line)" stroke-dasharray="3 4"/><text x="${GX(x)}" y="${gV.y0+16}" text-anchor="middle" font-size="12" fill="var(--muted)">${l}</text>`; });
+    [[x1,'(d−b)/2'],[x2,'(d+b)/2'],[1,'d']].forEach(([x,l]) => { s += `<line x1="${GX(x)}" y1="${gE.y0-gE.h}" x2="${GX(x)}" y2="${gV.y0}" stroke="var(--line)" stroke-dasharray="3 4"/><text x="${GX(x)}" y="${gV.y0+16}" text-anchor="middle" font-size="12" fill="var(--muted)">${l}</text>`; });
     $('#pSvg').innerHTML = s;
   }
   ['#pb','#pk'].forEach(s => $(s).addEventListener('input', draw));
@@ -833,7 +833,7 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     {p:'6 µF 축전기 3개를 직렬로 연결했습니다. 등가 전기용량(C_eq)은?', o:['18 µF','6 µF','2 µF','0.5 µF'], a:2, e:'1/C_eq = 1/6 + 1/6 + 1/6 = 1/2이므로 C_eq = 2 µF입니다. 병렬이면 18 µF가 됩니다.'},
     {p:'충전된 뒤 고립된(q 일정) 평행판 축전기의 극판 간격을 2배로 늘리면 저장된 에너지는?', o:['절반이 된다','변하지 않는다','2배가 된다','4배가 된다'], a:2, e:'C = ε₀A/d가 절반이 되고 U = q²/2C이므로 U는 2배가 됩니다. 늘어난 에너지는 서로 끌어당기는 극판을 떼어 놓으며 해 준 일에서 옵니다.'},
     {p:'전지를 연결한 채로 유전상수 κ인 유전체로 극판 사이를 채우면 극판의 전하는?', o:['κ배가 된다','1/κ배가 된다','변하지 않는다','0이 된다'], a:0, e:'전지가 V를 유지하고 C가 κC가 되므로 q = CV는 κq가 됩니다.'},
-    {p:'전기장에 저장된 단위 부피당 에너지(에너지 밀도)는?', o:['½CV²','ε₀E','½ε₀E²','q²/2C'], a:2, e:'u = ½ε₀E²는 전기장이 있는 곳 어디서나 성립합니다. ½CV²와 q²/2C는 전체 에너지입니다.'}
+    {p:'전기장에 저장된 단위 부피당 에너지(에너지 밀도)는?', o:['(1/2)CV²','ε₀E','(1/2)ε₀E²','q²/2C'], a:2, e:'u = (1/2)ε₀E²는 전기장이 있는 곳 어디서나 성립합니다. (1/2)CV²와 q²/2C는 전체 에너지입니다.'}
   ];
   const root = $('#quiz');
   Q.forEach((q,qi) => {

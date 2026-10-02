@@ -312,7 +312,7 @@ svg .gridl{stroke:var(--line);stroke-width:1}
   <h2><span class="num">5</span>Energy stored in the field <span class="kr">전기장에 저장된 에너지</span></h2>
   <div class="prose">
     <p>Charging a capacitor takes work. With charge <i class="m">q′</i> already on it, moving one more sliver <i class="m">dq′</i> costs <span class="m">d<i>W</i> = <i>V′</i>d<i>q′</i> = (<i>q′</i>/<i>C</i>)d<i>q′</i></span>. The more charge has piled up, the higher <i>V′</i> climbs, so each slice gets harder, in exact proportion to <i>q′</i>. Adding up the slices is the area under the line:</p>
-    <div class="eq"><i>U</i> = <span class="frac"><span><i>q</i>²</span><span>2<i>C</i></span></span> = ½<i>CV</i>²</div>
+    <div class="eq"><i>U</i> = <span class="frac"><span><i>q</i>²</span><span>2<i>C</i></span></span> = <span class="frac"><span>1</span><span>2</span></span><i>CV</i>²</div>
   </div>
   <div class="lab flip">
     <div class="viz">
@@ -329,8 +329,8 @@ svg .gridl{stroke:var(--line);stroke-width:1}
   <div class="prose">
     <h3 style="margin-top:28px">Energy density</h3>
     <p>In a parallel-plate capacitor the field is uniform, so the energy per unit volume is uniform too. Dividing by the volume <i>Ad</i>:</p>
-    <p class="m" style="font-size:1.25rem"><i>u</i> = <span class="frac"><span><i>U</i></span><span><i>Ad</i></span></span> = <span class="frac"><span><i>CV</i>²</span><span>2<i>Ad</i></span></span> = ½<i>ε</i><sub>0</sub>(<i>V</i>/<i>d</i>)²</p>
-    <div class="eq"><i>u</i> = ½<i>ε</i><sub>0</sub><i>E</i>²</div>
+    <p class="m" style="font-size:1.25rem"><i>u</i> = <span class="frac"><span><i>U</i></span><span><i>Ad</i></span></span> = <span class="frac"><span><i>CV</i>²</span><span>2<i>Ad</i></span></span> = <span class="frac"><span>1</span><span>2</span></span><i>ε</i><sub>0</sub>(<i>V</i>/<i>d</i>)²</p>
+    <div class="eq"><i>u</i> = <span class="frac"><span>1</span><span>2</span></span><i>ε</i><sub>0</sub><i>E</i>²</div>
     <p>This last form holds in general, not just between plates: wherever there is an electric field, there is potential energy stored in space at this density.</p>
   </div>
 </section>
@@ -390,7 +390,7 @@ svg .gridl{stroke:var(--line);stroke-width:1}
       <dl class="readout"><dt>C</dt><dd id="pC"></dd><dt>C / C<sub>vacuum</sub></dt><dd id="pR"></dd></dl>
       <h3 style="margin-top:6px">Same answer as three in series</h3>
       <dl class="readout" style="border-top:none;padding-top:0">
-        <dt>C₁ = C₃ = ε₀A / ½(d−b)</dt><dd id="pC1"></dd>
+        <dt>C₁ = C₃ = ε₀A / [(d−b)/2]</dt><dd id="pC1"></dd>
         <dt>C₂ = κε₀A / b</dt><dd id="pC2"></dd>
         <dt>1/(2/C₁ + 1/C₂)</dt><dd id="pCs"></dd>
       </dl>
@@ -412,7 +412,7 @@ svg .gridl{stroke:var(--line);stroke-width:1}
     <div><b>Cylinder</b><span class="m"><i>C</i> = 2π<i>ε</i>₀<i>L</i>/ln(<i>b</i>/<i>a</i>)</span></div>
     <div><b>Sphere / isolated sphere</b><span class="m"><i>C</i> = 4π<i>ε</i>₀<i>ab</i>/(<i>b</i>−<i>a</i>), &nbsp;4π<i>ε</i>₀<i>R</i></span></div>
     <div><b>Combinations</b><span class="m">parallel: Σ<i>C<sub>j</sub></i>; &nbsp;series: 1/<i>C</i><sub>eq</sub> = Σ1/<i>C<sub>j</sub></i></span></div>
-    <div><b>Energy</b><span class="m"><i>U</i> = <i>q</i>²/2<i>C</i> = ½<i>CV</i>², &nbsp;<i>u</i> = ½<i>ε</i>₀<i>E</i>²</span></div>
+    <div><b>Energy</b><span class="m"><i>U</i> = <i>q</i>²/2<i>C</i> = (1/2)<i>CV</i>², &nbsp;<i>u</i> = (1/2)<i>ε</i>₀<i>E</i>²</span></div>
     <div><b>Dielectric</b><span class="m"><i>C</i> → <i>κC</i>; &nbsp;V fixed: <i>q</i> → <i>κq</i>; &nbsp;q fixed: <i>V</i> → <i>V</i>/<i>κ</i></span></div>
     <div><b>Partial slab</b><span class="m"><i>C</i> = <i>ε</i>₀<i>A</i>/[<i>d</i> − (1−1/<i>κ</i>)<i>b</i>]</span></div>
   </div>
@@ -820,7 +820,7 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     pts.forEach(p => s += `<circle cx="${GX(p[0])}" cy="${VY(p[1])}" r="3.5" fill="var(--pos)"/>`);
     s += `<text x="${GX(1)-4}" y="${VY(1)+6}" text-anchor="end" font-size="12" fill="var(--muted)">dashed: no slab</text>`;
     s += `<text x="${gx-6}" y="${VY(Vtot)+4}" text-anchor="end" font-size="12" fill="var(--muted)">${Vtot.toFixed(2)}</text>`;
-    [[x1,'½(d−b)'],[x2,'½(d+b)'],[1,'d']].forEach(([x,l]) => { s += `<line x1="${GX(x)}" y1="${gE.y0-gE.h}" x2="${GX(x)}" y2="${gV.y0}" stroke="var(--line)" stroke-dasharray="3 4"/><text x="${GX(x)}" y="${gV.y0+16}" text-anchor="middle" font-size="12" fill="var(--muted)">${l}</text>`; });
+    [[x1,'(d−b)/2'],[x2,'(d+b)/2'],[1,'d']].forEach(([x,l]) => { s += `<line x1="${GX(x)}" y1="${gE.y0-gE.h}" x2="${GX(x)}" y2="${gV.y0}" stroke="var(--line)" stroke-dasharray="3 4"/><text x="${GX(x)}" y="${gV.y0+16}" text-anchor="middle" font-size="12" fill="var(--muted)">${l}</text>`; });
     $('#pSvg').innerHTML = s;
   }
   ['#pb','#pk'].forEach(s => $(s).addEventListener('input', draw));
@@ -834,7 +834,7 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     {p:'Three 6 µF capacitors are connected in series. What is C_eq?', o:['18 µF','6 µF','2 µF','0.5 µF'], a:2, e:'1/C_eq = 1/6 + 1/6 + 1/6 = 1/2, so C_eq = 2 µF. In parallel they would give 18 µF.'},
     {p:'An isolated, charged parallel-plate capacitor (q fixed) has its plate separation doubled. Its stored energy…', o:['halves','stays the same','doubles','quadruples'], a:2, e:'C = ε₀A/d halves, and U = q²/2C, so U doubles. The extra energy comes from the work you do pulling the attracting plates apart.'},
     {p:'With the battery still connected, a slab of constant κ fills the gap. The charge on the plates…', o:['is multiplied by κ','is divided by κ','stays the same','drops to zero'], a:0, e:'V is held by the battery and C becomes κC, so q = CV becomes κq.'},
-    {p:'Which expression gives the energy per unit volume stored in an electric field?', o:['½CV²','ε₀E','½ε₀E²','q²/2C'], a:2, e:'u = ½ε₀E² holds anywhere there is a field. ½CV² and q²/2C are total energies.'}
+    {p:'Which expression gives the energy per unit volume stored in an electric field?', o:['(1/2)CV²','ε₀E','(1/2)ε₀E²','q²/2C'], a:2, e:'u = (1/2)ε₀E² holds anywhere there is a field. (1/2)CV² and q²/2C are total energies.'}
   ];
   const root = $('#quiz');
   Q.forEach((q,qi) => {

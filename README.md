@@ -1,6 +1,6 @@
 # Capacitance — Interactive Lecture Notes · 전기용량 인터랙티브 강의 노트
 
-An interactive, single-page explainer of **capacitance**, built from handwritten lecture notes by **Prof. Sang Hoon Lee (이상훈 교수), Department of Physics, Gyeongsang National University (경상국립대학교 물리학과)**. Created by **Claude Opus 5.5**.
+An interactive, single-page explainer of **capacitance**, built from handwritten lecture notes by **Prof. Sang-Hoon Lee (이상훈 교수), Department of Physics, Gyeongsang National University (경상국립대학교 물리학과)**. Created by **Claude Opus 5.5**.
 
 The page follows the order of the notes. Each topic has an interactive model you can play with: sliders, toggles and live diagrams that update as you change the physics.
 
@@ -21,7 +21,7 @@ Each page is a single self-contained HTML file with no build step and no depende
 2. **How to compute C.** The four-step recipe: assume ±q, use Gauss's law to find E, integrate to get V, then compute C = q/V.
 3. **Geometries.** Parallel-plate (*C = ε₀A/d*), cylindrical (*C = 2πε₀L / ln(b/a)*) and spherical (*C = 4πε₀ab/(b−a)*) capacitors, plus the isolated-sphere limit *C = 4πε₀R*. Each has live sliders and field-line diagrams.
 4. **Parallel and series.** A circuit builder with up to five capacitors that shows each one's charge, voltage and energy, and the equivalent capacitance.
-5. **Stored energy.** A V′–q′ graph where you can see the "dq′ slices" converge to *U = q²/2C = ½CV²*. Also derives the energy density *u = ½ε₀E²*.
+5. **Stored energy.** A V′–q′ graph where you can see the "dq′ slices" converge to *U = q²/2C = (1/2)CV²*. Also derives the energy density *u = (1/2)ε₀E²*.
 6. **Dielectrics.** Choose κ (or a material such as air, paper, Pyrex, mica or water) and whether the battery is connected or removed. You can watch the dipoles align and see how E₀, E′ and the net field E compare. A table compares C, q, V, E and U with vacuum.
 7. **Partially filled gap.** A slab of thickness *b* inside a gap *d*. The page plots E(x) and V(x) and checks that *C = ε₀A / [d − (1 − 1/κ)b]* matches three capacitors in series.
 8. **Check yourself.** A formula summary and a 5-question quiz.
@@ -64,7 +64,7 @@ Two points in the page go slightly beyond or correct the original notes:
 
 ## Credits
 
-- **Lecture notes:** Prof. Sang Hoon Lee (이상훈 교수), Department of Physics, Gyeongsang National University (경상국립대학교 물리학과)
+- **Lecture notes:** Prof. Sang-Hoon Lee (이상훈 교수), Department of Physics, Gyeongsang National University (경상국립대학교 물리학과)
 - **Interactive pages:** created by Claude Opus 5.5 (Anthropic)
 
 ## License
