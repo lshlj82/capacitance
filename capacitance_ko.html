@@ -63,6 +63,14 @@ nav.toc a{font-family:var(--display);font-weight:500;font-size:.92rem;text-decor
 nav.toc a:hover,nav.toc a:focus-visible{border-color:var(--ink)}
 section{padding:56px 0 8px;border-top:2px solid var(--line);margin-top:40px}
 .lab{display:grid;grid-template-columns:minmax(260px,340px) 1fr;gap:28px;align-items:start;margin-top:22px;background:var(--paper);border:1.5px solid var(--line);border-radius:14px;padding:22px}
+.lab[hidden]{display:none}
+.qvrow{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;border-top:1.5px dashed var(--line);padding-top:18px}
+@media (max-width:820px){.qvrow{grid-template-columns:1fr}}
+.qv{margin:0}
+.qv svg{width:100%;height:auto;display:block;touch-action:pan-y;cursor:ew-resize;border-radius:8px}
+.qv svg:focus{outline:none}
+.qv svg:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.qv figcaption{margin-top:6px;line-height:1.5}
 .lab.flip{grid-template-columns:1fr minmax(260px,340px)}
 @media (max-width:820px){.lab,.lab.flip{grid-template-columns:1fr}.lab.flip .controls{order:2}}
 .viz svg{width:100%;height:auto;display:block}
@@ -253,6 +261,10 @@ svg .gridl{stroke:var(--line);stroke-width:1}
       <svg id="ppSvg" viewBox="0 0 400 230" role="img" aria-label="평행판 축전기 측면도"></svg>
       <p class="small"><b>평행판 축전기(parallel-plate capacitor):</b> <i>A</i>가 매우 넓으면 각 극판을 무한 도체 평면처럼 생각할 수 있어 <i>E</i>가 균일(uniform)합니다. 위 극판을 감싸는 가우스 면(Gaussian surface)에서 <span class="m"><i>ε</i><sub>0</sub><i>EA</i> = <i>q</i></span>이므로 <span class="m"><i>E</i> = <i>q</i>/<i>ε</i><sub>0</sub><i>A</i></span>(상수)입니다. 극판 사이를 적분하면 <span class="m"><i>V</i> = <i>Ed</i></span>이고, <span class="m"><i>ε</i><sub>0</sub><i>EA</i> = <i>C</i>(<i>Ed</i>)</span>가 됩니다.</p>
     </div>
+    <div class="qvrow">
+      <figure class="qv"><svg id="qv-pp" viewBox="0 0 360 272" role="img" tabindex="0" aria-label="전압 V에 대한 전하 q 그래프, 기울기가 C"></svg><figcaption class="small"><i>q</i> = <i>CV</i>는 원점을 지나는 직선이고, 그 기울기가 <i>C</i>입니다. 점선은 비교를 위해 처음 치수의 직선을 남겨 둔 것입니다. 그래프 위를 끌거나 (선택한 뒤 ← → 키로) <i>V</i>를 고르면 옆의 전기장 그래프도 따라 바뀝니다. <i>q</i>축 눈금은 필요할 때 다시 조정되니 숫자를 확인하세요.</figcaption></figure>
+      <figure class="qv"><svg id="ev-pp" viewBox="0 0 360 272" role="img" tabindex="0" aria-label="간격을 가로지르는 전위 V와 전기장 E 그래프, E는 V 기울기의 음수"></svg><figcaption class="small">위: 간격을 가로지르는 전위 <i>V</i>(<i>x</i>). 아래: 전기장 <i>E</i>(<i>x</i>). <i>E</i> = −d<i>V</i>/d<i>x</i>는 위 곡선이 내려가는 기울기이고, 탐침 위치의 접선이 이를 보여 줍니다. 평평한 극판 사이에서는 <i>V</i>가 직선으로 줄어들므로 간격 어디서나 <i>E</i> = <i>V</i>/<i>d</i>로 같습니다. 금속 안에서는 <i>E</i> = 0이고 <i>V</i>는 일정합니다. 이 그래프 위를 끌어 탐침을 옮겨 보세요.</figcaption></figure>
+    </div>
   </div>
 
   <div class="lab" id="geo-cyl" hidden>
@@ -271,6 +283,10 @@ svg .gridl{stroke:var(--line);stroke-width:1}
       <p class="small" style="margin-top:2px">반지름은 실제 비율 a : b 그대로 그렸고, 전체 크기만 화면에 맞게 조정했습니다.</p>
       <p class="small"><b>원통형 축전기(cylindrical capacitor):</b> 반지름 <i>r</i>, 길이 <i>L</i>인 원통형 가우스 면에서 <span class="m"><i>ε</i><sub>0</sub><i>E</i>(2π<i>rL</i>) = <i>q</i></span>이므로 <span class="m"><i>E</i> = <i>q</i>/2π<i>ε</i><sub>0</sub><i>Lr</i></span>입니다. <i>b</i>에서 <i>a</i>까지 적분하면 <span class="m"><i>V</i> = (<i>q</i>/2π<i>ε</i><sub>0</sub><i>L</i>) ln(<i>b</i>/<i>a</i>)</span>입니다(로그의 성질 −ln(<i>a</i>/<i>b</i>) = ln(<i>b</i>/<i>a</i>) 이용). 동축 케이블(coaxial cable)이 바로 이 모양입니다.</p>
     </div>
+    <div class="qvrow">
+      <figure class="qv"><svg id="qv-cyl" viewBox="0 0 360 272" role="img" tabindex="0" aria-label="전압 V에 대한 전하 q 그래프, 기울기가 C"></svg><figcaption class="small"><i>q</i> = <i>CV</i>는 원점을 지나는 직선이고, 그 기울기가 <i>C</i>입니다. 점선은 비교를 위해 처음 치수의 직선을 남겨 둔 것입니다. 그래프 위를 끌거나 (선택한 뒤 ← → 키로) <i>V</i>를 고르면 옆의 전기장 그래프도 따라 바뀝니다. <i>q</i>축 눈금은 필요할 때 다시 조정되니 숫자를 확인하세요.</figcaption></figure>
+      <figure class="qv"><svg id="ev-cyl" viewBox="0 0 360 272" role="img" tabindex="0" aria-label="간격을 가로지르는 전위 V와 전기장 E 그래프, E는 V 기울기의 음수"></svg><figcaption class="small">위: 전위 <i>V</i>(<i>r</i>). 아래: 전기장 <i>E</i>(<i>r</i>). <i>E</i> = −d<i>V</i>/d<i>r</i>는 위 곡선이 내려가는 기울기이고, 탐침 위치의 접선이 이를 보여 줍니다. 여기서는 <i>V</i>가 ln <i>r</i>처럼 줄어들므로 <i>E</i> = <i>V</i> / [<i>r</i> ln(<i>b</i>/<i>a</i>)] ∝ 1/<i>r</i>이고, 안쪽 도체에서 가장 셉니다. 금속 안에서는 <i>E</i> = 0입니다. 이 그래프 위를 끌어 탐침을 옮겨 보세요.</figcaption></figure>
+    </div>
   </div>
 
   <div class="lab" id="geo-sph" hidden>
@@ -288,6 +304,10 @@ svg .gridl{stroke:var(--line);stroke-width:1}
       </div>
       <p class="small" style="margin-top:2px">반지름은 실제 비율 a : b 그대로 그렸고, 전체 크기만 화면에 맞게 조정했습니다.</p>
       <p class="small"><b>구형 축전기(spherical capacitor):</b> 구형 가우스 면에서 <span class="m"><i>ε</i><sub>0</sub><i>E</i>(4π<i>r</i>²) = <i>q</i></span>이고, 이는 쿨롱 법칙(Coulomb's law)과 같습니다. 그러면 <span class="m"><i>V</i> = (<i>q</i>/4π<i>ε</i><sub>0</sub>)(1/<i>a</i> − 1/<i>b</i>)</span>입니다. <i>b</i> → ∞는 바깥 껍질이 무한히 멀리 있다는(즉 바깥 껍질이 없다는) 뜻이며, <span class="m"><i>ab</i>/(<i>b</i>−<i>a</i>) → <i>a</i></span>입니다. <span id="earth"></span></p>
+    </div>
+    <div class="qvrow">
+      <figure class="qv"><svg id="qv-sph" viewBox="0 0 360 272" role="img" tabindex="0" aria-label="전압 V에 대한 전하 q 그래프, 기울기가 C"></svg><figcaption class="small"><i>q</i> = <i>CV</i>는 원점을 지나는 직선이고, 그 기울기가 <i>C</i>입니다. 점선은 비교를 위해 처음 치수의 직선을 남겨 둔 것입니다. 그래프 위를 끌거나 (선택한 뒤 ← → 키로) <i>V</i>를 고르면 옆의 전기장 그래프도 따라 바뀝니다. <i>q</i>축 눈금은 필요할 때 다시 조정되니 숫자를 확인하세요.</figcaption></figure>
+      <figure class="qv"><svg id="ev-sph" viewBox="0 0 360 272" role="img" tabindex="0" aria-label="간격을 가로지르는 전위 V와 전기장 E 그래프, E는 V 기울기의 음수"></svg><figcaption class="small">위: 전위 <i>V</i>(<i>r</i>). 아래: 전기장 <i>E</i>(<i>r</i>). <i>E</i> = −d<i>V</i>/d<i>r</i>는 위 곡선이 내려가는 기울기이고, 탐침 위치의 접선이 이를 보여 줍니다. 여기서는 <i>V</i>가 1/<i>r</i>처럼 줄어들므로 <i>E</i> ∝ 1/<i>r</i>²이고, 원통형보다 안쪽 구 근처에 더 몰려 있습니다. 금속 안에서는 <i>E</i> = 0입니다. 이 그래프 위를 끌어 탐침을 옮겨 보세요.</figcaption></figure>
     </div>
   </div>
 </section>
@@ -337,6 +357,10 @@ svg .gridl{stroke:var(--line);stroke-width:1}
       <label class="ctl"><span class="row"><span>조각 수 <i class="m">dq′</i></span><output id="eNo"></output></span><input type="range" id="eN" min="1" max="40" step="1" value="8"></label>
       <dl class="readout"><dt>V = q/C</dt><dd id="eV"></dd><dt>조각들의 합</dt><dd id="eSum"></dd><dt>U = q²/2C</dt><dd id="eU"></dd></dl>
       <p class="small">조각을 늘릴수록 계단 모양이 삼각형, 즉 적분값에 가까워집니다.</p>
+    </div>
+    <div class="qvrow">
+      <figure class="qv"><svg id="uqSvg" viewBox="0 0 360 272" role="img" tabindex="0" aria-label="전하 q에 대한 저장 에너지 U 그래프"></svg><figcaption class="small"><i>U</i> = <i>q</i>²/2<i>C</i>는 <i>q</i>에 대한 포물선입니다. 기울기 d<i>U</i>/d<i>q</i>가 계속 커지는 <i>V</i>이므로, 마이크로쿨롬 하나를 더 넣을 때마다 드는 일이 점점 커집니다. 분홍 점은 위 그래프 조각들의 누적 합입니다. 그래프 위를 끌거나 (← → 키로) <i>q</i>를 바꿔 보세요.</figcaption></figure>
+      <figure class="qv"><svg id="uvSvg" viewBox="0 0 360 272" role="img" tabindex="0" aria-label="전압 V에 대한 저장 에너지 U 그래프"></svg><figcaption class="small"><i>U</i> = ½<i>CV</i>²는 <i>V</i>에 대한 포물선이고, 기울기 d<i>U</i>/d<i>V</i>는 <i>q</i> = <i>CV</i>입니다. <i>C</i> 슬라이더를 움직이며 각 곡선을 점선(처음 곡선)과 비교해 보세요. <i>q</i>가 일정하면 <i>C</i>가 클수록 에너지가 작아지고, <i>V</i>가 일정하면 <i>C</i>가 클수록 에너지가 커집니다. <i>V</i>축은 <i>q</i> 슬라이더로 닿을 수 있는 범위입니다. 여기를 끌어 <i>V</i>를 바꾸면 <i>q</i>는 <i>CV</i>로 따라갑니다.</figcaption></figure>
     </div>
   </div>
   <div class="prose">
@@ -538,6 +562,7 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     s += `<text x="${cx}" y="${yT-10}" text-anchor="middle" class="lbl">면적 A</text>`;
     s += `<text x="${cx}" y="226" text-anchor="middle" class="lbl">점선: 가장자리 효과(fringing field), A가 넓으면 무시</text>`;
     $('#ppSvg').innerHTML = s;
+    qv('pp', C, {type:'pp', a:0, b:d, s:1e-3});
   }
 
   const T = {gauss:'가우스 면', gaussCyl:'가우스 면 (반지름 r)', negInf:'−q는 ∞에', sphX:'중심을 지나는 단면', sphS:'3D 모습 (바깥 껍질은 투명하게 그림)', isoX:'고립된 구: −q는 무한히 먼 곳에 있음', isoS:'3D 모습: 전기력선이 무한히 뻗어 나감', earth: c => '참고로, 지구 전체(R ≈ 6.37 × 10⁶ m)를 고립된 구로 보면 C ≈ ' + c + '입니다.'};
@@ -679,6 +704,143 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     return s;
   }
 
+  /* q–V graph (q = CV, slope C) and, beside it, V(r) and E(r) = −dV/dr */
+  const QVT = {x:'전위차 V (V)', y:'전하 q', slope:'기울기 C', ghost:'처음 모양', pt:(q, V) => 'V = ' + V + '일 때 q = ' + q, xpp:'+ 극판으로부터의 위치 x (mm)', xmm:'반지름 r (mm)', xcm:'반지름 r (cm)', tan:'기울기 = −E', E:e => 'E = ' + e, Vnow:v => 'V = ' + v};
+  const qvState = {pp:{V:6, f:0.4}, cyl:{V:6, f:0.3}, sph:{V:6, f:0.3}};
+  const VM = 10;
+  const trim = x => String(+x.toPrecision(3));
+  const PR = [[1e-15,'f'],[1e-12,'p'],[1e-9,'n'],[1e-6,'µ'],[1e-3,'m'],[1,''],[1e3,'k'],[1e6,'M'],[1e9,'G']];
+  const prefix = x => { let p = PR[0]; for(const r of PR) if(x >= r[0]*0.99995) p = r; return p; };
+  const niceUp = raw => { const e = Math.floor(Math.log10(raw)), m = raw/Math.pow(10, e); return [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10].find(n => m <= n + 1e-9) * Math.pow(10, e); };
+  const niceStep = raw => { const e = Math.floor(Math.log10(raw)), m = raw/Math.pow(10, e); return [1, 2, 5, 10].find(n => m <= n + 1e-9) * Math.pow(10, e); };
+
+  function drawQV(key){
+    const st = qvState[key], C = st.C, X0 = 52, Y0 = 212, W = 290, H = 190;
+    const top = niceUp(C*VM*1.15), p = prefix(top);
+    const px = v => X0 + v/VM*W, py = q => Y0 - q/top*H;
+    let s = '';
+    for(let i=0;i<=5;i++){ const y = py(top*i/5); s += `<line x1="${X0}" y1="${y}" x2="${X0+W}" y2="${y}" class="gridl"/><text x="${X0-7}" y="${y+4}" text-anchor="end" font-size="12" fill="var(--muted)">${trim(top*i/5/p[0])}</text>`; }
+    for(let v=0; v<=VM; v+=2) s += `<text x="${px(v)}" y="${Y0+17}" text-anchor="middle" font-size="12" fill="var(--muted)">${v}</text>`;
+    s += `<text x="${X0+W/2}" y="${Y0+42}" text-anchor="middle" class="lbl">${QVT.x}</text>`;
+    s += `<text x="13" y="${Y0-H/2}" transform="rotate(-90 13 ${Y0-H/2})" text-anchor="middle" class="lbl">${QVT.y} (${p[1]}C)</text>`;
+    const C0 = st.C0;
+    if(Math.abs(C - C0) > 0.03*C0){
+      const vE = Math.min(VM, top/C0), qE = C0*vE, atTop = vE < VM;
+      s += `<line x1="${px(0)}" y1="${py(0)}" x2="${px(vE)}" y2="${py(qE)}" stroke="var(--muted)" stroke-width="1.6" stroke-dasharray="5 4"/>`;
+      const gx = atTop ? px(vE*0.6) - 6 : px(VM) - 2, gy = atTop ? py(qE*0.6) : py(qE) - 7;
+      s += `<text x="${gx}" y="${gy}" text-anchor="end" font-size="12" class="lbl halo">${QVT.ghost}</text>`;
+    }
+    s += `<polygon points="${px(0)},${py(0)} ${px(VM)},${py(0)} ${px(VM)},${py(C*VM)}" fill="var(--hl-cyan)" opacity=".45"/>`;
+    s += `<line x1="${px(0)}" y1="${py(0)}" x2="${px(VM)}" y2="${py(C*VM)}" stroke="var(--accent)" stroke-width="2.8" stroke-linecap="round"/>`;
+    s += `<text x="${X0+8}" y="${Y0-H+16}" font-size="14" fill="var(--accent)" class="halo"><tspan font-style="italic">${QVT.slope}</tspan> = ${fmt(C,'F')}</text>`;
+    const V = st.V, q = C*V, mx = px(V), my = py(q);
+    s += `<line x1="${mx}" y1="${Y0}" x2="${mx}" y2="${my}" stroke="var(--ink)" stroke-dasharray="3 3" stroke-width="1"/><line x1="${X0}" y1="${my}" x2="${mx}" y2="${my}" stroke="var(--ink)" stroke-dasharray="3 3" stroke-width="1"/>`;
+    s += `<circle cx="${mx}" cy="${my}" r="5.5" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>`;
+    const right = V < 3.5, below = my < Y0 - H + 46;
+    s += `<text x="${mx + (right ? 10 : -10)}" y="${my + (below ? 20 : -11)}" text-anchor="${right ? 'start' : 'end'}" font-size="14" fill="var(--ink)" class="halo">${QVT.pt(fmt(q,'C'), V.toFixed(1) + ' V')}</text>`;
+    s += `<line x1="${X0}" y1="${Y0}" x2="${X0+W}" y2="${Y0}" class="axis"/><line x1="${X0}" y1="${Y0}" x2="${X0}" y2="${Y0-H}" class="axis"/>`;
+    $('#qv-'+key).innerHTML = s;
+  }
+
+  /* field model: r in display units (mm or cm), g.s converts to metres. vf = V/V_total, ef = E per volt (V/m per V) */
+  function fieldModel(g){
+    const {type, a, s: sc} = g, iso = !!g.iso, b = iso ? Infinity : g.b;
+    const r0 = type === 'pp' ? -0.25*g.b : 0, r1 = type === 'pp' ? 1.25*g.b : (iso ? 5*a : 1.2*b);
+    const gapEnd = iso ? r1 : b;
+    const vf = r => r <= a ? 1 : r >= b ? 0 :
+      type === 'pp' ? (b - r)/(b - a) :
+      type === 'cyl' ? Math.log(b/r)/Math.log(b/a) :
+      iso ? a/r : (1/r - 1/b)/(1/a - 1/b);
+    const ef = r => (r < a || r > b) ? 0 :
+      type === 'pp' ? 1/((b - a)*sc) :
+      type === 'cyl' ? 1/(r*sc*Math.log(b/a)) :
+      iso ? (a*sc)/((r*sc)**2) : 1/((r*sc)**2*(1/(a*sc) - 1/(b*sc)));
+    return {r0, r1, a, b, gapEnd, vf, ef, iso};
+  }
+
+  function drawEV(key){
+    const st = qvState[key], g = st.geo, M = fieldModel(g), V = st.V;
+    const X0 = 52, W = 290, vP = {y0:106, h:88}, eP = {y0:228, h:88};
+    const pr = r => X0 + (r - M.r0)/(M.r1 - M.r0)*W;
+    const Emax = niceUp(M.ef(M.a)*VM*1.05), p = prefix(Emax);
+    const yV = v => vP.y0 - v/VM*vP.h, yE = e => eP.y0 - e/Emax*eP.h;
+    let s = '';
+    // conductors
+    const band = (x1, x2, cls, lab) => { if(x2 - x1 < 0.5) return; s += `<rect x="${x1}" y="${vP.y0-vP.h}" width="${x2-x1}" height="${eP.y0-(vP.y0-vP.h)}" fill="var(--line)" opacity=".55"/><text x="${(x1+x2)/2}" y="${vP.y0-vP.h+14}" text-anchor="middle" font-size="13" class="${cls}">${lab}</text>`; };
+    band(pr(M.r0), pr(M.a), 'pos', '+q');
+    if(!M.iso) band(pr(M.b), pr(M.r1), 'neg', '−q');
+    // grids, ticks
+    [0, 5, 10].forEach(v => s += `<line x1="${X0}" y1="${yV(v)}" x2="${X0+W}" y2="${yV(v)}" class="gridl"/><text x="${X0-7}" y="${yV(v)+4}" text-anchor="end" font-size="12" fill="var(--muted)">${v}</text>`);
+    [0, 0.5, 1].forEach(f => s += `<line x1="${X0}" y1="${yE(f*Emax)}" x2="${X0+W}" y2="${yE(f*Emax)}" class="gridl"/><text x="${X0-7}" y="${yE(f*Emax)+4}" text-anchor="end" font-size="12" fill="var(--muted)">${trim(f*Emax/p[0])}</text>`);
+    const step = niceStep((M.r1 - M.r0)/5);
+    for(let r = Math.ceil(M.r0/step)*step; r <= M.r1 + 1e-9; r += step) s += `<text x="${pr(r)}" y="${eP.y0+16}" text-anchor="middle" font-size="12" fill="var(--muted)">${trim(Math.abs(r) < 1e-9 ? 0 : r)}</text>`;
+    s += `<text x="${X0+W/2}" y="${eP.y0+38}" text-anchor="middle" class="lbl">${g.type === 'pp' ? QVT.xpp : g.type === 'cyl' ? QVT.xmm : QVT.xcm}</text>`;
+    s += `<text x="13" y="${vP.y0-vP.h/2}" transform="rotate(-90 13 ${vP.y0-vP.h/2})" text-anchor="middle" class="lbl">V (V)</text>`;
+    s += `<text x="13" y="${eP.y0-eP.h/2}" transform="rotate(-90 13 ${eP.y0-eP.h/2})" text-anchor="middle" class="lbl">E (${p[1]}V/m)</text>`;
+    // curves, sampled piecewise so the jumps of E at r = a and r = b stay sharp
+    const segs = [[M.r0, M.a], [M.a, Math.min(M.b, M.r1)]]; if(!M.iso) segs.push([M.b, M.r1]);
+    let dV = '', dE = '', fill = '';
+    segs.forEach(([u, w]) => {
+      if(w - u <= 0) return;
+      const n = 90; let pv = '', pe = '';
+      for(let i=0;i<=n;i++){
+        const r = u + (w - u)*i/n, rr = i === 0 ? r + 1e-9*(w-u) : i === n ? r - 1e-9*(w-u) : r;
+        pv += (i ? 'L' : 'M') + pr(r).toFixed(2) + ' ' + yV(V*M.vf(rr)).toFixed(2);
+        pe += (i ? 'L' : 'M') + pr(r).toFixed(2) + ' ' + Math.max(eP.y0-eP.h-6, yE(V*M.ef(rr))).toFixed(2);
+      }
+      dV += pv; dE += pe;
+      fill += pe + `L${pr(w).toFixed(2)} ${eP.y0}L${pr(u).toFixed(2)} ${eP.y0}Z`;
+    });
+    s += `<path d="${fill}" fill="var(--hl-mag)"/>`;
+    s += `<path d="${dV}" fill="none" stroke="var(--pos)" stroke-width="2.6" stroke-linejoin="round"/>`;
+    s += `<path d="${dE}" fill="none" stroke="var(--neg)" stroke-width="2.6" stroke-linejoin="round"/>`;
+    s += `<text x="${X0+W-4}" y="${vP.y0-vP.h+14}" text-anchor="end" font-size="13" fill="var(--pos)" class="halo">${QVT.Vnow(V.toFixed(1) + ' V')}</text>`;
+    // probe and tangent
+    const rp = M.a + st.f*(M.gapEnd - M.a), xp = pr(rp), Vp = V*M.vf(rp), Ep = V*M.ef(rp);
+    const h = (M.gapEnd - M.a)*1e-4;
+    const k = (yV(V*M.vf(rp + h)) - yV(V*M.vf(rp - h)))/(pr(rp + h) - pr(rp - h));
+    const dx = Math.abs(k) > 1e-9 ? Math.min(40, 34/Math.abs(k)) : 40;
+    s += `<line x1="${xp}" y1="${vP.y0-vP.h}" x2="${xp}" y2="${eP.y0}" stroke="var(--ink)" stroke-dasharray="3 3" stroke-width="1"/>`;
+    s += `<line x1="${xp-dx}" y1="${yV(Vp)-k*dx}" x2="${xp+dx}" y2="${yV(Vp)+k*dx}" stroke="var(--ink)" stroke-width="2"/>`;
+    s += `<circle cx="${xp}" cy="${yV(Vp)}" r="4.5" fill="var(--paper)" stroke="var(--pos)" stroke-width="2"/>`;
+    const eyp = Math.max(eP.y0-eP.h-6, yE(Ep));
+    s += `<circle cx="${xp}" cy="${eyp}" r="4.5" fill="var(--paper)" stroke="var(--neg)" stroke-width="2"/>`;
+    const right = xp < X0 + W*0.6, anc = right ? 'start' : 'end', off = right ? 9 : -9;
+    const lab = (y, top, bot) => right ? Math.max(y - 11, top + 12) : Math.min(y + 20, bot - 5);
+    s += `<text x="${xp + off}" y="${lab(yV(Vp), vP.y0-vP.h+14, vP.y0)}" text-anchor="${anc}" font-size="13" font-style="italic" fill="var(--ink)" class="halo">${QVT.tan}</text>`;
+    s += `<text x="${xp + off}" y="${lab(eyp, eP.y0-eP.h, eP.y0)}" text-anchor="${anc}" font-size="13" fill="var(--ink)" class="halo">${QVT.E(fmt(Ep,'V/m'))}</text>`;
+    // axes
+    [vP, eP].forEach(P => s += `<line x1="${X0}" y1="${P.y0}" x2="${X0+W}" y2="${P.y0}" class="axis"/><line x1="${X0}" y1="${P.y0}" x2="${X0}" y2="${P.y0-P.h}" class="axis"/>`);
+    $('#ev-'+key).innerHTML = s;
+  }
+
+  function qv(key, C, geo){
+    const st = qvState[key]; st.C = C; st.geo = geo; if(st.C0 === undefined) st.C0 = C;
+    drawQV(key); drawEV(key);
+  }
+  function svgX(svg, ev){ const pt = svg.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY; return pt.matrixTransform(svg.getScreenCTM().inverse()).x; }
+  function dragAndKeys(svg, onX, onStep){
+    let drag = false;
+    svg.addEventListener('pointerdown', ev => { drag = true; svg.setPointerCapture(ev.pointerId); onX(svgX(svg, ev)); });
+    svg.addEventListener('pointermove', ev => { if(drag || ev.pointerType === 'mouse') onX(svgX(svg, ev)); });
+    svg.addEventListener('pointerup', () => { drag = false; });
+    svg.addEventListener('pointercancel', () => { drag = false; });
+    svg.addEventListener('keydown', ev => {
+      const d = {ArrowRight:1, ArrowUp:1, ArrowLeft:-1, ArrowDown:-1}[ev.key];
+      if(d !== undefined){ ev.preventDefault(); onStep(d); }
+    });
+  }
+  Object.keys(qvState).forEach(key => {
+    const st = qvState[key];
+    const setV = V => { st.V = Math.max(0, Math.min(VM, Math.round(V*10)/10)); drawQV(key); drawEV(key); };
+    dragAndKeys($('#qv-'+key), x => setV((x - 52)/290*VM), d => setV(st.V + 0.5*d));
+    const setF = f => { st.f = Math.max(0.01, Math.min(0.99, f)); drawEV(key); };
+    dragAndKeys($('#ev-'+key), x => {
+      const M = fieldModel(st.geo), r = M.r0 + (x - 52)/290*(M.r1 - M.r0);
+      setF((r - M.a)/(M.gapEnd - M.a));
+    }, d => setF(st.f + 0.05*d));
+  });
+
   function cyl(){
     let a = +$('#cyA').value, bEl = $('#cyB');
     if(+bEl.value < a + 0.3) bEl.value = (a + 0.3).toFixed(1);
@@ -689,6 +851,7 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     const {ra, rb} = cylMap(a, b);
     $('#cySvg').innerHTML = radial('cy', ra, rb, false);
     $('#cySide').innerHTML = cylSide('cs', ra, rb, L);
+    qv('cyl', C, {type:'cyl', a, b, s:1e-3});
   }
   function sph(){
     const iso = $('#spIso').checked;
@@ -707,6 +870,7 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     $('#spSide').innerHTML = sphSide('ss', ra, rb, iso);
     $('#spCapX').textContent = iso ? T.isoX : T.sphX;
     $('#spCapS').textContent = iso ? T.isoS : T.sphS;
+    qv('sph', C, {type:'sph', a, b, iso, s:1e-2});
   }
   ['#ppA','#ppD'].forEach(s => $(s).addEventListener('input', pp));
   ['#cyA','#cyB','#cyL'].forEach(s => $(s).addEventListener('input', cyl));
@@ -818,9 +982,78 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     s += `<line x1="${X0}" y1="${Y0}" x2="${X0+W}" y2="${Y0}" class="axis"/><line x1="${X0}" y1="${Y0}" x2="${X0}" y2="${Y0-H}" class="axis"/>`;
     $('#enSvg').innerHTML = s;
     $('#eV').textContent = V.toFixed(1) + ' V';
-    $('#eSum').textContent = fmt(sum*1e-12,'J');
+    $('#eSum').textContent = fmt(sum*1e-6,'J');
     $('#eU').textContent = fmt((q*1e-6)**2/(2*C*1e-6),'J');
+    drawU();
   }
+  /* U vs q and U vs V, with tangents dU/dq = V and dU/dV = q */
+  const UT = {xq:'최종 전하 q (µC)', xv:'최종 전압 V (V)', yu:'저장된 에너지 U', ghost:'처음 C', sv:v => '기울기 dU/dq = V = ' + v, sq:q => '기울기 dU/dV = q = ' + q, pt:u => 'U = ' + u};
+  const C0 = +$('#eC').defaultValue || 25;
+  const uPR = [[1e-15,'f'],[1e-12,'p'],[1e-9,'n'],[1e-6,'µ'],[1e-3,'m'],[1,''],[1e3,'k']];
+  const uPrefix = x => { let p = uPR[0]; for(const r of uPR) if(x >= r[0]*0.99995) p = r; return p; };
+  const uNice = raw => { const e = Math.floor(Math.log10(raw)), m = raw/Math.pow(10, e); return [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10].find(n => m <= n + 1e-9) * Math.pow(10, e); };
+  const uTrim = x => String(+x.toPrecision(3));
+  // q in µC, C in µF, V in volts, U in µJ
+  function uGraph(id, o){
+    const X0 = 58, Y0 = 212, W = 284, H = 190;
+    const Utop = uNice(o.f(o.xmax)), p = uPrefix(Utop*1e-6);
+    const px = x => X0 + x/o.xmax*W, py = u => Y0 - u/Utop*H;
+    let s = `<defs><clipPath id="${id}clip"><rect x="${X0}" y="${Y0-H}" width="${W}" height="${H}"/></clipPath></defs>`;
+    for(let i=0;i<=5;i++){ const y = py(Utop*i/5); s += `<line x1="${X0}" y1="${y}" x2="${X0+W}" y2="${y}" class="gridl"/><text x="${X0-7}" y="${y+4}" text-anchor="end" font-size="12" fill="var(--muted)">${uTrim(Utop*i/5*1e-6/p[0])}</text>`; }
+    for(let i=0;i<=5;i++){ const x = o.xmax*i/5; s += `<text x="${px(x)}" y="${Y0+17}" text-anchor="middle" font-size="12" fill="var(--muted)">${uTrim(x)}</text>`; }
+    s += `<text x="${X0+W/2}" y="${Y0+42}" text-anchor="middle" class="lbl">${o.xlab}</text>`;
+    s += `<text x="13" y="${Y0-H/2}" transform="rotate(-90 13 ${Y0-H/2})" text-anchor="middle" class="lbl">${UT.yu} (${p[1]}J)</text>`;
+    const path = f => { let d = ''; for(let i=0;i<=120;i++){ const x = o.xmax*i/120; d += (i ? 'L' : 'M') + px(x).toFixed(2) + ' ' + py(f(x)).toFixed(2); } return d; };
+    if(o.ghost){
+      s += `<path d="${path(o.ghost)}" fill="none" stroke="var(--muted)" stroke-width="1.6" stroke-dasharray="5 4" clip-path="url(#${id}clip)"/>`;
+      let lo = 0, hi = o.xmax;
+      if(o.ghost(hi) > Utop){ for(let i=0;i<40;i++){ const mid = (lo + hi)/2; if(o.ghost(mid) > Utop) hi = mid; else lo = mid; } }
+      const atTop = hi < o.xmax;
+      s += atTop ? `<text x="${px(hi) + 6}" y="${Y0 - H + 14}" text-anchor="start" font-size="12" class="lbl halo">${UT.ghost}</text>`
+                 : `<text x="${px(hi) - 6}" y="${py(o.ghost(hi)) - 8}" text-anchor="end" font-size="12" class="lbl halo">${UT.ghost}</text>`;
+    }
+    const xc = o.x, uc = o.f(xc), xs = px(xc), ys = py(uc);
+    s += `<path d="${path(o.f)}L${px(o.xmax)} ${Y0}L${X0} ${Y0}Z" fill="var(--hl-cyan)" opacity=".35"/>`;
+    s += `<path d="${path(o.f)}" fill="none" stroke="var(--accent)" stroke-width="2.8" clip-path="url(#${id}clip)"/>`;
+    if(o.dots) o.dots.forEach(([x, u]) => s += `<circle cx="${px(x)}" cy="${py(u)}" r="3.2" fill="var(--field)"/>`);
+    // tangent at the current point
+    const h = o.xmax*1e-4, k = (py(o.f(xc + h)) - py(o.f(xc - h)))/(px(xc + h) - px(xc - h));
+    const dx = Math.min(55, 45/Math.max(Math.abs(k), 1e-9));
+    s += `<line x1="${xs-dx}" y1="${ys-k*dx}" x2="${xs+dx}" y2="${ys+k*dx}" stroke="var(--ink)" stroke-width="2" clip-path="url(#${id}clip)"/>`;
+    s += `<line x1="${xs}" y1="${Y0}" x2="${xs}" y2="${ys}" stroke="var(--ink)" stroke-dasharray="3 3" stroke-width="1"/>`;
+    s += `<circle cx="${xs}" cy="${ys}" r="5.5" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>`;
+    // labels sit up and to the left of the rising curve
+    const tx = Math.max(xs - 12, X0 + 150), ty = Math.max(ys - 14, Y0 - H + 34);
+    s += `<text x="${tx}" y="${ty - 18}" text-anchor="end" font-size="14" fill="var(--ink)" class="halo">${UT.pt(fmt(uc*1e-6,'J'))}</text>`;
+    s += `<text x="${tx}" y="${ty}" text-anchor="end" font-size="13" font-style="italic" fill="var(--ink)" class="halo">${o.slope}</text>`;
+    s += `<line x1="${X0}" y1="${Y0}" x2="${X0+W}" y2="${Y0}" class="axis"/><line x1="${X0}" y1="${Y0}" x2="${X0}" y2="${Y0-H}" class="axis"/>`;
+    $('#'+id).innerHTML = s;
+  }
+  function drawU(){
+    const C = +$('#eC').value, q = +$('#eQ').value, N = +$('#eN').value, V = q/C;
+    const dots = [];
+    if(q > 0){ const dq = q/N; let acc = 0; dots.push([0, 0]); for(let i=1;i<=N;i++){ acc += (i*dq/C)*dq; dots.push([i*dq, acc]); } }
+    uGraph('uqSvg', {xmax:1000, x:q, f: x => x*x/(2*C), ghost: Math.abs(C - C0) > 0.5 ? x => x*x/(2*C0) : null,
+      xlab: UT.xq, slope: UT.sv(V.toFixed(1) + ' V'), dots});
+    const vmax = uNice(1000/C);
+    uGraph('uvSvg', {xmax:vmax, x:V, f: v => C*v*v/2, ghost: Math.abs(C - C0) > 0.5 ? v => C0*v*v/2 : null,
+      xlab: UT.xv, slope: UT.sq(fmt(q*1e-6,'C'))});
+  }
+  function uDrag(svg, toQ){
+    const set = x => { const el = $('#eQ'); el.value = Math.max(0, Math.min(1000, Math.round(toQ(x)/10)*10)); draw(); };
+    const sx = ev => { const pt = svg.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY; return pt.matrixTransform(svg.getScreenCTM().inverse()).x; };
+    let drag = false;
+    svg.addEventListener('pointerdown', ev => { drag = true; svg.setPointerCapture(ev.pointerId); set(sx(ev)); });
+    svg.addEventListener('pointermove', ev => { if(drag) set(sx(ev)); });
+    svg.addEventListener('pointerup', () => { drag = false; });
+    svg.addEventListener('pointercancel', () => { drag = false; });
+    svg.addEventListener('keydown', ev => {
+      const d = {ArrowRight:1, ArrowUp:1, ArrowLeft:-1, ArrowDown:-1}[ev.key];
+      if(d !== undefined){ ev.preventDefault(); const el = $('#eQ'); el.value = Math.max(0, Math.min(1000, +el.value + 10*d)); draw(); }
+    });
+  }
+  uDrag($('#uqSvg'), x => (x - 58)/284*1000);
+  uDrag($('#uvSvg'), x => { const C = +$('#eC').value; return (x - 58)/284*uNice(1000/C)*C; });
   ['#eC','#eQ','#eN'].forEach(s => $(s).addEventListener('input', draw));
   draw();
 })();
