@@ -121,6 +121,12 @@ table.cmp td{text-align:right;padding:5px 6px;border-bottom:1px solid var(--line
 .legend{display:flex;flex-wrap:wrap;gap:14px;font-family:var(--display);font-size:.85rem;color:var(--muted)}
 .legend span::before{content:"";display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle;background:var(--c)}
 footer{margin-top:60px;color:var(--muted);font-size:.9rem}
+.views{display:grid;grid-template-columns:1fr 1.4fr;gap:14px;align-items:end;margin-bottom:4px}
+.views.even{grid-template-columns:1fr 1fr}
+.views figure{margin:0}
+.views figcaption{font-family:var(--display);font-size:.85rem;color:var(--muted);text-align:center;margin-top:4px;line-height:1.3}
+@media (max-width:560px){.views,.views.even{grid-template-columns:1fr}}
+svg .halo{paint-order:stroke;stroke:var(--paper);stroke-width:4px;stroke-linejoin:round}
 svg text{font-family:var(--math)}
 svg .lbl{font-family:var(--display);font-size:13px;fill:var(--muted)}
 svg .wire{stroke:var(--ink);stroke-width:2.2;fill:none;stroke-linecap:round}
@@ -262,7 +268,11 @@ svg .gridl{stroke:var(--line);stroke-width:1}
       <div class="eq"><i>C</i> = 2π<i>ε</i><sub>0</sub><span class="frac"><span><i>L</i></span><span>ln(<i>b</i>/<i>a</i>)</span></span></div>
     </div>
     <div class="viz">
-      <svg id="cySvg" viewBox="0 0 300 300" role="img" aria-label="Cylindrical capacitor cross-section" style="max-width:380px;margin:auto"></svg>
+      <div class="views">
+        <figure><svg id="cySvg" viewBox="0 0 300 325" role="img" aria-label="Cylindrical capacitor cross-section"></svg><figcaption>Cross-section</figcaption></figure>
+        <figure><svg id="cySide" viewBox="0 0 420 290" role="img" aria-label="Cylindrical capacitor side view"></svg><figcaption>Side view: length L (end effects ignored)</figcaption></figure>
+      </div>
+      <p class="small" style="margin-top:2px">Radii are drawn with the true ratio a : b; the overall size is rescaled to fit.</p>
       <p class="small">A cylindrical Gauss surface of radius <i>r</i> and length <i>L</i> gives <span class="m"><i>ε</i><sub>0</sub><i>E</i>(2π<i>rL</i>) = <i>q</i></span>, so <span class="m"><i>E</i> = <i>q</i>/2π<i>ε</i><sub>0</sub><i>Lr</i></span>. Integrating from <i>b</i> to <i>a</i>: <span class="m"><i>V</i> = (<i>q</i>/2π<i>ε</i><sub>0</sub><i>L</i>) ln(<i>b</i>/<i>a</i>)</span>, using −ln(<i>a</i>/<i>b</i>) = ln(<i>b</i>/<i>a</i>). A coaxial cable is this shape.</p>
     </div>
   </div>
@@ -276,7 +286,11 @@ svg .gridl{stroke:var(--line);stroke-width:1}
       <div class="eq" id="spEq"></div>
     </div>
     <div class="viz">
-      <svg id="spSvg" viewBox="0 0 300 300" role="img" aria-label="Spherical capacitor cross-section" style="max-width:380px;margin:auto"></svg>
+      <div class="views even">
+        <figure><svg id="spSvg" viewBox="0 0 300 325" role="img" aria-label="Spherical capacitor cross-section"></svg><figcaption id="spCapX"></figcaption></figure>
+        <figure><svg id="spSide" viewBox="0 0 320 325" role="img" aria-label="Spherical capacitor 3D view"></svg><figcaption id="spCapS"></figcaption></figure>
+      </div>
+      <p class="small" style="margin-top:2px">Radii are drawn with the true ratio a : b; the overall size is rescaled to fit.</p>
       <p class="small">A spherical Gauss surface gives <span class="m"><i>ε</i><sub>0</sub><i>E</i>(4π<i>r</i>²) = <i>q</i></span>, which is just Coulomb's law. Then <span class="m"><i>V</i> = (<i>q</i>/4π<i>ε</i><sub>0</sub>)(1/<i>a</i> − 1/<i>b</i>)</span>. Letting <i>b</i> → ∞ means the outer shell is infinitely far away, and <span class="m"><i>ab</i>/(<i>b</i>−<i>a</i>) → <i>a</i></span>. <span id="earth"></span></p>
     </div>
   </div>
@@ -529,24 +543,145 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     $('#ppSvg').innerHTML = s;
   }
 
-  function radial(svgId, a, b, scale, showOuter, labelOuter){
+  const T = {gauss:'Gauss surface', gaussCyl:'Gauss surface (radius r)', negInf:'−q at ∞', sphX:'Cross-section through the centre', sphS:'3D view (outer shell drawn see-through)', isoX:'Isolated sphere: the −q is infinitely far away', isoS:'3D view: field lines run off to infinity', earth: c => 'For scale: the whole Earth (R ≈ 6.37 × 10⁶ m) treated as an isolated sphere has C ≈ ' + c + '.'};
+  const RAD = Math.PI/180;
+  const halo = 'class="lbl halo"';
+  function cylMap(a,b){ const rb = 55 + 70*(b-1)/19; return {ra: Math.max(3, rb*a/b), rb}; }
+  function sphMap(a,b,iso){ if(iso) return {ra: 26 + 30*(a-1)/39, rb:0}; const rb = 60 + 62*(b-2)/98; return {ra: Math.max(3, rb*a/b), rb}; }
+  const P = (cx,cy,r,deg) => [cx + r*Math.cos(deg*RAD), cy + r*Math.sin(deg*RAD)];
+
+  /* cross-section (shared by cylinder and sphere) */
+  function radial(id, ra, rb, iso){
     const cx = 150, cy = 150;
-    const ra = Math.max(4, a*scale), rb = b*scale;
-    let s = `<defs>${arrowMarker(svgId+'m','var(--field)')}</defs>`;
-    if(showOuter){
-      s += `<circle cx="${cx}" cy="${cy}" r="${Math.min(rb+8,146)}" fill="var(--die-soft)"/><circle cx="${cx}" cy="${cy}" r="${rb}" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>`;
+    let s = `<defs>${arrowMarker(id+'m','var(--field)')}${arrowMarker(id+'d','var(--muted)')}</defs>`;
+    if(!iso){
+      s += `<circle cx="${cx}" cy="${cy}" r="${rb+5}" fill="none" stroke="var(--die-soft)" stroke-width="10"/>`;
+      s += `<circle cx="${cx}" cy="${cy}" r="${rb}" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>`;
     }
-    const rEnd = showOuter ? rb - 4 : Math.min(140, ra + 90);
-    for(let i=0;i<12;i++){ const t = i*Math.PI/6 + 0.2; s += `<line x1="${cx+(ra+4)*Math.cos(t)}" y1="${cy+(ra+4)*Math.sin(t)}" x2="${cx+rEnd*Math.cos(t)}" y2="${cy+rEnd*Math.sin(t)}" class="fld" stroke-width="1.5" marker-end="url(#${svgId}m)"/>`; }
-    const rg = showOuter ? (ra+rb)/2 : ra + 45;
-    s += `<circle cx="${cx}" cy="${cy}" r="${rg}" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="5 4"/>`;
-    s += `<text x="${cx+rg*0.71+4}" y="${cy-rg*0.71-2}" class="lbl" fill="var(--accent)">Gauss surface</text>`;
+    const r0 = ra + 4, r1 = iso ? Math.min(138, ra + 95) : rb - 4;
+    if(r1 - r0 > 8) for(let i=0;i<12;i++){ const t = i*30 + 11.5, [x1,y1] = P(cx,cy,r0,t), [x2,y2] = P(cx,cy,r1,t);
+      s += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="fld" stroke-width="1.5" marker-end="url(#${id}m)"/>`; }
+    const rg = iso ? ra + Math.min(48, (138-ra)/2) : (ra+rb)/2;
+    s += `<circle cx="${cx}" cy="${cy}" r="${rg}" fill="var(--accent)" fill-opacity=".06" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+    if(!iso){ const [bx,by] = P(cx,cy,rb,176);
+      s += `<line x1="${cx}" y1="${cy}" x2="${bx}" y2="${by}" stroke="var(--muted)" stroke-width="1.2" marker-end="url(#${id}d)"/>`;
+      const [tx,ty] = P(cx,cy,rb-16,176); s += `<text x="${tx}" y="${ty-7}" text-anchor="middle" font-style="italic" fill="var(--muted)" class="halo">b</text>`; }
     s += `<circle cx="${cx}" cy="${cy}" r="${ra}" fill="var(--die)" stroke="var(--ink)" stroke-width="2"/>`;
-    s += `<text x="${cx}" y="${cy+5}" text-anchor="middle" class="pos" font-size="${ra>14?14:10}">${ra>9?'+q':'+'}</text>`;
-    if(showOuter) s += `<text x="${cx}" y="${cy-rb+18}" text-anchor="middle" class="neg">−q</text>`;
-    s += `<text x="8" y="292" class="lbl">${labelOuter}</text>`;
+    if(ra >= 15){ const [ax,ay] = P(cx,cy,ra,146);
+      s += `<line x1="${cx}" y1="${cy}" x2="${ax}" y2="${ay}" stroke="var(--ink)" stroke-width="1.1" marker-end="url(#${id}d)"/>`;
+      const [tx,ty] = P(cx,cy,ra*0.55,146); s += `<text x="${tx}" y="${ty-5}" text-anchor="middle" font-style="italic" fill="var(--ink)" font-size="13">a</text>`;
+      s += `<text x="${cx+ra*0.28}" y="${cy+ra*0.45+5}" text-anchor="middle" class="pos" font-size="${ra>24?15:12}">+q</text>`;
+    } else {
+      const [tx,ty] = P(cx,cy,ra+9,146); s += `<text x="${tx}" y="${ty}" text-anchor="middle" font-style="italic" fill="var(--muted)" font-size="12" class="halo">a</text>`;
+      s += `<text x="${cx}" y="${cy+4}" text-anchor="middle" class="pos" font-size="11">+</text>`;
+    }
+    if(!iso){ const [nx,ny] = P(cx,cy,rb+22,-135); s += `<text x="${nx}" y="${ny+5}" text-anchor="middle" class="neg halo">−q</text>`; }
+    else s += `<text x="294" y="20" text-anchor="end" class="neg halo">${T.negInf}</text>`;
+    const [gx,gy] = P(cx,cy,rg,50);
+    s += `<polyline points="${gx},${gy} 252,306" fill="none" stroke="var(--accent)" stroke-width="1"/><text x="296" y="320" text-anchor="end" ${halo} fill="var(--accent)" style="fill:var(--accent)">${T.gauss}</text>`;
     return s;
   }
+
+  /* cylinder side view */
+  function cylSide(id, ra0, rb0, L){
+    const sc = .7, ra = ra0*sc, rb = rb0*sc, k = .32, cx = 192, cy = 126;
+    const len = 120 + 75*(Math.log10(L)+1), x0 = cx - len/2, x1 = cx + len/2;
+    const rg = (ra+rb)/2, g0 = x0 + 14, g1 = x1 - 14;
+    const body = (xa, xb, r) => `M${xa} ${cy-r} L${xb} ${cy-r} A${r*k} ${r} 0 0 1 ${xb} ${cy+r} L${xa} ${cy+r} A${r*k} ${r} 0 0 1 ${xa} ${cy-r} Z`;
+    const half = (x, r, sweep) => `M${x} ${cy-r} A${r*k} ${r} 0 0 ${sweep} ${x} ${cy+r}`;
+    let s = `<defs>${arrowMarker(id+'m','var(--field)')}${arrowMarker(id+'d','var(--muted)')}
+      <linearGradient id="${id}sh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".28"/></linearGradient></defs>`;
+    // outer conductor (see-through)
+    s += `<path d="${body(x0,x1,rb)}" fill="var(--ink)" fill-opacity=".05" stroke="none"/>`;
+    s += `<path d="${half(x0,rb,1)}" fill="none" stroke="var(--ink)" stroke-width="1.2" stroke-dasharray="3 4" opacity=".55"/>`;
+    s += `<path d="M${x0} ${cy-rb} L${x1} ${cy-rb} M${x0} ${cy+rb} L${x1} ${cy+rb}" stroke="var(--die-soft)" stroke-width="8"/>`;
+    s += `<path d="M${x0} ${cy-rb} L${x1} ${cy-rb} M${x0} ${cy+rb} L${x1} ${cy+rb}" stroke="var(--ink)" stroke-width="2"/>`;
+    s += `<path d="${half(x0,rb,0)}" fill="none" stroke="var(--ink)" stroke-width="2"/>`;
+    // Gauss cylinder
+    s += `<path d="${body(g0,g1,rg)}" fill="var(--accent)" fill-opacity=".07" stroke="none"/>`;
+    s += `<path d="M${g0} ${cy-rg} L${g1} ${cy-rg} M${g0} ${cy+rg} L${g1} ${cy+rg}" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+    s += `<path d="${half(g0,rg,0)}" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="5 4"/><path d="${half(g0,rg,1)}" fill="none" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="3 4" opacity=".5"/>`;
+    s += `<ellipse cx="${g1}" cy="${cy}" rx="${rg*k}" ry="${rg}" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+    // radial field in the plane of the page
+    if(rb - ra > 14){ const n = Math.max(3, Math.round(len/34));
+      for(let i=0;i<n;i++){ const x = x0 + 24 + i*(len-48)/(n-1);
+        s += `<line x1="${x}" y1="${cy-ra-3}" x2="${x}" y2="${cy-rb+4}" class="fld" stroke-width="1.5" marker-end="url(#${id}m)"/>`;
+        s += `<line x1="${x}" y1="${cy+ra+3}" x2="${x}" y2="${cy+rb-4}" class="fld" stroke-width="1.5" marker-end="url(#${id}m)"/>`; } }
+    // inner conductor
+    s += `<path d="${body(x0,x1,ra)}" fill="var(--die)" stroke="var(--ink)" stroke-width="1.6"/><path d="${body(x0,x1,ra)}" fill="url(#${id}sh)"/>`;
+    // open end face at x1
+    s += `<ellipse cx="${x1}" cy="${cy}" rx="${(rb+4)*k}" ry="${rb+4}" fill="none" stroke="var(--die-soft)" stroke-width="8"/>`;
+    s += `<ellipse cx="${x1}" cy="${cy}" rx="${rb*k}" ry="${rb}" fill="var(--paper)" fill-opacity=".6" stroke="var(--ink)" stroke-width="2"/>`;
+    if(rb - ra > 14) for(let i=0;i<8;i++){ const t = i*45 + 22.5, c = Math.cos(t*RAD), sn = Math.sin(t*RAD);
+      const xa = x1 + (ra+3)*k*c, ya = cy + (ra+3)*sn, xb = x1 + (rb-4)*k*c, yb = cy + (rb-4)*sn;
+      if(Math.hypot(xb-xa, yb-ya) > 8) s += `<line x1="${xa}" y1="${ya}" x2="${xb}" y2="${yb}" class="fld" stroke-width="1.3" marker-end="url(#${id}m)"/>`; }
+    s += `<ellipse cx="${x1}" cy="${cy}" rx="${ra*k}" ry="${ra}" fill="var(--die)" stroke="var(--ink)" stroke-width="1.6"/>`;
+    // charges
+    const nq = Math.max(3, Math.round(len/40));
+    for(let i=0;i<nq;i++){ const x = x0 + 16 + i*(len-40)/(nq-1);
+      s += `<text x="${x}" y="${cy-rb-8}" text-anchor="middle" class="neg" font-size="${i?14:13}">${i?'−':'−q'}</text>`;
+      if(ra >= 9) s += `<text x="${x}" y="${cy+5}" text-anchor="middle" class="pos" font-size="${ra>13?13:11}">${i?'+':(ra>13?'+q':'+')}</text>`; }
+    if(ra < 9) s += `<text x="${x0-6}" y="${cy+5}" text-anchor="end" class="pos halo">+q</text>`;
+    // dimensions
+    const yL = cy + rb + 24;
+    s += `<line x1="${x0}" y1="${yL}" x2="${x1}" y2="${yL}" stroke="var(--muted)" stroke-width="1.2" marker-start="url(#${id}d)" marker-end="url(#${id}d)"/>`;
+    s += `<line x1="${x0}" y1="${cy+rb+6}" x2="${x0}" y2="${yL+5}" stroke="var(--muted)" stroke-width=".8"/><line x1="${x1}" y1="${cy+rb+10}" x2="${x1}" y2="${yL+5}" stroke="var(--muted)" stroke-width=".8"/>`;
+    s += `<text x="${cx}" y="${yL+17}" text-anchor="middle" fill="var(--muted)"><tspan font-style="italic">L</tspan> = ${L.toFixed(1)} m</text>`;
+    const xd = x1 + rb*k + 18;
+    s += `<line x1="${x1}" y1="${cy}" x2="${xd+20}" y2="${cy}" stroke="var(--muted)" stroke-width=".8" stroke-dasharray="6 3 1 3"/>`;
+    s += `<line x1="${x1}" y1="${cy-rb}" x2="${xd+20}" y2="${cy-rb}" stroke="var(--muted)" stroke-width=".8"/>`;
+    s += `<line x1="${xd+16}" y1="${cy}" x2="${xd+16}" y2="${cy-rb}" stroke="var(--muted)" stroke-width="1.2" marker-start="url(#${id}d)" marker-end="url(#${id}d)"/>`;
+    s += `<text x="${xd+21}" y="${cy-rb/2+5}" font-style="italic" fill="var(--muted)">b</text>`;
+    if(ra >= 8){
+      s += `<line x1="${x1}" y1="${cy-ra}" x2="${xd+4}" y2="${cy-ra}" stroke="var(--muted)" stroke-width=".8"/>`;
+      s += `<line x1="${xd}" y1="${cy}" x2="${xd}" y2="${cy-ra}" stroke="var(--muted)" stroke-width="1.2" marker-start="url(#${id}d)" marker-end="url(#${id}d)"/>`;
+      s += `<text x="${xd-4}" y="${cy-ra/2+5}" text-anchor="end" font-style="italic" fill="var(--muted)" class="halo">a</text>`;
+    }
+    s += `<polyline points="${g0+20},${cy+rg} ${g0+20},${yL+30}" fill="none" stroke="var(--accent)" stroke-width="1"/><text x="${g0+26}" y="${yL+36}" ${halo} style="fill:var(--accent)">${T.gaussCyl}</text>`;
+    return s;
+  }
+
+  /* sphere 3D view */
+  function sphSide(id, ra0, rb0, iso){
+    const cx = 160, cy = 150, ra = ra0, rb = rb0, t = 20*RAD, ct = Math.cos(t), st = Math.sin(t);
+    const rg = iso ? ra + Math.min(46, (140-ra)/2) : (ra+rb)/2;
+    const pr = (u, r) => [cx + r*u[0], cy - r*(u[1]*ct - u[2]*st)];
+    const depth = u => u[2]*ct + u[1]*st;
+    const eqF = r => `M${cx-r} ${cy} A${r} ${r*st} 0 0 0 ${cx+r} ${cy}`, eqB = r => `M${cx-r} ${cy} A${r} ${r*st} 0 0 1 ${cx+r} ${cy}`;
+    let s = `<defs>${arrowMarker(id+'m','var(--field)')}
+      <radialGradient id="${id}hl" cx=".35" cy=".3" r=".7"><stop offset="0" stop-color="#fff" stop-opacity=".8"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></radialGradient>
+      <radialGradient id="${id}sh" cx=".42" cy=".38" r=".62"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".38"/></radialGradient>
+      <radialGradient id="${id}gl" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".7" stop-color="var(--neg)" stop-opacity=".03"/><stop offset="1" stop-color="var(--neg)" stop-opacity=".16"/></radialGradient></defs>`;
+    if(!iso){
+      s += `<circle cx="${cx}" cy="${cy}" r="${rb+4}" fill="none" stroke="var(--die-soft)" stroke-width="8"/>`;
+      s += `<circle cx="${cx}" cy="${cy}" r="${rb}" fill="url(#${id}gl)"/>`;
+      s += `<path d="${eqB(rb)}" fill="none" stroke="var(--ink)" stroke-width="1" stroke-dasharray="3 4" opacity=".45"/>`;
+    }
+    s += `<circle cx="${cx}" cy="${cy}" r="${rg}" fill="var(--accent)" fill-opacity=".06" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+    s += `<path d="${eqB(rg)}" fill="none" stroke="var(--accent)" stroke-width="1.1" stroke-dasharray="3 4" opacity=".5"/>`;
+    const N = 26, dirs = [];
+    for(let i=0;i<N;i++){ const y = 1 - 2*(i+.5)/N, r = Math.sqrt(1-y*y), ph = i*2.39996; dirs.push([r*Math.cos(ph), y, r*Math.sin(ph)]); }
+    const r0 = ra + 3, r1 = iso ? Math.min(140, ra + 90) : rb - 4;
+    const arrow = (u, front) => { const [xa,ya] = pr(u,r0), [xb,yb] = pr(u,r1);
+      if(r1 - r0 < 8 || Math.hypot(xb-xa,yb-ya) < 10) return '';
+      return `<line x1="${xa}" y1="${ya}" x2="${xb}" y2="${yb}" class="fld" stroke-width="${front?1.6:1.2}" opacity="${front?1:.3}" marker-end="url(#${id}m)"/>`; };
+    dirs.filter(u => depth(u) < 0).forEach(u => s += arrow(u,false));
+    s += `<circle cx="${cx}" cy="${cy}" r="${ra}" fill="var(--die)" stroke="var(--ink)" stroke-width="1.6"/><circle cx="${cx}" cy="${cy}" r="${ra}" fill="url(#${id}sh)"/><circle cx="${cx}" cy="${cy}" r="${ra}" fill="url(#${id}hl)"/>`;
+    s += `<text x="${cx+ra*0.15}" y="${cy+ra*0.35+5}" text-anchor="middle" class="pos" font-size="${ra>22?15:11}">${ra>14?'+q':'+'}</text>`;
+    dirs.filter(u => depth(u) >= 0).forEach(u => s += arrow(u,true));
+    s += `<path d="${eqF(rg)}" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+    if(!iso){
+      s += `<path d="${eqF(rb)}" fill="none" stroke="var(--ink)" stroke-width="1.2" opacity=".55"/>`;
+      s += `<circle cx="${cx}" cy="${cy}" r="${rb}" fill="none" stroke="var(--ink)" stroke-width="2"/>`;
+      const [hx1,hy1] = P(cx,cy,rb*.86,200), [hx2,hy2] = P(cx,cy,rb*.86,245);
+      s += `<path d="M${hx1} ${hy1} A${rb*.86} ${rb*.86} 0 0 1 ${hx2} ${hy2}" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="3" stroke-linecap="round"/>`;
+      for(let i=0;i<8;i++){ const [nx,ny] = P(cx,cy,rb+16,i*45-135); s += `<text x="${nx}" y="${ny+5}" text-anchor="middle" class="neg halo" font-size="${i?14:13}">${i?'−':'−q'}</text>`; }
+    } else s += `<text x="314" y="20" text-anchor="end" class="neg halo">${T.negInf}</text>`;
+    const [gx,gy] = P(cx,cy,rg,48);
+    s += `<polyline points="${gx},${gy} 268,304" fill="none" stroke="var(--accent)" stroke-width="1"/><text x="316" y="318" text-anchor="end" ${halo} style="fill:var(--accent)">${T.gauss}</text>`;
+    return s;
+  }
+
   function cyl(){
     let a = +$('#cyA').value, bEl = $('#cyB');
     if(+bEl.value < a + 0.3) bEl.value = (a + 0.3).toFixed(1);
@@ -554,7 +689,9 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     $('#cyAo').textContent = a.toFixed(1) + ' mm'; $('#cyBo').textContent = b.toFixed(1) + ' mm'; $('#cyLo').textContent = L.toFixed(1) + ' m';
     const C = 2*Math.PI*EPS0*L/Math.log(b/a);
     $('#cyC').textContent = fmt(C,'F'); $('#cyCL').textContent = fmt(C/L,'F/m');
-    $('#cySvg').innerHTML = radial('cy', a, b, 125/20, true, 'cross-section; the cylinder extends a length L');
+    const {ra, rb} = cylMap(a, b);
+    $('#cySvg').innerHTML = radial('cy', ra, rb, false);
+    $('#cySide').innerHTML = cylSide('cs', ra, rb, L);
   }
   function sph(){
     const iso = $('#spIso').checked;
@@ -567,8 +704,12 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     const C = iso ? 4*Math.PI*EPS0*am : 4*Math.PI*EPS0*am*bm/(bm-am);
     $('#spC').textContent = fmt(C,'F');
     $('#spEq').innerHTML = iso ? '<i>C</i> = 4π<i>ε</i><sub>0</sub><i>R</i>' : '<i>C</i> = 4π<i>ε</i><sub>0</sub><span class="frac"><span><i>ab</i></span><span><i>b</i> − <i>a</i></span></span>';
-    $('#earth').textContent = iso ? 'For scale: the whole Earth (R ≈ 6.37 × 10⁶ m) treated as an isolated sphere has C ≈ ' + fmt(4*Math.PI*EPS0*6.37e6,'F') + '.' : '';
-    $('#spSvg').innerHTML = radial('sp', a, b, 125/100, !iso, iso ? 'isolated sphere: the −q sits infinitely far away' : 'cross-section through the centre');
+    $('#earth').textContent = iso ? T.earth(fmt(4*Math.PI*EPS0*6.37e6,'F')) : '';
+    const {ra, rb} = sphMap(a, b, iso);
+    $('#spSvg').innerHTML = radial('sp', ra, rb, iso);
+    $('#spSide').innerHTML = sphSide('ss', ra, rb, iso);
+    $('#spCapX').textContent = iso ? T.isoX : T.sphX;
+    $('#spCapS').textContent = iso ? T.isoS : T.sphS;
   }
   ['#ppA','#ppD'].forEach(s => $(s).addEventListener('input', pp));
   ['#cyA','#cyB','#cyL'].forEach(s => $(s).addEventListener('input', cyl));
