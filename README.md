@@ -22,9 +22,9 @@ Each page is a single self-contained HTML file with no build step and no depende
 3. **Geometries.** Parallel-plate (*C = ε₀A/d*), cylindrical (*C = 2πε₀L / ln(b/a)*) and spherical (*C = 4πε₀ab/(b−a)*) capacitors, plus the isolated-sphere limit *C = 4πε₀R*. Each has live sliders and field-line diagrams.
 4. **Parallel and series.** A circuit builder with up to five capacitors that shows each one's charge, voltage and energy, and the equivalent capacitance.
 5. **Stored energy.** A V′–q′ graph where you can see the "dq′ slices" converge to *U = q²/2C = (1/2)CV²*. Also derives the energy density *u = (1/2)ε₀E²*.
-6. **Dielectrics.** Choose κ (or a material such as air, paper, Pyrex, mica or water) and whether the battery is connected or removed. You can watch the dipoles align and see how E₀, E′ and the net field E compare. A table compares C, q, V, E and U with vacuum.
+6. **Dielectrics.** Choose κ (or a material such as air, paper, Pyrex, mica or water) and whether the battery is connected or removed. You can watch the dipoles align and see how E₀, E′ and the net field E compare. A table compares C, q, V, E and U with vacuum. An energy-bookkeeping graph follows the notes' two cases as the slab slides in: with q fixed, *U → U/κ* and *ΔU = −W < 0*; with V fixed, *U → κU*, the battery supplies *ΔU_B = (κ−1)CV² = 2ΔU*, and *W = ΔU*. In both cases *W > 0*, so the capacitor pulls the slab in.
 7. **Partially filled gap.** A slab of thickness *b* inside a gap *d*. The page plots E(x) and V(x) and checks that *C = ε₀A / [d − (1 − 1/κ)b]* matches three capacitors in series.
-8. **Check yourself.** A formula summary and a 5-question quiz.
+8. **Check yourself.** A formula summary and a 6-question quiz.
 
 ## Running locally
 

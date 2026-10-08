@@ -83,7 +83,9 @@ button{font-family:var(--display);font-weight:600;font-size:.92rem;border:1.5px 
 button[aria-pressed="true"],button.primary{background:var(--btn);color:var(--btn-ink)}
 button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .readout{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-family:var(--math);font-size:1.08rem;border-top:1.5px dashed var(--line);padding-top:12px}
-.readout dt{color:var(--muted);font-style:italic}
+.readout dt{color:var(--muted);font-style:normal}
+.readout dt i,.readout dd i{font-style:italic}
+.readout sub,.m sub,.eq sub,table.cmp sub,.capline sub{font-size:.7em;line-height:0;font-style:normal}
 .readout dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
 .m{font-family:var(--math);font-size:1.12em;white-space:nowrap}
 .m i{font-style:italic}
@@ -103,6 +105,17 @@ mark.c{background:linear-gradient(transparent 50%,var(--hl-cyan) 50%)}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
 .callout{border-left:5px solid var(--warn-line);background:var(--warn);padding:12px 16px;border-radius:0 10px 10px 0;margin:18px 0;max-width:760px}
 .callout h3{font-size:1rem}
+.callout p{margin:.5rem 0}
+.cases{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.cases>div{background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:16px 18px;min-width:0}
+.cases h4{font-family:var(--display);font-size:1.02rem;font-weight:700;margin:0 0 .5rem}
+.cases p{margin:.5rem 0}
+.cases .eq{font-size:1.12rem;padding:8px 14px;max-width:100%;overflow-x:auto;box-sizing:border-box}
+@media (max-width:820px){.cases{grid-template-columns:1fr}}
+.cases .eq{display:block;width:fit-content;margin:16px 0}
+.paren{font-size:1.45em;line-height:0;vertical-align:-.1em;font-weight:400}
+#enEq{font-size:1.05rem;padding:8px 14px;margin:2px 0 0}
+.verdict{font-family:var(--display);font-weight:600;color:var(--accent)}
 table.cmp{border-collapse:collapse;width:100%;font-family:var(--math);font-size:1.02rem}
 table.cmp th{font-family:var(--display);font-weight:600;font-size:.88rem;color:var(--muted);text-align:right;padding:4px 6px;border-bottom:1.5px solid var(--line)}
 table.cmp th:first-child,table.cmp td:first-child{text-align:left}
@@ -112,7 +125,7 @@ table.cmp td{text-align:right;padding:5px 6px;border-bottom:1px solid var(--line
 .ratio-down{color:var(--pos);font-weight:600}
 .capline{display:flex;gap:8px;align-items:center}
 .capline input{flex:1}
-.capline .tag{font-family:var(--math);font-style:italic;min-width:2.2em}
+.capline .tag{font-family:var(--math);font-style:normal;min-width:2.2em}
 .capline output{font-family:var(--math);min-width:4.2em;text-align:right}
 .capline button{padding:2px 9px;font-size:.85rem}
 .cheat{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:20px}
@@ -191,10 +204,10 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
         <button data-mode="flash">Flash the lamp</button>
       </div>
       <dl class="readout">
-        <dt>C</dt><dd>100 µF</dd>
-        <dt>q</dt><dd id="r1q">0</dd>
-        <dt>V<sub>C</sub> = q/C</dt><dd id="r1v">0</dd>
-        <dt>U = q²/2C</dt><dd id="r1u">0</dd>
+        <dt><i>C</i></dt><dd>100 µF</dd>
+        <dt><i>q</i></dt><dd id="r1q">0</dd>
+        <dt><i>V</i><sub>C</sub> = <i>q</i>/<i>C</i></dt><dd id="r1v">0</dd>
+        <dt><i>U</i> = <i>q</i>²/2<i>C</i></dt><dd id="r1u">0</dd>
       </dl>
       <p class="small">Charging here is drawn as a smooth curve; the real time dependence comes later, once resistance enters the circuit (RC circuits).</p>
     </div>
@@ -269,7 +282,7 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
     <div class="controls">
       <label class="ctl"><span class="row"><span>Plate area <i class="m">A</i></span><output id="ppAo"></output></span><input type="range" id="ppA" min="1" max="400" step="1" value="100"></label>
       <label class="ctl"><span class="row"><span>Separation <i class="m">d</i></span><output id="ppDo"></output></span><input type="range" id="ppD" min="0.1" max="8" step="0.1" value="2"></label>
-      <dl class="readout"><dt>C</dt><dd id="ppC"></dd></dl>
+      <dl class="readout"><dt><i>C</i></dt><dd id="ppC"></dd></dl>
       <div class="eq"><i>C</i> = <i>ε</i><sub>0</sub><span class="frac"><span><i>A</i></span><span><i>d</i></span></span></div>
     </div>
     <div class="viz">
@@ -287,7 +300,7 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
       <label class="ctl"><span class="row"><span>Inner radius <i class="m">a</i></span><output id="cyAo"></output></span><input type="range" id="cyA" min="0.2" max="8" step="0.1" value="1"></label>
       <label class="ctl"><span class="row"><span>Outer radius <i class="m">b</i></span><output id="cyBo"></output></span><input type="range" id="cyB" min="1" max="20" step="0.1" value="5"></label>
       <label class="ctl"><span class="row"><span>Length <i class="m">L</i></span><output id="cyLo"></output></span><input type="range" id="cyL" min="0.1" max="10" step="0.1" value="1"></label>
-      <dl class="readout"><dt>C</dt><dd id="cyC"></dd><dt>C / L</dt><dd id="cyCL"></dd></dl>
+      <dl class="readout"><dt><i>C</i></dt><dd id="cyC"></dd><dt><i>C</i>/<i>L</i></dt><dd id="cyCL"></dd></dl>
       <div class="eq"><i>C</i> = 2π<i>ε</i><sub>0</sub><span class="frac"><span><i>L</i></span><span>ln(<i>b</i>/<i>a</i>)</span></span></div>
     </div>
     <div class="viz">
@@ -309,7 +322,7 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
       <label class="ctl"><span class="row"><span>Inner radius <i class="m">a</i></span><output id="spAo"></output></span><input type="range" id="spA" min="1" max="40" step="0.5" value="10"></label>
       <label class="ctl"><span class="row"><span>Outer radius <i class="m">b</i></span><output id="spBo"></output></span><input type="range" id="spB" min="2" max="100" step="0.5" value="20"></label>
       <label class="ctl" style="flex-direction:row;align-items:center;gap:8px"><input type="checkbox" id="spIso"> Isolated sphere (b → ∞)</label>
-      <dl class="readout"><dt>C</dt><dd id="spC"></dd></dl>
+      <dl class="readout"><dt><i>C</i></dt><dd id="spC"></dd></dl>
       <div class="eq" id="spEq"></div>
     </div>
     <div class="viz">
@@ -343,7 +356,7 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
       <label class="ctl"><span class="row"><span>Battery <i class="m">V</i></span><output id="cVo"></output></span><input type="range" id="cV" min="1" max="24" step="1" value="12"></label>
       <div id="capList" class="controls" style="gap:8px"></div>
       <div class="btns"><button id="addCap">Add capacitor</button></div>
-      <dl class="readout"><dt>C<sub>eq</sub></dt><dd id="cEq"></dd><dt>q from battery</dt><dd id="cQ"></dd></dl>
+      <dl class="readout"><dt><i>C</i><sub>eq</sub></dt><dd id="cEq"></dd><dt><i>q</i> from battery</dt><dd id="cQ"></dd></dl>
       <div class="eq green" id="ruleEq"></div>
     </div>
     <div class="viz">
@@ -369,12 +382,12 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
       <label class="ctl"><span class="row"><span>Capacitance <i class="m">C</i></span><output id="eCo"></output></span><input type="range" id="eC" min="10" max="100" step="1" value="25"></label>
       <label class="ctl"><span class="row"><span>Final charge <i class="m">q</i></span><output id="eQo"></output></span><input type="range" id="eQ" min="0" max="1000" step="10" value="600"></label>
       <label class="ctl"><span class="row"><span>Slices <i class="m">dq′</i></span><output id="eNo"></output></span><input type="range" id="eN" min="1" max="40" step="1" value="8"></label>
-      <dl class="readout"><dt>V = q/C</dt><dd id="eV"></dd><dt>Sum of slices</dt><dd id="eSum"></dd><dt>U = q²/2C</dt><dd id="eU"></dd></dl>
+      <dl class="readout"><dt><i>V</i> = <i>q</i>/<i>C</i></dt><dd id="eV"></dd><dt>Sum of slices</dt><dd id="eSum"></dd><dt><i>U</i> = <i>q</i>²/2<i>C</i></dt><dd id="eU"></dd></dl>
       <p class="small">More slices make the staircase converge on the triangle, which is the integral.</p>
     </div>
     <div class="qvrow">
       <figure class="qv"><svg id="uqSvg" viewBox="0 0 360 272" role="img" tabindex="0" aria-label="Graph of stored energy U against charge q"></svg><figcaption class="small"><i>U</i> = <i>q</i>²/(2<i>C</i>) is a parabola in <i>q</i>. Its slope d<i>U</i>/d<i>q</i> is <i>V</i>, which keeps rising, so each extra microcoulomb costs more than the last. Pink dots are the running sum of the slices in the graph above. Drag across the graph (or use ← →) to change <i>q</i>.</figcaption></figure>
-      <figure class="qv"><svg id="uvSvg" viewBox="0 0 360 272" role="img" tabindex="0" aria-label="Graph of stored energy U against voltage V"></svg><figcaption class="small"><i>U</i> = (1/2)<i>CV</i>² is a parabola in <i>V</i>, and its slope d<i>U</i>/d<i>V</i> is <i>q</i> = <i>CV</i>. Move the <i>C</i> slider and compare each curve with its dashed starting curve: at fixed <i>q</i> a larger <i>C</i> stores less energy, while at fixed <i>V</i> it stores more. The <i>V</i> axis spans what the <i>q</i> slider can reach. Drag here to change <i>V</i>; <i>q</i> follows as <i>CV</i>.</figcaption></figure>
+      <figure class="qv"><svg id="uvSvg" viewBox="0 0 360 272" role="img" tabindex="0" aria-label="Graph of stored energy U against voltage V"></svg><figcaption class="small"><i>U</i> = ½<i>CV</i>² is a parabola in <i>V</i>, and its slope d<i>U</i>/d<i>V</i> is <i>q</i> = <i>CV</i>. Move the <i>C</i> slider and compare each curve with its dashed starting curve: at fixed <i>q</i> a larger <i>C</i> stores less energy, while at fixed <i>V</i> it stores more. The <i>V</i> axis spans what the <i>q</i> slider can reach. Drag here to change <i>V</i>; <i>q</i> follows as <i>CV</i>.</figcaption></figure>
     </div>
   </div>
   <div class="prose">
@@ -410,19 +423,69 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
     </div>
     <div class="viz">
       <svg id="dSvg" viewBox="0 0 560 300" role="img" aria-label="Parallel plate capacitor with dielectric and aligned dipoles"></svg>
-      <div class="legend"><span style="--c:var(--neg)">E₀ from free charge</span><span style="--c:var(--pos)">E′ from aligned dipoles</span><span style="--c:var(--field)">net E = E₀ − E′</span></div>
+      <div class="legend"><span style="--c:var(--neg)"><i>E</i><sub>0</sub> from free charge</span><span style="--c:var(--pos)"><i>E′</i> from aligned dipoles</span><span style="--c:var(--field)">net <i>E</i> = <i>E</i><sub>0</sub> − <i>E′</i></span></div>
     </div>
   </div>
   <div class="prose">
     <h3 style="margin-top:28px">Why does the field shrink?</h3>
-    <p>Molecules in the dielectric are electric dipoles (water is a polar molecule). The external field <i>E</i>₀ exerts a torque that lines them up. The aligned dipoles leave a sheet of −<i>q′</i> just under the + plate and +<i>q′</i> just above the − plate, and that induced charge makes its own field <i>E′</i> pointing the other way. The net field is the vector sum, <span class="m"><i>E</i> = <i>E</i>₀ − <i>E′</i></span>. In a conductor the cancellation is perfect, <i>E′</i> = −<i>E</i>₀, which is why the field inside a conductor is zero.</p>
+    <p>Molecules in the dielectric are electric dipoles (water is a polar molecule). The external field <i>E</i><sub>0</sub> exerts a torque that lines them up. The aligned dipoles leave a sheet of −<i>q′</i> just under the + plate and +<i>q′</i> just above the − plate, and that induced charge makes its own field <i>E′</i> pointing the other way. The net field is the vector sum, <span class="m"><i>E</i> = <i>E</i><sub>0</sub> − <i>E′</i></span>. In a conductor the cancellation is perfect, <i>E′</i> = −<i>E</i><sub>0</sub>, which is why the field inside a conductor is zero.</p>
     <p>Gauss's law inside a dielectric therefore counts only free charge if you multiply by κ:</p>
     <div class="eq"><i>κε</i><sub>0</sub>∮<i>E</i>·d<i>A</i> = <i>q</i></div>
-    <p>Comparing with <span class="m"><i>ε</i><sub>0</sub>∮<i>E</i>·d<i>A</i> = <i>q</i> − <i>q′</i></span> gives <span class="m"><i>q</i> − <i>q′</i> = <i>q</i>/<i>κ</i></span>. A point charge in a dielectric produces <span class="m"><i>E</i> = <i>q</i>/4π<i>κε</i><sub>0</sub><i>r</i>²</span>, and the field just outside a conductor is <span class="m"><i>σ</i>/<i>κε</i><sub>0</sub></span>: in both cases the vacuum value divided by κ. In the notes this is written with <i>D</i> = <i>κE</i>; the standard SI convention puts the ε₀ inside, <i>D</i> = <i>κε</i>₀<i>E</i>, so that ∮<i>D</i>·d<i>A</i> = <i>q</i><sub>free</sub>.</p>
+    <p>Comparing with <span class="m"><i>ε</i><sub>0</sub>∮<i>E</i>·d<i>A</i> = <i>q</i> − <i>q′</i></span> gives <span class="m"><i>q</i> − <i>q′</i> = <i>q</i>/<i>κ</i></span>. A point charge in a dielectric produces <span class="m"><i>E</i> = <i>q</i>/4π<i>κε</i><sub>0</sub><i>r</i>²</span>, and the field just outside a conductor is <span class="m"><i>σ</i>/<i>κε</i><sub>0</sub></span>: in both cases the vacuum value divided by κ. In the notes this is written with <i>D</i> = <i>κE</i>; the standard SI convention puts the <i>ε</i><sub>0</sub> inside, <i>D</i> = <i>κε</i><sub>0</sub><i>E</i>, so that ∮<i>D</i>·d<i>A</i> = <i>q</i><sub>free</sub>.</p>
+  </div>
+  <div class="prose">
+    <h3 style="margin-top:28px">Energy bookkeeping as the slab goes in</h3>
+    <p>Before the slab goes in, the stored energy can be written three equal ways:</p>
+    <div class="eq"><i>U</i><sub>i</sub> = <span class="frac"><span>1</span><span>2</span></span><i>CV</i>² = <span class="frac"><span><i>q</i>²</span><span>2<i>C</i></span></span> = <span class="frac"><span>1</span><span>2</span></span><i>qV</i></div>
+    <p>Once <i>C</i> becomes <i>κC</i>, the three forms stop agreeing about what happens, because only one of <i>q</i> and <i>V</i> stays fixed. Pick the form that holds the fixed quantity, and then ask where the energy difference went.</p>
+  </div>
+  <div class="cases">
+    <div>
+      <h4>(1) Battery removed: <i>q</i> fixed</h4>
+      <p>Use <span class="m"><i>U</i> = <i>q</i>²/2<i>C</i></span>. With <i>q</i> unchanged and <i>C</i> → <i>κC</i>, the energy drops: <span class="m"><i>U</i><sub>i</sub> → <i>U</i><sub>i</sub>/<i>κ</i></span>.</p>
+      <p>The battery is gone, so the lost energy has nowhere to go except into work <i>W</i> done <em>by the capacitor on the slab</em>:</p>
+      <div class="eq">Δ<i>U</i> = <span class="frac"><span>1</span><span>2</span></span><span class="paren">(</span><span class="frac"><span>1</span><span><i>κ</i></span></span> − 1<span class="paren">)</span><span class="frac"><span><i>q</i>²</span><span><i>C</i></span></span> = −<i>W</i> &lt; 0</div>
+      <div class="eq green"><i>W</i> = <span class="frac"><span>1</span><span>2</span></span><span class="paren">(</span>1 − <span class="frac"><span>1</span><span><i>κ</i></span></span><span class="paren">)</span><span class="frac"><span><i>q</i>²</span><span><i>C</i></span></span></div>
+      <p class="verdict"><i class="m">W</i> &gt; 0: the capacitor pulls the slab in.</p>
+    </div>
+    <div>
+      <h4>(2) Battery connected: <i>V</i> fixed</h4>
+      <p>Use <span class="m"><i>U</i> = ½<i>CV</i>²</span>. With <i>V</i> held and <i>C</i> → <i>κC</i>, the energy rises: <span class="m"><i>U</i><sub>i</sub> → <i>κU</i><sub>i</sub></span>, so <span class="m">Δ<i>U</i> = ½(<i>κ</i> − 1)<i>CV</i>² &gt; 0</span>.</p>
+      <p>But <i>q</i> is not fixed: it grows to <i>κq</i>, so the battery pushes an extra <span class="m">Δ<i>q</i> = (<i>κ</i> − 1)<i>q</i></span> through the voltage <i>V</i>:</p>
+      <div class="eq">Δ<i>U</i><sub>B</sub> = (<i>κ</i> − 1)<i>qV</i> = (<i>κ</i> − 1)<i>CV</i>² = 2Δ<i>U</i></div>
+      <p>Energy conservation, <span class="m">Δ<i>U</i> = Δ<i>U</i><sub>B</sub> − <i>W</i></span>, then gives <span class="m"><i>W</i> = 2Δ<i>U</i> − Δ<i>U</i> = Δ<i>U</i></span>.</p>
+      <p class="verdict"><i class="m">W</i> &gt; 0 again: the slab is still pulled in.</p>
+    </div>
+  </div>
+  <div class="lab" id="enLab">
+    <div class="controls">
+      <div class="btns" role="group" aria-label="Battery connection">
+        <button data-dm="bat" aria-pressed="true">Battery connected (V fixed)</button>
+        <button data-dm="iso" aria-pressed="false">Battery removed (q fixed)</button>
+      </div>
+      <label class="ctl"><span class="row"><span>How far the slab is in, <i class="m">x</i></span><output id="fillOut"></output></span><input type="range" id="fillSl" min="0" max="1" step="0.01" value="0"></label>
+      <p class="small" id="enK" style="margin:0"></p>
+      <dl class="readout">
+        <dt><i>U</i><sub>i</sub></dt><dd id="enUi"></dd>
+        <dt><i>U</i> now</dt><dd id="enU"></dd>
+        <dt>Δ<i>U</i></dt><dd id="enDU"></dd>
+        <dt>Δ<i>U</i><sub>B</sub> from battery</dt><dd id="enDUB"></dd>
+        <dt><i>W</i> on the slab</dt><dd id="enW"></dd>
+        <dt>Force on the slab</dt><dd id="enF"></dd>
+      </dl>
+      <div class="eq green" id="enEq"></div>
+      <p class="small">Same setup as above: <i>A</i> = 100 cm² (10 cm × 10 cm), <i>d</i> = 1 mm, 12 V. The slab slides in sideways, so the filled part acts as a capacitor in parallel with the empty part: <span class="m"><i>C</i>(<i>x</i>) = <i>C</i>[1 + (<i>κ</i>−1)<i>x</i>]</span>.</p>
+    </div>
+    <div class="viz">
+      <figure style="margin:0 0 14px"><svg id="enMini" viewBox="0 0 560 200" role="img" aria-label="Side view of the slab being pulled into the gap, with the force on it and the charge on each part of the plates"></svg><figcaption class="small" style="margin-top:2px">Same capacitor, drawn right next to the graph. The arrow is the force on the slab (its length shows how strong). The + and − marks are the free charge, which crowds onto the part of the plates over the slab.</figcaption></figure>
+      <figure class="qv"><svg id="enSvg2" viewBox="0 0 560 330" role="img" tabindex="0" aria-label="Stacked energy graph against how far the slab is inserted: stored energy, work done on the slab, and energy supplied by the battery"></svg>
+      <div class="legend" style="margin-top:8px"><span style="--c:var(--neg)">stored energy U</span><span style="--c:var(--die)">work W done on the slab</span><span style="--c:var(--accent)" id="enLgB">U<sub>i</sub> + battery input</span><span style="--c:var(--muted)">U<sub>i</sub> (start)</span></div>
+      <figcaption class="small">The height of the whole stack is everything that has gone in so far: <i>U</i><sub>i</sub> plus whatever the battery supplied. Blue is what is stored in the field and orange is work done pulling the slab in. Drag across the graph (or focus it and use ← →) to slide the slab; the drawing above follows. Change κ with the slider above.</figcaption></figure>
+    </div>
   </div>
   <div class="callout">
-    <h3>A note on the energy argument</h3>
-    <p>With q fixed, U falls to U/κ and the lost energy is the work the field does pulling the slab in, exactly as the notes say. With the battery connected, U rises to κU, but the slab is <i>still pulled in</i>, not pushed out. The battery supplies (κ−1)CV² of energy: half of it raises the stored energy and the other half is the work done pulling the slab into the gap. You don't need to force it in either case.</p>
+    <h3>What it means: the slab is always pulled in</h3>
+    <p>In both cases <i>W</i> &gt; 0, so the capacitor does positive work on the dielectric: it pulls the slab into the gap. You never have to push it in; to pull it back out you have to supply <i>W</i> yourself. Released from the edge on a frictionless track, the slab would speed up as it enters and oscillate back and forth about the centred position.</p><p>The force comes from the fringing field at the plate edges. Inside the gap the field is perpendicular to the plates and can't push sideways, but at the edge it bulges outward, and it pulls on the induced charges at the front of the slab.</p><p>The battery-connected case is the one that trips people up. The stored energy <em>rises</em>, yet the slab is still drawn in, because the battery supplies twice that rise. It is wrong to say "the system moves to lower its energy" here: at fixed <i>V</i> the force points toward <em>higher</em> stored energy, <span class="m"><i>F</i> = +d<i>U</i>/d<i>s</i></span>, while at fixed <i>q</i> it is <span class="m"><i>F</i> = −d<i>U</i>/d<i>s</i></span>. Both point inward.</p>
   </div>
 </section>
 
@@ -438,18 +501,18 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
     <div class="controls">
       <label class="ctl"><span class="row"><span>Slab thickness <i class="m">b</i>/<i class="m">d</i></span><output id="pbO"></output></span><input type="range" id="pb" min="0" max="1" step="0.01" value="0.5"></label>
       <label class="ctl"><span class="row"><span>Dielectric constant <i class="m">κ</i></span><output id="pkO"></output></span><input type="range" id="pk" min="1" max="10" step="0.1" value="3"></label>
-      <dl class="readout"><dt>C</dt><dd id="pC"></dd><dt>C / C<sub>vacuum</sub></dt><dd id="pR"></dd></dl>
+      <dl class="readout"><dt><i>C</i></dt><dd id="pC"></dd><dt><i>C</i>/<i>C</i><sub>vacuum</sub></dt><dd id="pR"></dd></dl>
       <h3 style="margin-top:6px">Same answer as three in series</h3>
       <dl class="readout" style="border-top:none;padding-top:0">
-        <dt>C₁ = C₃ = ε₀A / [(d−b)/2]</dt><dd id="pC1"></dd>
-        <dt>C₂ = κε₀A / b</dt><dd id="pC2"></dd>
-        <dt>1/(2/C₁ + 1/C₂)</dt><dd id="pCs"></dd>
+        <dt><i>C</i><sub>1</sub> = <i>C</i><sub>3</sub> = 2<i>ε</i><sub>0</sub><i>A</i>/(<i>d</i> − <i>b</i>)</dt><dd id="pC1"></dd>
+        <dt><i>C</i><sub>2</sub> = <i>κε</i><sub>0</sub><i>A</i>/<i>b</i></dt><dd id="pC2"></dd>
+        <dt>(2/<i>C</i><sub>1</sub> + 1/<i>C</i><sub>2</sub>)<sup>−1</sup></dt><dd id="pCs"></dd>
       </dl>
-      <p class="small">Check the limits: b → 0 gives ε₀A/d, and b = d gives κε₀A/d.</p>
+      <p class="small">Check the limits: <span class="m"><i>b</i> → 0</span> gives <span class="m"><i>ε</i><sub>0</sub><i>A</i>/<i>d</i></span>, and <span class="m"><i>b</i> = <i>d</i></span> gives <span class="m"><i>κε</i><sub>0</sub><i>A</i>/<i>d</i></span>.</p>
     </div>
     <div class="viz">
       <svg id="pSvg" viewBox="0 0 560 420" role="img" aria-label="Capacitor with partial slab and graphs of E(x) and V(x)"></svg>
-      <p class="small">Fixed setup: <i>A</i> = 100 cm², <i>d</i> = 1 mm. Graphs are in units of <i>q</i>/<i>ε</i>₀<i>A</i> (field) and <i>qd</i>/<i>ε</i>₀<i>A</i> (potential); <i>x</i> runs from the + plate to the − plate.</p>
+      <p class="small">Fixed setup: <i>A</i> = 100 cm², <i>d</i> = 1 mm. Graphs are in units of <i>q</i>/<i>ε</i><sub>0</sub><i>A</i> (field) and <i>qd</i>/<i>ε</i><sub>0</sub><i>A</i> (potential); <i>x</i> runs from the + plate to the − plate.</p>
     </div>
   </div>
 </section>
@@ -459,18 +522,19 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
   <h2><span class="num">8</span>Check yourself</h2>
   <div class="cheat">
     <div><b>Definition</b><span class="m"><i>q</i> = <i>CV</i>, &nbsp;1 F = 1 C/V</span></div>
-    <div><b>Parallel plates</b><span class="m"><i>C</i> = <i>ε</i>₀<i>A</i>/<i>d</i></span></div>
-    <div><b>Cylinder</b><span class="m"><i>C</i> = 2π<i>ε</i>₀<i>L</i>/ln(<i>b</i>/<i>a</i>)</span></div>
-    <div><b>Sphere / isolated sphere</b><span class="m"><i>C</i> = 4π<i>ε</i>₀<i>ab</i>/(<i>b</i>−<i>a</i>), &nbsp;4π<i>ε</i>₀<i>R</i></span></div>
+    <div><b>Parallel plates</b><span class="m"><i>C</i> = <i>ε</i><sub>0</sub><i>A</i>/<i>d</i></span></div>
+    <div><b>Cylinder</b><span class="m"><i>C</i> = 2π<i>ε</i><sub>0</sub><i>L</i>/ln(<i>b</i>/<i>a</i>)</span></div>
+    <div><b>Sphere / isolated sphere</b><span class="m"><i>C</i> = 4π<i>ε</i><sub>0</sub><i>ab</i>/(<i>b</i>−<i>a</i>), &nbsp;4π<i>ε</i><sub>0</sub><i>R</i></span></div>
     <div><b>Combinations</b><span class="m">parallel: Σ<i>C<sub>j</sub></i>; &nbsp;series: 1/<i>C</i><sub>eq</sub> = Σ1/<i>C<sub>j</sub></i></span></div>
-    <div><b>Energy</b><span class="m"><i>U</i> = <i>q</i>²/(2<i>C</i>) = (1/2)<i>CV</i>², &nbsp;<i>u</i> = (1/2)<i>ε</i>₀<i>E</i>²</span></div>
+    <div><b>Energy</b><span class="m"><i>U</i> = <i>q</i>²/(2<i>C</i>) = ½<i>CV</i>², &nbsp;<i>u</i> = ½<i>ε</i><sub>0</sub><i>E</i>²</span></div>
     <div><b>Dielectric</b><span class="m"><i>C</i> → <i>κC</i>; &nbsp;V fixed: <i>q</i> → <i>κq</i>; &nbsp;q fixed: <i>V</i> → <i>V</i>/<i>κ</i></span></div>
-    <div><b>Partial slab</b><span class="m"><i>C</i> = <i>ε</i>₀<i>A</i>/[<i>d</i> − (1−1/<i>κ</i>)<i>b</i>]</span></div>
+    <div><b>Dielectric energy</b><span class="m">q fixed: <i>U</i> → <i>U</i>/<i>κ</i>; &nbsp;V fixed: <i>U</i> → <i>κU</i>, Δ<i>U</i><sub>B</sub> = 2Δ<i>U</i>; &nbsp;<i>W</i> &gt; 0, pulled in</span></div>
+    <div><b>Partial slab</b><span class="m"><i>C</i> = <i>ε</i><sub>0</sub><i>A</i>/[<i>d</i> − (1−1/<i>κ</i>)<i>b</i>]</span></div>
   </div>
   <div class="quiz" id="quiz"></div>
 </section>
 
-<footer>Created by Claude Opus 5.5 based on the lecture notes on capacitance by Prof. Sang Hoon Lee, Department of Physics, Gyeongsang National University. Numerical values use ε₀ = 8.854 × 10⁻¹² F/m.</footer>
+<footer>Created by Claude Opus 5.5 based on the lecture notes on capacitance by Prof. Sang Hoon Lee, Department of Physics, Gyeongsang National University. Numerical values use <i>ε</i><sub>0</sub> = 8.854 × 10<sup>−12</sup> F/m.</footer>
 </div>
 
 <script>
@@ -904,7 +968,7 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     const list = $('#capList'); list.innerHTML = '';
     caps.forEach((c,i) => {
       const row = document.createElement('div'); row.className = 'capline';
-      row.innerHTML = `<span class="tag">C${sub(i)}</span><input type="range" min="1" max="20" step="1" value="${c}" aria-label="C${i+1} in microfarads"><output>${c} µF</output><button aria-label="Remove C${i+1}" ${caps.length<=1?'disabled':''}>×</button>`;
+      row.innerHTML = `<span class="tag"><i>C</i><sub>${i+1}</sub></span><input type="range" min="1" max="20" step="1" value="${c}" aria-label="C${i+1} in microfarads"><output>${c} µF</output><button aria-label="Remove C${i+1}" ${caps.length<=1?'disabled':''}>×</button>`;
       const inp = row.querySelector('input');
       inp.addEventListener('input', () => { caps[i] = +inp.value; row.querySelector('output').textContent = caps[i] + ' µF'; render(); });
       row.querySelector('button').addEventListener('click', () => { caps.splice(i,1); buildList(); render(); });
@@ -934,7 +998,7 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
         const x = xs[i], w = 26 + 30*c/maxC;
         s += `<path class="wire" d="M${x} 40 V110 M${x} 130 V200"/>`;
         s += `<rect x="${x-w/2}" y="106" width="${w}" height="4" class="plate"/><rect x="${x-w/2}" y="130" width="${w}" height="4" class="plate"/>`;
-        s += `<text x="${x+w/2+5}" y="125" font-style="italic" fill="var(--ink)">C${sub(i)}</text>`;
+        s += `<text x="${x+w/2+5}" y="125" fill="var(--ink)"><tspan font-style="italic">C</tspan><tspan baseline-shift="sub" font-size="10">${i+1}</tspan></text>`;
         s += `<text x="${x}" y="98" text-anchor="middle" class="pos" font-size="13">+${qs[i].toFixed(0)} µC</text>`;
         s += `<text x="${x}" y="152" text-anchor="middle" class="neg" font-size="13">−${qs[i].toFixed(0)} µC</text>`;
         s += `<circle cx="${x}" cy="40" r="3" fill="var(--ink)"/><circle cx="${x}" cy="200" r="3" fill="var(--ink)"/>`;
@@ -950,7 +1014,7 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
         const x = xs[i], h = 26 + 26*c/maxC;
         s += `<rect x="${x-8}" y="${40-h/2}" width="4" height="${h}" class="plate"/><rect x="${x+4}" y="${40-h/2}" width="4" height="${h}" class="plate"/>`;
         s += `<text x="${x-16}" y="${40-h/2-4}" class="pos" font-size="12">+</text><text x="${x+10}" y="${40-h/2-4}" class="neg" font-size="12">−</text>`;
-        s += `<text x="${x}" y="${40+h/2+18}" text-anchor="middle" font-style="italic" fill="var(--ink)">C${sub(i)}</text>`;
+        s += `<text x="${x}" y="${40+h/2+18}" text-anchor="middle" fill="var(--ink)"><tspan font-style="italic">C</tspan><tspan baseline-shift="sub" font-size="10">${i+1}</tspan></text>`;
         s += `<text x="${x}" y="${40+h/2+36}" text-anchor="middle" fill="var(--field)" font-size="14">${vs[i].toFixed(2)} V</text>`;
         if(i < n-1){ const xm = (xs[i]+xs[i+1])/2; s += `<ellipse cx="${xm}" cy="40" rx="${(xs[i+1]-xs[i])/2-2}" ry="16" fill="none" stroke="var(--die)" stroke-width="2" stroke-dasharray="4 3"/>`; }
       });
@@ -960,7 +1024,7 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     s += bat;
     $('#comboSvg').innerHTML = s;
     let t = '<tr><th></th><th>C (µF)</th><th>q (µC)</th><th>V (V)</th><th>U (µJ)</th></tr>';
-    caps.forEach((c,i) => t += `<tr><td><i>C${sub(i)}</i></td><td>${c}</td><td>${qs[i].toFixed(1)}</td><td>${vs[i].toFixed(2)}</td><td>${(0.5*c*vs[i]*vs[i]).toFixed(1)}</td></tr>`);
+    caps.forEach((c,i) => t += `<tr><td><i>C</i><sub>${i+1}</sub></td><td>${c}</td><td>${qs[i].toFixed(1)}</td><td>${vs[i].toFixed(2)}</td><td>${(0.5*c*vs[i]*vs[i]).toFixed(1)}</td></tr>`);
     t += `<tr><td><b>eq</b></td><td><b>${Ceq.toFixed(2)}</b></td><td><b>${(Ceq*V).toFixed(1)}</b></td><td><b>${V}</b></td><td><b>${(0.5*Ceq*V*V).toFixed(1)}</b></td></tr>`;
     $('#comboTable').innerHTML = t;
   }
@@ -1075,17 +1139,18 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
 /* ---------- 6. dielectric ---------- */
 (function(){
   const A = 0.01, d = 0.001, C0 = EPS0*A/d, V0 = 12, q0 = C0*V0, E0vac = V0/d, U0 = 0.5*C0*V0*V0;
-  let kappa = 3.5, inserted = false, mode = 'bat', ins = 0, align = 0, last = performance.now();
+  let kappa = 3.5, target = 0, mode = 'bat', ins = 0, align = 0, last = performance.now();
   const kSl = $('#kSl');
   const setK = k => { kappa = k; kSl.value = Math.log10(k); $('#kOut').textContent = k < 1.01 ? k.toFixed(5) : k.toFixed(k < 10 ? 2 : 1); table(); };
   kSl.addEventListener('input', () => { kappa = Math.pow(10, +kSl.value); $('#kOut').textContent = kappa < 1.01 ? kappa.toFixed(5) : kappa.toFixed(kappa < 10 ? 2 : 1); table(); });
   $$('[data-k]').forEach(b => b.addEventListener('click', () => setK(+b.dataset.k)));
   const dmBtns = $$('[data-dm]');
-  dmBtns.forEach(b => b.addEventListener('click', () => { mode = b.dataset.dm; pressGroup(dmBtns, b); table(); }));
-  $('#insBtn').addEventListener('click', () => { inserted = !inserted; $('#insBtn').textContent = inserted ? 'Remove dielectric' : 'Insert dielectric'; table(); });
+  dmBtns.forEach(b => b.addEventListener('click', () => { mode = b.dataset.dm; dmBtns.forEach(x => x.setAttribute('aria-pressed', x.dataset.dm === mode ? 'true' : 'false')); table(); }));
+  const syncIns = () => { $('#insBtn').textContent = target > 0.999 ? 'Remove dielectric' : 'Insert dielectric'; };
+  $('#insBtn').addEventListener('click', () => { target = target > 0.999 ? 0 : 1; syncIns(); });
   const rnd = Array.from({length:18}, () => Math.random()*360);
   function state(){
-    const k = inserted ? kappa : 1;
+    const k = 1 + (kappa-1)*ins;
     const C = k*C0;
     const V = mode === 'bat' ? V0 : q0/C;
     const q = C*V, E = V/d, Ef = q/(EPS0*A);
@@ -1099,8 +1164,8 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
   }
   function table(){
     const s = state();
-    const rows = [['C', C0, s.C, 'F'], ['q', q0, s.q, 'C'], ['V', V0, s.V, 'V'], ['E (net)', E0vac, s.E, 'V/m'], ['U', U0, s.U, 'J']];
-    $('#dTable').innerHTML = '<tr><th></th><th>vacuum</th><th>now</th><th>change</th></tr>' + rows.map(r => `<tr><td><i>${r[0]}</i></td><td>${fmt(r[1],r[3])}</td><td>${fmt(r[2],r[3])}</td><td>${ratio(r[2],r[1])}</td></tr>`).join('');
+    const rows = [['<i>C</i>', C0, s.C, 'F'], ['<i>q</i>', q0, s.q, 'C'], ['<i>V</i>', V0, s.V, 'V'], ['<i>E</i> (net)', E0vac, s.E, 'V/m'], ['<i>U</i>', U0, s.U, 'J']];
+    $('#dTable').innerHTML = '<tr><th></th><th>vacuum</th><th>now</th><th>change</th></tr>' + rows.map(r => `<tr><td>${r[0]}</td><td>${fmt(r[1],r[3])}</td><td>${fmt(r[2],r[3])}</td><td>${ratio(r[2],r[1])}</td></tr>`).join('');
   }
   function draw(){
     const s = state();
@@ -1134,19 +1199,124 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     if(qRel > 2.4) h += `<text x="${xR+6}" y="${yT-6}" class="lbl">q ×${qRel.toFixed(1)}</text>`;
     // field components gauge
     const gx = 430, gTop = 70, L = 150;
-    const lE0 = L, lEp = L*(s.Ep/s.Ef), lE = L*(s.E/s.Ef);
+    const kg = 1 + (kappa-1)*align, lE0 = L, lEp = L*(1 - 1/kg), lE = L/kg;
     h += `<line x1="${gx}" y1="${gTop}" x2="${gx}" y2="${gTop+lE0}" stroke="var(--neg)" stroke-width="3" marker-end="url(#mdb)"/>`;
     if(lEp > 3) h += `<line x1="${gx+18}" y1="${gTop+lEp}" x2="${gx+18}" y2="${gTop}" stroke="var(--pos)" stroke-width="3" marker-end="url(#mdr)"/>`;
     h += `<line x1="${gx+36}" y1="${gTop}" x2="${gx+36}" y2="${gTop+Math.max(lE,3)}" stroke="var(--field)" stroke-width="3" marker-end="url(#mdf)"/>`;
-    h += `<text x="${gx-4}" y="${gTop-10}" font-size="13" fill="var(--neg)">E₀</text><text x="${gx+13}" y="${gTop-10}" font-size="13" fill="var(--pos)">E′</text><text x="${gx+32}" y="${gTop-10}" font-size="13" fill="var(--field)">E</text>`;
+    h += `<text x="${gx-4}" y="${gTop-10}" font-size="13" fill="var(--neg)"><tspan font-style="italic">E</tspan><tspan baseline-shift="sub" font-size="10">0</tspan></text><text x="${gx+13}" y="${gTop-10}" font-size="13" fill="var(--pos)" font-style="italic">E′</text><text x="${gx+32}" y="${gTop-10}" font-size="13" fill="var(--field)" font-style="italic">E</text>`;
     $('#dSvg').innerHTML = h;
+    drawEnergy();
   }
+  // ---- energy bookkeeping graph ----
+  const Lside = 0.1, enSvg = $('#enSvg2'), fillSl = $('#fillSl');
+  const EX0 = 62, EX1 = 540, EYT = 22, EYB = 272;
+  function enAt(x){
+    const g = 1 + (kappa-1)*x;
+    if(mode === 'bat'){ const dU = U0*(kappa-1)*x; return {U: U0+dU, dU, dUB: 2*dU, W: dU, F: U0*(kappa-1)/Lside}; }
+    const U = U0/g; return {U, dU: U-U0, dUB: 0, W: U0-U, F: U0*(kappa-1)/(g*g)/Lside};
+  }
+  function niceStep(max){ const raw = max/5, p = Math.pow(10, Math.floor(Math.log10(raw))), m = raw/p; return (m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10)*p; }
+  function drawEnergy(){
+    const x = ins, e = enAt(x);
+    const ymax = mode === 'bat' ? 1 + 2*(kappa-1) : 1;
+    const top = ymax*1.08, step = niceStep(top);
+    const PX = t => EX0 + t*(EX1-EX0), PY = v => EYB - v/top*(EYB-EYT);
+    let s = '';
+    for(let v = 0; v <= top + 1e-9; v += step){ s += `<line x1="${EX0}" y1="${PY(v)}" x2="${EX1}" y2="${PY(v)}" class="gridl"/><text x="${EX0-8}" y="${PY(v)+4}" text-anchor="end" font-size="12" fill="var(--muted)">${+v.toFixed(3)}</text>`; }
+    const N = 80, xs = Array.from({length:N+1}, (_,i) => i/N);
+    const Us = xs.map(t => enAt(t).U/U0), Ws = xs.map(t => enAt(t).W/U0);
+    const line = arr => xs.map((t,i) => `${PX(t).toFixed(1)},${PY(arr[i]).toFixed(1)}`).join(' ');
+    const tops = Us.map((u,i) => u + Ws[i]);
+    s += `<polygon points="${PX(0)},${PY(0)} ${line(Us)} ${PX(1)},${PY(0)}" fill="var(--hl-cyan)"/>`;
+    s += `<polygon points="${line(Us)} ${xs.slice().reverse().map((t,j) => `${PX(t).toFixed(1)},${PY(tops[N-j]).toFixed(1)}`).join(' ')}" fill="var(--die-soft)"/>`;
+    s += `<polyline points="${line(Us)}" fill="none" stroke="var(--neg)" stroke-width="2.4"/>`;
+    s += `<polyline points="${line(tops)}" fill="none" stroke="${mode === 'bat' ? 'var(--accent)' : 'var(--die)'}" stroke-width="2.4"/>`;
+    s += `<line x1="${PX(0)}" y1="${PY(1)}" x2="${PX(1)}" y2="${PY(1)}" stroke="var(--muted)" stroke-dasharray="5 4"/>`;
+    // cursor
+    const cx = PX(x), u = e.U/U0, w = e.W/U0;
+    s += `<rect x="${cx-0.5}" y="${EYT}" width="1" height="${EYB-EYT}" fill="var(--ink)" opacity=".55"/>`;
+    s += `<circle cx="${cx}" cy="${PY(u)}" r="5" fill="var(--neg)"/><circle cx="${cx}" cy="${PY(u+w)}" r="5" fill="${mode === 'bat' ? 'var(--accent)' : 'var(--die)'}"/>`;
+    const lx = x > 0.62 ? cx - 10 : cx + 10, an = x > 0.62 ? 'end' : 'start';
+    if(PY(0) - PY(u) > 18) s += `<text x="${lx}" y="${(PY(0)+PY(u))/2+5}" text-anchor="${an}" font-size="14" font-weight="600" fill="var(--neg)">U</text>`;
+    if(PY(u) - PY(u+w) > 18) s += `<text x="${lx}" y="${(PY(u)+PY(u+w))/2+5}" text-anchor="${an}" font-size="14" font-weight="600" fill="var(--die)">W</text>`;
+    // axes
+    s += `<line x1="${EX0}" y1="${EYB}" x2="${EX1}" y2="${EYB}" class="axis"/><line x1="${EX0}" y1="${EYB}" x2="${EX0}" y2="${EYT}" class="axis"/>`;
+    [0,0.25,0.5,0.75,1].forEach(t => s += `<text x="${PX(t)}" y="${EYB+18}" text-anchor="middle" font-size="12" fill="var(--muted)">${t}</text>`);
+    s += `<text x="${(EX0+EX1)/2}" y="${EYB+44}" text-anchor="middle" class="lbl">x (fraction of the gap filled)</text>`;
+    s += `<text x="16" y="${(EYT+EYB)/2}" text-anchor="middle" class="lbl" transform="rotate(-90 16 ${(EYT+EYB)/2})">energy / <tspan font-style="italic">U</tspan><tspan baseline-shift="sub" font-size="10">i</tspan></text>`;
+    enSvg.innerHTML = s;
+    drawMini(e);
+    // readout
+    $('#fillOut').textContent = x.toFixed(2);
+    $('#enK').textContent = 'κ = {k} (set with the slider above)'.replace('{k}', kappa < 1.01 ? kappa.toFixed(5) : kappa.toFixed(kappa < 10 ? 2 : 1));
+    $('#enUi').textContent = fmt(U0,'J'); $('#enU').textContent = fmt(e.U,'J');
+    $('#enDU').textContent = (e.dU > 0 ? '+' : '') + fmt(e.dU,'J');
+    $('#enDUB').textContent = mode === 'bat' ? fmt(e.dUB,'J') : '0 (no battery)';
+    $('#enW').textContent = fmt(e.W,'J');
+    $('#enF').textContent = kappa < 1.0001 ? '0 N' : x < 0.005 ? '— (slab at the edge)' : x > 0.995 ? '0 (centred)' : fmt(e.F,'N') + ', pulls in';
+    $('#enEq').innerHTML = mode === 'bat' ? 'Δ<i>U</i><sub>B</sub> = 2Δ<i>U</i>, &nbsp;<i>W</i> = Δ<i>U</i>' : 'Δ<i>U</i> = −<i>W</i> &lt; 0';
+    $('#enLgB').style.display = mode === 'bat' ? '' : 'none';
+    if(document.activeElement !== fillSl) fillSl.value = x;
+  }
+
+  function drawMini(e){
+    const x = ins, xL = 150, xR = 450, W = xR - xL, yT = 52, yB = 140;
+    let h = `<defs>${arrowMarker('mmf','var(--ink)')}<clipPath id="mclip"><rect x="0" y="0" width="560" height="200"/></clipPath></defs>`;
+    // battery on the left
+    const bop = mode === 'bat' ? 1 : 0.25;
+    h += `<g opacity="${bop}"><path class="wire" d="M${xL} ${yT-4} H60 V${(yT+yB)/2-12}"/><path class="wire" d="M60 ${(yT+yB)/2+12} V${yB+4} H${xL}"/>`;
+    h += `<line x1="44" y1="${(yT+yB)/2-12}" x2="76" y2="${(yT+yB)/2-12}" stroke="var(--ink)" stroke-width="2.4"/><line x1="52" y1="${(yT+yB)/2+12}" x2="68" y2="${(yT+yB)/2+12}" stroke="var(--ink)" stroke-width="6"/></g>`;
+    if(mode !== 'bat') h += `<line x1="50" y1="${yT+4}" x2="70" y2="${yT+24}" stroke="var(--pos)" stroke-width="2.5"/><line x1="70" y1="${yT+4}" x2="50" y2="${yT+24}" stroke="var(--pos)" stroke-width="2.5"/><text x="60" y="${yB+30}" text-anchor="middle" class="lbl">disconnected</text>`;
+    // fringing field at both edges
+    [12,24,36].forEach((r,i) => {
+      h += `<path d="M${xR-4} ${yT+6} Q${xR+r*1.6} ${(yT+yB)/2} ${xR-4} ${yB-2}" fill="none" stroke="var(--field)" stroke-width="1.3" stroke-dasharray="4 3" opacity="${0.75-0.18*i}"/>`;
+      h += `<path d="M${xL+4} ${yT+6} Q${xL-r*1.6} ${(yT+yB)/2} ${xL+4} ${yB-2}" fill="none" stroke="var(--field)" stroke-width="1.3" stroke-dasharray="4 3" opacity="${0.5-0.12*i}"/>`;
+    });
+    h += `<text x="${xR+52}" y="${yT-30}" text-anchor="middle" class="lbl" style="fill:var(--field)">fringing field</text>`;
+    // slab entering from the right
+    const sL = xL + (1-x)*W;
+    h += `<g clip-path="url(#mclip)"><rect x="${sL}" y="${yT+8}" width="${W}" height="${yB-yT-16}" fill="var(--die-soft)" stroke="var(--die)" stroke-width="1.5"/></g>`;
+    // vertical field lines inside the gap (E = V/d is the same over both parts)
+    for(let j=0;j<7;j++){ const fx = xL + 22 + j*(W-44)/6; h += `<line x1="${fx}" y1="${yT+8}" x2="${fx}" y2="${yB-6}" class="fld" stroke-width="1.1" opacity=".45" marker-end="url(#mdf)"/>`; }
+    // plates
+    h += `<rect x="${xL}" y="${yT-8}" width="${W}" height="8" class="plate"/><rect x="${xL}" y="${yB}" width="${W}" height="8" class="plate"/>`;
+    // free charge: density on the empty part vs the filled part
+    const g = 1 + (kappa-1)*x, sE = mode === 'bat' ? 1 : 1/g, sF = kappa*sE;
+    const marks = (a, b, dens) => { if(b - a < 4) return; const sp = Math.max(6, 24/dens); for(let px = a + sp/2; px < b; px += sp){ h += `<text x="${px}" y="${yT-12}" class="pos" font-size="12" text-anchor="middle">+</text><text x="${px}" y="${yB+22}" class="neg" font-size="13" text-anchor="middle">−</text>`; } };
+    marks(xL, sL, sE); marks(sL, xR, sF);
+    if(x > 0.08 && kappa > 1.05) h += `<text x="${(sL+xR)/2}" y="${yT-26}" text-anchor="middle" class="lbl"><tspan font-style="italic">σ</tspan> ×${(sF/sE).toFixed(sF/sE < 10 ? 2 : 1)}</text>`;
+    // force arrow on the slab
+    const Fmax = U0*(kappa-1)/Lside;
+    if(kappa > 1.0001 && x > 0.005 && x < 0.995){
+      const len = 26 + 74*e.F/Fmax, ay = (yT+yB)/2 + 8, ax = Math.min(sL + W/2, 500);
+      h += `<line x1="${ax+len/2}" y1="${ay}" x2="${ax-len/2}" y2="${ay}" stroke="var(--ink)" stroke-width="3.2" marker-end="url(#mmf)"/>`;
+      h += `<text x="${ax}" y="${ay-10}" text-anchor="middle" font-size="13" font-weight="600" fill="var(--ink)">F (pulls in)</text>`;
+    }
+    // x bracket
+    if(x > 0.01){ const by = yB + 34; h += `<path d="M${sL} ${by-5} V${by} H${xR} V${by-5}" fill="none" stroke="var(--die)" stroke-width="1.6"/><text x="${(sL+xR)/2}" y="${by+15}" text-anchor="middle" class="lbl"><tspan font-style="italic">x</tspan> = ${x.toFixed(2)}</text>`; }
+    $('#enMini').innerHTML = h;
+  }
+  function setFill(t){ target = Math.max(0, Math.min(1, t)); ins = target; syncIns(); table(); }
+  fillSl.addEventListener('input', () => setFill(+fillSl.value));
+  let enDrag = false;
+  const enX = ev => { const r = enSvg.getBoundingClientRect(); return ((ev.clientX - r.left)/r.width*560 - EX0)/(EX1-EX0); };
+  enSvg.addEventListener('pointerdown', ev => { enDrag = true; enSvg.setPointerCapture(ev.pointerId); setFill(enX(ev)); });
+  enSvg.addEventListener('pointermove', ev => { if(enDrag) setFill(enX(ev)); });
+  enSvg.addEventListener('pointerup', () => enDrag = false);
+  enSvg.addEventListener('pointercancel', () => enDrag = false);
+  enSvg.addEventListener('keydown', ev => {
+    if(ev.key === 'ArrowRight' || ev.key === 'ArrowUp'){ setFill(ins + 0.05); ev.preventDefault(); }
+    else if(ev.key === 'ArrowLeft' || ev.key === 'ArrowDown'){ setFill(ins - 0.05); ev.preventDefault(); }
+    else if(ev.key === 'Home'){ setFill(0); ev.preventDefault(); } else if(ev.key === 'End'){ setFill(1); ev.preventDefault(); }
+  });
+
   function frame(t){
     const dt = Math.min(0.05,(t-last)/1000); last = t;
     const sp = reduceMotion ? 20 : 2.2;
-    const ti = inserted ? 1 : 0;
-    ins += Math.sign(ti-ins)*Math.min(Math.abs(ti-ins), dt*sp);
-    const ta = (inserted && ins > 0.98) ? 1 : 0;
+    const prev = ins;
+    ins += Math.sign(target-ins)*Math.min(Math.abs(target-ins), dt*sp);
+    if(ins !== prev) table();
+    const ta = ins > 0.01 ? 1 : 0;
     align += Math.sign(ta-align)*Math.min(Math.abs(ta-align), dt*sp*(ta ? 0.9 : 3));
     draw();
     requestAnimationFrame(frame);
@@ -1182,32 +1352,32 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     }
     s += `<rect x="${cxL}" y="${cy0-8}" width="${cw}" height="8" class="plate"/><rect x="${cxL}" y="${cy0+ch}" width="${cw}" height="8" class="plate"/>`;
     s += `<text x="${cxL+cw/2}" y="${cy0-14}" text-anchor="middle" class="pos">+q</text><text x="${cxL+cw/2}" y="${cy0+ch+26}" text-anchor="middle" class="neg">−q</text>`;
-    if(beta > 0.12) s += `<text x="${cxL+cw/2}" y="${Y(0.5)+5}" text-anchor="middle" class="lbl" style="fill:var(--ink)">κ = ${k.toFixed(1)}</text>`;
+    if(beta > 0.12) s += `<text x="${cxL+cw/2}" y="${Y(0.5)+5}" text-anchor="middle" class="lbl" style="fill:var(--ink)"><tspan font-style="italic">κ</tspan> = ${k.toFixed(1)}</text>`;
     // graphs: x axis vertical to match? Use horizontal graphs on right.
     const gx = 220, gw = 320;
     const gE = {y0: 180, h: 130}, gV = {y0: 380, h: 150};
     const GX = x => gx + x*gw;
     // E(x)
-    s += `<text x="${gx}" y="${gE.y0-gE.h-12}" class="lbl">E(x)</text>`;
+    s += `<text x="${gx}" y="${gE.y0-gE.h-12}" class="lbl" font-family="var(--math)" font-size="15"><tspan font-style="italic">E</tspan>(<tspan font-style="italic">x</tspan>)</text>`;
     s += `<line x1="${gx}" y1="${gE.y0}" x2="${gx+gw}" y2="${gE.y0}" class="axis"/><line x1="${gx}" y1="${gE.y0}" x2="${gx}" y2="${gE.y0-gE.h}" class="axis"/>`;
     const EY = e => gE.y0 - e*gE.h*0.85;
     s += `<polygon points="${GX(0)},${gE.y0} ${GX(0)},${EY(1)} ${GX(x1)},${EY(1)} ${GX(x1)},${EY(1/k)} ${GX(x2)},${EY(1/k)} ${GX(x2)},${EY(1)} ${GX(1)},${EY(1)} ${GX(1)},${gE.y0}" fill="var(--hl-mag)"/>`;
     s += `<polyline points="${GX(0)},${EY(1)} ${GX(x1)},${EY(1)} ${GX(x1)},${EY(1/k)} ${GX(x2)},${EY(1/k)} ${GX(x2)},${EY(1)} ${GX(1)},${EY(1)}" fill="none" stroke="var(--neg)" stroke-width="2.4"/>`;
     s += `<text x="${gx-6}" y="${EY(1)+4}" text-anchor="end" font-size="12" fill="var(--muted)">1</text>`;
-    if(k > 1.05) s += `<text x="${gx-6}" y="${EY(1/k)+4}" text-anchor="end" font-size="12" fill="var(--muted)">1/κ</text>`;
+    if(k > 1.05) s += `<text x="${gx-6}" y="${EY(1/k)+4}" text-anchor="end" font-size="12" fill="var(--muted)">1/<tspan font-style="italic">κ</tspan></text>`;
     s += `<text x="${GX(0.5)}" y="${gE.y0-6}" text-anchor="middle" class="lbl">shaded area = V</text>`;
     // V(x)
     const Vtot = 1 - (1-1/k)*beta;
     const VY = v => gV.y0 - v*gV.h*0.9;
     const pts = [[0,Vtot],[x1,Vtot-x1],[x2,x1],[1,0]];
-    s += `<text x="${gx}" y="${gV.y0-gV.h-12}" class="lbl">V(x), measured from the − plate</text>`;
+    s += `<text x="${gx}" y="${gV.y0-gV.h-12}" class="lbl"><tspan font-family="var(--math)" font-size="15"><tspan font-style="italic">V</tspan>(<tspan font-style="italic">x</tspan>)</tspan>, measured from the − plate</text>`;
     s += `<line x1="${gx}" y1="${gV.y0}" x2="${gx+gw}" y2="${gV.y0}" class="axis"/><line x1="${gx}" y1="${gV.y0}" x2="${gx}" y2="${gV.y0-gV.h}" class="axis"/>`;
     s += `<line x1="${GX(0)}" y1="${VY(1)}" x2="${GX(1)}" y2="${VY(0)}" stroke="var(--muted)" stroke-dasharray="4 4"/>`;
     s += `<polyline points="${pts.map(p => GX(p[0])+','+VY(p[1])).join(' ')}" fill="none" stroke="var(--pos)" stroke-width="2.6"/>`;
     pts.forEach(p => s += `<circle cx="${GX(p[0])}" cy="${VY(p[1])}" r="3.5" fill="var(--pos)"/>`);
     s += `<text x="${GX(1)-4}" y="${VY(1)+6}" text-anchor="end" font-size="12" fill="var(--muted)">dashed: no slab</text>`;
     s += `<text x="${gx-6}" y="${VY(Vtot)+4}" text-anchor="end" font-size="12" fill="var(--muted)">${Vtot.toFixed(2)}</text>`;
-    [[x1,'(d−b)/2'],[x2,'(d+b)/2'],[1,'d']].forEach(([x,l]) => { s += `<line x1="${GX(x)}" y1="${gE.y0-gE.h}" x2="${GX(x)}" y2="${gV.y0}" stroke="var(--line)" stroke-dasharray="3 4"/><text x="${GX(x)}" y="${gV.y0+16}" text-anchor="middle" font-size="12" fill="var(--muted)">${l}</text>`; });
+    [[x1,'(<tspan font-style="italic">d</tspan> − <tspan font-style="italic">b</tspan>)/2'],[x2,'(<tspan font-style="italic">d</tspan> + <tspan font-style="italic">b</tspan>)/2'],[1,'<tspan font-style="italic">d</tspan>']].forEach(([x,l]) => { s += `<line x1="${GX(x)}" y1="${gE.y0-gE.h}" x2="${GX(x)}" y2="${gV.y0}" stroke="var(--line)" stroke-dasharray="3 4"/><text x="${GX(x)}" y="${gV.y0+16}" text-anchor="middle" font-size="12" fill="var(--muted)">${l}</text>`; });
     $('#pSvg').innerHTML = s;
   }
   ['#pb','#pk'].forEach(s => $(s).addEventListener('input', draw));
@@ -1221,7 +1391,8 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     {p:'Three 6 µF capacitors are connected in series. What is C_eq?', o:['18 µF','6 µF','2 µF','0.5 µF'], a:2, e:'1/C_eq = 1/6 + 1/6 + 1/6 = 1/2, so C_eq = 2 µF. In parallel they would give 18 µF.'},
     {p:'An isolated, charged parallel-plate capacitor (q fixed) has its plate separation doubled. Its stored energy…', o:['halves','stays the same','doubles','quadruples'], a:2, e:'C = ε₀A/d halves, and U = q²/2C, so U doubles. The extra energy comes from the work you do pulling the attracting plates apart.'},
     {p:'With the battery still connected, a slab of constant κ fills the gap. The charge on the plates…', o:['is multiplied by κ','is divided by κ','stays the same','drops to zero'], a:0, e:'V is held by the battery and C becomes κC, so q = CV becomes κq.'},
-    {p:'Which expression gives the energy per unit volume stored in an electric field?', o:['(1/2)CV²','ε₀E','(1/2)ε₀E²','q²/2C'], a:2, e:'u = (1/2)ε₀E² holds anywhere there is a field. (1/2)CV² and q²/2C are total energies.'}
+    {p:'Which expression gives the energy per unit volume stored in an electric field?', o:['½CV²','ε₀E','½ε₀E²','q²/2C'], a:2, e:'u = ½ε₀E² holds anywhere there is a field. ½CV² and q²/2C are total energies.'},
+    {p:'With the battery still connected, a dielectric slab is slid into the gap and the stored energy rises from U to κU. What happens to the slab?', o:['You must push it in, since the field gains energy','It is pulled in; the battery supplies 2ΔU and half of that is work done on the slab','It is pushed out, since the system tries to lower its energy','No force acts, since V does not change'], a:1, e:'The battery moves an extra (κ−1)q through V, supplying (κ−1)CV² = 2ΔU. Half raises the stored energy and the other half, W = ΔU > 0, is work done pulling the slab in.'}
   ];
   const root = $('#quiz');
   Q.forEach((q,qi) => {

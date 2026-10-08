@@ -84,7 +84,9 @@ button{font-family:var(--display);font-weight:600;font-size:.92rem;border:1.5px 
 button[aria-pressed="true"],button.primary{background:var(--btn);color:var(--btn-ink)}
 button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .readout{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-family:var(--math);font-size:1.08rem;border-top:1.5px dashed var(--line);padding-top:12px}
-.readout dt{color:var(--muted);font-style:italic}
+.readout dt{color:var(--muted);font-style:normal}
+.readout dt i,.readout dd i{font-style:italic}
+.readout sub,.m sub,.eq sub,table.cmp sub,.capline sub{font-size:.7em;line-height:0;font-style:normal}
 .readout dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
 .m{font-family:var(--math);font-size:1.12em;white-space:nowrap}
 .m i{font-style:italic}
@@ -104,6 +106,18 @@ mark.c{background:linear-gradient(transparent 50%,var(--hl-cyan) 50%)}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
 .callout{border-left:5px solid var(--warn-line);background:var(--warn);padding:12px 16px;border-radius:0 10px 10px 0;margin:18px 0;max-width:760px}
 .callout h3{font-size:1rem}
+.callout p{margin:.5rem 0}
+.cases{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.cases>div{background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:16px 18px;min-width:0}
+.cases h4{font-family:var(--display);font-size:1.02rem;font-weight:700;margin:0 0 .5rem}
+.cases p{margin:.5rem 0}
+.cases .eq{font-size:1.12rem;padding:8px 14px;max-width:100%;overflow-x:auto;box-sizing:border-box}
+@media (max-width:820px){.cases{grid-template-columns:1fr}}
+.cases .eq{display:block;width:fit-content;margin:16px 0}
+.paren{font-size:1.45em;line-height:0;vertical-align:-.1em;font-weight:400}
+em{font-style:normal;font-weight:600}
+#enEq{font-size:1.05rem;padding:8px 14px;margin:2px 0 0}
+.verdict{font-family:var(--display);font-weight:600;color:var(--accent)}
 table.cmp{border-collapse:collapse;width:100%;font-family:var(--math);font-size:1.02rem}
 table.cmp th{font-family:var(--display);font-weight:600;font-size:.88rem;color:var(--muted);text-align:right;padding:4px 6px;border-bottom:1.5px solid var(--line)}
 table.cmp th:first-child,table.cmp td:first-child{text-align:left}
@@ -113,7 +127,7 @@ table.cmp td{text-align:right;padding:5px 6px;border-bottom:1px solid var(--line
 .ratio-down{color:var(--pos);font-weight:600}
 .capline{display:flex;gap:8px;align-items:center}
 .capline input{flex:1}
-.capline .tag{font-family:var(--math);font-style:italic;min-width:2.2em}
+.capline .tag{font-family:var(--math);font-style:normal;min-width:2.2em}
 .capline output{font-family:var(--math);min-width:4.2em;text-align:right}
 .capline button{padding:2px 9px;font-size:.85rem}
 .cheat{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:20px}
@@ -192,10 +206,10 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
         <button data-mode="flash">플래시 터뜨리기</button>
       </div>
       <dl class="readout">
-        <dt>C</dt><dd>100 µF</dd>
-        <dt>q</dt><dd id="r1q">0</dd>
-        <dt>V<sub>C</sub> = q/C</dt><dd id="r1v">0</dd>
-        <dt>U = q²/2C</dt><dd id="r1u">0</dd>
+        <dt><i>C</i></dt><dd>100 µF</dd>
+        <dt><i>q</i></dt><dd id="r1q">0</dd>
+        <dt><i>V</i><sub>C</sub> = <i>q</i>/<i>C</i></dt><dd id="r1v">0</dd>
+        <dt><i>U</i> = <i>q</i>²/2<i>C</i></dt><dd id="r1u">0</dd>
       </dl>
       <p class="small">여기서는 충전 과정을 부드러운 곡선으로만 표현했습니다. 실제 시간에 따른 변화는 나중에 저항(resistance)이 포함된 회로(RC 회로)에서 배웁니다.</p>
     </div>
@@ -265,7 +279,7 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
     <div class="controls">
       <label class="ctl"><span class="row"><span>극판 면적 <i class="m">A</i></span><output id="ppAo"></output></span><input type="range" id="ppA" min="1" max="400" step="1" value="100"></label>
       <label class="ctl"><span class="row"><span>극판 간격 <i class="m">d</i></span><output id="ppDo"></output></span><input type="range" id="ppD" min="0.1" max="8" step="0.1" value="2"></label>
-      <dl class="readout"><dt>C</dt><dd id="ppC"></dd></dl>
+      <dl class="readout"><dt><i>C</i></dt><dd id="ppC"></dd></dl>
       <div class="eq"><i>C</i> = <i>ε</i><sub>0</sub><span class="frac"><span><i>A</i></span><span><i>d</i></span></span></div>
     </div>
     <div class="viz">
@@ -283,7 +297,7 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
       <label class="ctl"><span class="row"><span>안쪽 반지름 <i class="m">a</i></span><output id="cyAo"></output></span><input type="range" id="cyA" min="0.2" max="8" step="0.1" value="1"></label>
       <label class="ctl"><span class="row"><span>바깥쪽 반지름 <i class="m">b</i></span><output id="cyBo"></output></span><input type="range" id="cyB" min="1" max="20" step="0.1" value="5"></label>
       <label class="ctl"><span class="row"><span>길이 <i class="m">L</i></span><output id="cyLo"></output></span><input type="range" id="cyL" min="0.1" max="10" step="0.1" value="1"></label>
-      <dl class="readout"><dt>C</dt><dd id="cyC"></dd><dt>C / L</dt><dd id="cyCL"></dd></dl>
+      <dl class="readout"><dt><i>C</i></dt><dd id="cyC"></dd><dt><i>C</i>/<i>L</i></dt><dd id="cyCL"></dd></dl>
       <div class="eq"><i>C</i> = 2π<i>ε</i><sub>0</sub><span class="frac"><span><i>L</i></span><span>ln(<i>b</i>/<i>a</i>)</span></span></div>
     </div>
     <div class="viz">
@@ -305,7 +319,7 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
       <label class="ctl"><span class="row"><span>안쪽 반지름 <i class="m">a</i></span><output id="spAo"></output></span><input type="range" id="spA" min="1" max="40" step="0.5" value="10"></label>
       <label class="ctl"><span class="row"><span>바깥쪽 반지름 <i class="m">b</i></span><output id="spBo"></output></span><input type="range" id="spB" min="2" max="100" step="0.5" value="20"></label>
       <label class="ctl" style="flex-direction:row;align-items:center;gap:8px"><input type="checkbox" id="spIso"> 고립된 구 (b → ∞)</label>
-      <dl class="readout"><dt>C</dt><dd id="spC"></dd></dl>
+      <dl class="readout"><dt><i>C</i></dt><dd id="spC"></dd></dl>
       <div class="eq" id="spEq"></div>
     </div>
     <div class="viz">
@@ -339,7 +353,7 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
       <label class="ctl"><span class="row"><span>전지 전압 <i class="m">V</i></span><output id="cVo"></output></span><input type="range" id="cV" min="1" max="24" step="1" value="12"></label>
       <div id="capList" class="controls" style="gap:8px"></div>
       <div class="btns"><button id="addCap">축전기 추가</button></div>
-      <dl class="readout"><dt>C<sub>eq</sub></dt><dd id="cEq"></dd><dt>전지가 공급한 q</dt><dd id="cQ"></dd></dl>
+      <dl class="readout"><dt><i>C</i><sub>eq</sub></dt><dd id="cEq"></dd><dt>전지가 공급한 <i>q</i></dt><dd id="cQ"></dd></dl>
       <div class="eq green" id="ruleEq"></div>
     </div>
     <div class="viz">
@@ -366,12 +380,12 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
       <label class="ctl"><span class="row"><span>전기용량 <i class="m">C</i></span><output id="eCo"></output></span><input type="range" id="eC" min="10" max="100" step="1" value="25"></label>
       <label class="ctl"><span class="row"><span>최종 전하 <i class="m">q</i></span><output id="eQo"></output></span><input type="range" id="eQ" min="0" max="1000" step="10" value="600"></label>
       <label class="ctl"><span class="row"><span>조각 수 <i class="m">dq′</i></span><output id="eNo"></output></span><input type="range" id="eN" min="1" max="40" step="1" value="8"></label>
-      <dl class="readout"><dt>V = q/C</dt><dd id="eV"></dd><dt>조각들의 합</dt><dd id="eSum"></dd><dt>U = q²/2C</dt><dd id="eU"></dd></dl>
+      <dl class="readout"><dt><i>V</i> = <i>q</i>/<i>C</i></dt><dd id="eV"></dd><dt>조각들의 합</dt><dd id="eSum"></dd><dt><i>U</i> = <i>q</i>²/2<i>C</i></dt><dd id="eU"></dd></dl>
       <p class="small">조각을 늘릴수록 계단 모양이 삼각형, 즉 적분값에 가까워집니다.</p>
     </div>
     <div class="qvrow">
       <figure class="qv"><svg id="uqSvg" viewBox="0 0 360 272" role="img" tabindex="0" aria-label="전하 q에 대한 저장 에너지 U 그래프"></svg><figcaption class="small"><i>U</i> = <i>q</i>²/(2<i>C</i>)는 <i>q</i>에 대한 포물선입니다. 기울기 d<i>U</i>/d<i>q</i>가 계속 커지는 <i>V</i>이므로, 마이크로쿨롬 하나를 더 넣을 때마다 드는 일이 점점 커집니다. 분홍 점은 위 그래프 조각들의 누적 합입니다. 그래프 위를 끌거나 (← → 키로) <i>q</i>를 바꿔 보세요.</figcaption></figure>
-      <figure class="qv"><svg id="uvSvg" viewBox="0 0 360 272" role="img" tabindex="0" aria-label="전압 V에 대한 저장 에너지 U 그래프"></svg><figcaption class="small"><i>U</i> = (1/2)<i>CV</i>²는 <i>V</i>에 대한 포물선이고, 기울기 d<i>U</i>/d<i>V</i>는 <i>q</i> = <i>CV</i>입니다. <i>C</i> 슬라이더를 움직이며 각 곡선을 점선(처음 곡선)과 비교해 보세요. <i>q</i>가 일정하면 <i>C</i>가 클수록 에너지가 작아지고, <i>V</i>가 일정하면 <i>C</i>가 클수록 에너지가 커집니다. <i>V</i>축은 <i>q</i> 슬라이더로 닿을 수 있는 범위입니다. 여기를 끌어 <i>V</i>를 바꾸면 <i>q</i>는 <i>CV</i>로 따라갑니다.</figcaption></figure>
+      <figure class="qv"><svg id="uvSvg" viewBox="0 0 360 272" role="img" tabindex="0" aria-label="전압 V에 대한 저장 에너지 U 그래프"></svg><figcaption class="small"><i>U</i> = ½<i>CV</i>²는 <i>V</i>에 대한 포물선이고, 기울기 d<i>U</i>/d<i>V</i>는 <i>q</i> = <i>CV</i>입니다. <i>C</i> 슬라이더를 움직이며 각 곡선을 점선(처음 곡선)과 비교해 보세요. <i>q</i>가 일정하면 <i>C</i>가 클수록 에너지가 작아지고, <i>V</i>가 일정하면 <i>C</i>가 클수록 에너지가 커집니다. <i>V</i>축은 <i>q</i> 슬라이더로 닿을 수 있는 범위입니다. 여기를 끌어 <i>V</i>를 바꾸면 <i>q</i>는 <i>CV</i>로 따라갑니다.</figcaption></figure>
     </div>
   </div>
   <div class="prose">
@@ -407,19 +421,69 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
     </div>
     <div class="viz">
       <svg id="dSvg" viewBox="0 0 560 300" role="img" aria-label="유전체와 정렬된 쌍극자가 있는 평행판 축전기"></svg>
-      <div class="legend"><span style="--c:var(--neg)">E₀ 자유 전하가 만드는 외부 전기장</span><span style="--c:var(--pos)">E′ 정렬된 쌍극자의 장</span><span style="--c:var(--field)">전체 전기장 E = E₀ − E′</span></div>
+      <div class="legend"><span style="--c:var(--neg)"><i>E</i><sub>0</sub> 자유 전하가 만드는 외부 전기장</span><span style="--c:var(--pos)">E′ 정렬된 쌍극자의 장</span><span style="--c:var(--field)">전체 전기장 <i>E</i> = <i>E</i><sub>0</sub> − <i>E′</i></span></div>
     </div>
   </div>
   <div class="prose">
     <h3 style="margin-top:28px">왜 전기장이 줄어드는가?</h3>
-    <p>유전체 속 분자들은 전기 쌍극자(electric dipole)입니다. 물이 대표적인 극성 분자(polar molecule)입니다. 외부 전기장 <i>E</i>₀가 토크(torque)를 가해 쌍극자 모멘트(dipole moment)를 정렬시킵니다. 이를 분극(polarization)이라고 합니다. 정렬된 쌍극자는 + 극판 바로 아래에 −<i>q′</i>, − 극판 바로 위에 +<i>q′</i>의 유도 전하(induced charge)를 남기고, 이 전하가 외부 전기장과 반대 방향의 장 <i>E′</i>을 만듭니다. 전체 전기장은 벡터합 <span class="m"><i>E</i> = <i>E</i>₀ − <i>E′</i></span>(방향 반대)입니다. 도체에서는 정확히 <i>E′</i> = −<i>E</i>₀가 되어 내부의 <i>E</i> = 0이 되는 것입니다!</p>
+    <p>유전체 속 분자들은 전기 쌍극자(electric dipole)입니다. 물이 대표적인 극성 분자(polar molecule)입니다. 외부 전기장 <i>E</i><sub>0</sub>가 토크(torque)를 가해 쌍극자 모멘트(dipole moment)를 정렬시킵니다. 이를 분극(polarization)이라고 합니다. 정렬된 쌍극자는 + 극판 바로 아래에 −<i>q′</i>, − 극판 바로 위에 +<i>q′</i>의 유도 전하(induced charge)를 남기고, 이 전하가 외부 전기장과 반대 방향의 장 <i>E′</i>을 만듭니다. 전체 전기장은 벡터합 <span class="m"><i>E</i> = <i>E</i><sub>0</sub> − <i>E′</i></span>(방향 반대)입니다. 도체에서는 정확히 <i>E′</i> = −<i>E</i><sub>0</sub>가 되어 내부의 <i>E</i> = 0이 되는 것입니다!</p>
     <p>그래서 유전상수 κ인 물질 안에서는 가우스 법칙을 다음과 같이 씁니다.</p>
     <div class="eq"><i>κε</i><sub>0</sub>∮<i>E</i>·d<i>A</i> = <i>q</i></div>
-    <p>이를 <span class="m"><i>ε</i><sub>0</sub>∮<i>E</i>·d<i>A</i> = <i>q</i> − <i>q′</i></span>와 비교하면 <span class="m"><i>q</i> − <i>q′</i> = <i>q</i>/<i>κ</i></span>를 얻습니다. 유전체 속 점전하 주변의 전기장 <span class="m"><i>E</i> = <i>q</i>/4π<i>κε</i><sub>0</sub><i>r</i>²</span>과, 유전체에 잠겨 있는 고립된 도체 바로 바깥의 전기장 <span class="m"><i>σ</i>/<i>κε</i><sub>0</sub></span>는 모두 진공에서의 값을 κ로 나눈 것입니다. 즉 유전체는 전기장을 약화시키고, 퍼텐셜 차가 줄어들기 때문에 C가 커져서 q를 유지시킵니다. 노트에서는 <i>D</i> = <i>κE</i>(전기 변위장, electric displacement)로 썼는데, 표준 SI 관례에서는 ε₀를 포함해 <i>D</i> = <i>κε</i>₀<i>E</i>로 정의하여 ∮<i>D</i>·d<i>A</i> = <i>q</i><sub>자유</sub>(free charge)가 되게 합니다.</p>
+    <p>이를 <span class="m"><i>ε</i><sub>0</sub>∮<i>E</i>·d<i>A</i> = <i>q</i> − <i>q′</i></span>와 비교하면 <span class="m"><i>q</i> − <i>q′</i> = <i>q</i>/<i>κ</i></span>를 얻습니다. 유전체 속 점전하 주변의 전기장 <span class="m"><i>E</i> = <i>q</i>/4π<i>κε</i><sub>0</sub><i>r</i>²</span>과, 유전체에 잠겨 있는 고립된 도체 바로 바깥의 전기장 <span class="m"><i>σ</i>/<i>κε</i><sub>0</sub></span>는 모두 진공에서의 값을 κ로 나눈 것입니다. 즉 유전체는 전기장을 약화시키고, 퍼텐셜 차가 줄어들기 때문에 C가 커져서 q를 유지시킵니다. 노트에서는 <i>D</i> = <i>κE</i>(전기 변위장, electric displacement)로 썼는데, 표준 SI 관례에서는 <i>ε</i><sub>0</sub>를 포함해 <i>D</i> = <i>κε</i><sub>0</sub><i>E</i>로 정의하여 ∮<i>D</i>·d<i>A</i> = <i>q</i><sub>자유</sub>(free charge)가 되게 합니다.</p>
+  </div>
+  <div class="prose">
+    <h3 style="margin-top:28px">유전체를 넣을 때의 에너지 변화</h3>
+    <p>유전체를 넣기 전 축전기의 퍼텐셜 에너지는 세 가지 같은 형태로 쓸 수 있습니다.</p>
+    <div class="eq"><i>U</i><sub>i</sub> = <span class="frac"><span>1</span><span>2</span></span><i>CV</i>² = <span class="frac"><span><i>q</i>²</span><span>2<i>C</i></span></span> = <span class="frac"><span>1</span><span>2</span></span><i>qV</i></div>
+    <p>그런데 <i>C</i>가 <i>κC</i>로 바뀌면 <i>q</i>와 <i>V</i> 중 하나만 일정하게 유지되므로 세 식이 말하는 결과가 달라집니다. 일정한 양이 들어 있는 식을 골라 쓰고, 에너지 차이가 어디로 갔는지 따져 봅니다.</p>
+  </div>
+  <div class="cases">
+    <div>
+      <h4>(1) <i>q</i>가 일정 (전지 연결 X)</h4>
+      <p><span class="m"><i>U</i> = <i>q</i>²/2<i>C</i></span>를 씁니다. <i>q</i>는 그대로이고 <i>C</i> → <i>κC</i>이므로 에너지가 줄어듭니다: <span class="m"><i>U</i><sub>i</sub> → <i>U</i><sub>i</sub>/<i>κ</i></span>.</p>
+      <p>전지가 없으므로 줄어든 에너지는 <em>축전기가 유전체에 한 일</em> <i>W</i>로만 갈 수 있습니다.</p>
+      <div class="eq">Δ<i>U</i> = <span class="frac"><span>1</span><span>2</span></span><span class="paren">(</span><span class="frac"><span>1</span><span><i>κ</i></span></span> − 1<span class="paren">)</span><span class="frac"><span><i>q</i>²</span><span><i>C</i></span></span> = −<i>W</i> &lt; 0</div>
+      <div class="eq green"><i>W</i> = <span class="frac"><span>1</span><span>2</span></span><span class="paren">(</span>1 − <span class="frac"><span>1</span><span><i>κ</i></span></span><span class="paren">)</span><span class="frac"><span><i>q</i>²</span><span><i>C</i></span></span></div>
+      <p class="verdict"><i class="m">W</i> &gt; 0: 축전기가 유전체를 끌어당김.</p>
+    </div>
+    <div>
+      <h4>(2) <i>V</i>가 일정 (전지 연결 O)</h4>
+      <p><span class="m"><i>U</i> = ½<i>CV</i>²</span>를 씁니다. <i>V</i>는 유지되고 <i>C</i> → <i>κC</i>이므로 에너지가 커집니다: <span class="m"><i>U</i><sub>i</sub> → <i>κU</i><sub>i</sub></span>, 즉 <span class="m">Δ<i>U</i> = ½(<i>κ</i> − 1)<i>CV</i>² &gt; 0</span>.</p>
+      <p>하지만 <i>q</i>는 일정하지 않고 <i>κq</i>로 늘어나므로, 전지가 추가 전하 <span class="m">Δ<i>q</i> = (<i>κ</i> − 1)<i>q</i></span>를 전압 <i>V</i>로 밀어 넣습니다. 전지가 공급한 에너지는</p>
+      <div class="eq">Δ<i>U</i><sub>B</sub> = (<i>κ</i> − 1)<i>qV</i> = (<i>κ</i> − 1)<i>CV</i>² = 2Δ<i>U</i></div>
+      <p>에너지 보존 <span class="m">Δ<i>U</i> = Δ<i>U</i><sub>B</sub> − <i>W</i></span>에서 <span class="m"><i>W</i> = 2Δ<i>U</i> − Δ<i>U</i> = Δ<i>U</i></span>를 얻습니다.</p>
+      <p class="verdict">역시 <i class="m">W</i> &gt; 0: 유전체는 여전히 끌려 들어감.</p>
+    </div>
+  </div>
+  <div class="lab" id="enLab">
+    <div class="controls">
+      <div class="btns" role="group" aria-label="전지 연결 상태">
+        <button data-dm="bat" aria-pressed="true">전지 연결 (V 일정)</button>
+        <button data-dm="iso" aria-pressed="false">전지 분리 (q 일정)</button>
+      </div>
+      <label class="ctl"><span class="row"><span>유전체가 들어간 정도 <i class="m">x</i></span><output id="fillOut"></output></span><input type="range" id="fillSl" min="0" max="1" step="0.01" value="0"></label>
+      <p class="small" id="enK" style="margin:0"></p>
+      <dl class="readout">
+        <dt><i>U</i><sub>i</sub></dt><dd id="enUi"></dd>
+        <dt>현재 <i>U</i></dt><dd id="enU"></dd>
+        <dt>Δ<i>U</i></dt><dd id="enDU"></dd>
+        <dt>전지가 공급한 Δ<i>U</i><sub>B</sub></dt><dd id="enDUB"></dd>
+        <dt>유전체에 한 일 <i>W</i></dt><dd id="enW"></dd>
+        <dt>유전체에 작용하는 힘</dt><dd id="enF"></dd>
+      </dl>
+      <div class="eq green" id="enEq"></div>
+      <p class="small">위와 같은 조건: <i>A</i> = 100 cm² (10 cm × 10 cm), <i>d</i> = 1 mm, 12 V. 유전체가 옆에서 밀려 들어가므로 채워진 부분과 빈 부분이 병렬 연결된 축전기처럼 동작합니다: <span class="m"><i>C</i>(<i>x</i>) = <i>C</i>[1 + (<i>κ</i>−1)<i>x</i>]</span>.</p>
+    </div>
+    <div class="viz">
+      <figure style="margin:0 0 14px"><svg id="enMini" viewBox="0 0 560 200" role="img" aria-label="유전체가 극판 사이로 끌려 들어가는 옆모습, 유전체에 작용하는 힘과 극판 각 부분의 전하"></svg><figcaption class="small" style="margin-top:2px">그래프 바로 옆에 다시 그린 같은 축전기입니다. 화살표는 유전체에 작용하는 힘이고 길이가 세기를 나타냅니다. +, − 표시는 자유 전하로, 유전체가 들어간 부분의 극판에 더 많이 모입니다.</figcaption></figure>
+      <figure class="qv"><svg id="enSvg2" viewBox="0 0 560 330" role="img" tabindex="0" aria-label="유전체가 들어간 정도에 따른 에너지 누적 그래프: 저장 에너지, 유전체에 한 일, 전지가 공급한 에너지"></svg>
+      <div class="legend" style="margin-top:8px"><span style="--c:var(--neg)">저장 에너지 U</span><span style="--c:var(--die)">유전체에 한 일 W</span><span style="--c:var(--accent)" id="enLgB">U<sub>i</sub> + 전지 공급</span><span style="--c:var(--muted)">U<sub>i</sub> (처음)</span></div>
+      <figcaption class="small">막대 전체 높이는 지금까지 들어온 에너지 전부, 즉 <i>U</i><sub>i</sub>에 전지가 공급한 에너지를 더한 값입니다. 파란색은 전기장에 저장된 에너지, 주황색은 유전체를 끌어당기는 데 쓰인 일입니다. 그래프를 가로로 드래그하거나(또는 포커스 후 ← →) 유전체를 밀어 넣어 보세요. 위 그림도 함께 움직입니다. κ는 위의 슬라이더로 바꿉니다.</figcaption></figure>
+    </div>
   </div>
   <div class="callout">
-    <h3>에너지 논증에 대한 보충</h3>
-    <p>q가 일정할 때(전지 분리) U는 U/κ로 줄어들고, 줄어든 에너지는 전기장이 유전체를 끌어당기며 한 일입니다. 노트의 설명 그대로입니다. 전지가 연결된 경우에도 U는 κU로 커지지만, 유전체는 밀려나는 것이 아니라 <i>여전히 안쪽으로 끌려 들어갑니다</i>. 이때 전지가 (κ−1)CV²의 에너지를 공급하는데, 그 절반은 저장 에너지 증가에, 나머지 절반은 유전체를 끌어당기는 일에 쓰입니다. 어느 경우든 힘을 써서 밀어 넣을 필요는 없습니다.</p>
+    <h3>의미: 유전체는 언제나 끌려 들어간다</h3>
+    <p>두 경우 모두 <i>W</i> &gt; 0이므로 축전기가 유전체에 양의 일을 합니다. 즉 축전기가 유전체를 극판 사이로 끌어당깁니다. 억지로 밀어 넣을 필요가 없고, 오히려 다시 빼내려면 우리가 <i>W</i>만큼 일을 해 주어야 합니다. 마찰이 없다면 가장자리에서 놓은 유전체는 빨려 들어가며 빨라지고, 가운데 위치를 중심으로 왔다 갔다 진동하게 됩니다.</p><p>이 힘은 극판 가장자리의 휘어진 전기장(가장자리 효과, fringing field)에서 나옵니다. 극판 사이 안쪽의 전기장은 극판에 수직이라 옆으로 미는 성분이 없지만, 가장자리에서는 전기장이 바깥으로 휘어져 유전체 앞쪽의 유도 전하를 잡아당깁니다.</p><p>헷갈리기 쉬운 것은 전지가 연결된 경우입니다. 저장 에너지가 <em>커지는데도</em> 유전체가 끌려 들어가는데, 전지가 그 증가분의 두 배를 공급하기 때문입니다. 여기서는 "계의 에너지가 낮아지는 쪽으로 움직인다"고 말하면 틀립니다. <i>V</i>가 일정할 때 힘은 저장 에너지가 <em>커지는</em> 쪽, <span class="m"><i>F</i> = +d<i>U</i>/d<i>s</i></span>이고, <i>q</i>가 일정할 때는 <span class="m"><i>F</i> = −d<i>U</i>/d<i>s</i></span>입니다. 둘 다 안쪽을 향합니다.</p>
   </div>
 </section>
 
@@ -435,18 +499,18 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
     <div class="controls">
       <label class="ctl"><span class="row"><span>유전체 두께 <i class="m">b</i>/<i class="m">d</i></span><output id="pbO"></output></span><input type="range" id="pb" min="0" max="1" step="0.01" value="0.5"></label>
       <label class="ctl"><span class="row"><span>유전상수 <i class="m">κ</i></span><output id="pkO"></output></span><input type="range" id="pk" min="1" max="10" step="0.1" value="3"></label>
-      <dl class="readout"><dt>C</dt><dd id="pC"></dd><dt>C / C<sub>진공</sub></dt><dd id="pR"></dd></dl>
+      <dl class="readout"><dt><i>C</i></dt><dd id="pC"></dd><dt><i>C</i>/<i>C</i><sub>진공</sub></dt><dd id="pR"></dd></dl>
       <h3 style="margin-top:6px">축전기 3개의 직렬연결로 봐도 같은 결과</h3>
       <dl class="readout" style="border-top:none;padding-top:0">
-        <dt>C₁ = C₃ = ε₀A / [(d−b)/2]</dt><dd id="pC1"></dd>
-        <dt>C₂ = κε₀A / b</dt><dd id="pC2"></dd>
-        <dt>1/(2/C₁ + 1/C₂)</dt><dd id="pCs"></dd>
+        <dt><i>C</i><sub>1</sub> = <i>C</i><sub>3</sub> = 2<i>ε</i><sub>0</sub><i>A</i>/(<i>d</i> − <i>b</i>)</dt><dd id="pC1"></dd>
+        <dt><i>C</i><sub>2</sub> = <i>κε</i><sub>0</sub><i>A</i>/<i>b</i></dt><dd id="pC2"></dd>
+        <dt>(2/<i>C</i><sub>1</sub> + 1/<i>C</i><sub>2</sub>)<sup>−1</sup></dt><dd id="pCs"></dd>
       </dl>
-      <p class="small">극한 확인: b → 0이면 ε₀A/d, b = d이면 κε₀A/d.</p>
+      <p class="small">극한 확인: <span class="m"><i>b</i> → 0</span>이면 <span class="m"><i>ε</i><sub>0</sub><i>A</i>/<i>d</i></span>, <span class="m"><i>b</i> = <i>d</i></span>이면 <span class="m"><i>κε</i><sub>0</sub><i>A</i>/<i>d</i></span>.</p>
     </div>
     <div class="viz">
       <svg id="pSvg" viewBox="0 0 560 420" role="img" aria-label="일부만 채운 유전체와 E(x), V(x) 그래프"></svg>
-      <p class="small">고정 조건: <i>A</i> = 100 cm², <i>d</i> = 1 mm. 그래프 단위는 <i>q</i>/<i>ε</i>₀<i>A</i>(전기장)와 <i>qd</i>/<i>ε</i>₀<i>A</i>(퍼텐셜)이며, <i>x</i>는 + 극판에서 − 극판 방향입니다.</p>
+      <p class="small">고정 조건: <i>A</i> = 100 cm², <i>d</i> = 1 mm. 그래프 단위는 <i>q</i>/<i>ε</i><sub>0</sub><i>A</i>(전기장)와 <i>qd</i>/<i>ε</i><sub>0</sub><i>A</i>(퍼텐셜)이며, <i>x</i>는 + 극판에서 − 극판 방향입니다.</p>
     </div>
   </div>
 </section>
@@ -456,18 +520,19 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
   <h2><span class="num">8</span>확인 문제 <span class="kr">Check Yourself</span></h2>
   <div class="cheat">
     <div><b>정의</b><span class="m"><i>q</i> = <i>CV</i>, &nbsp;1 F = 1 C/V</span></div>
-    <div><b>평행판</b><span class="m"><i>C</i> = <i>ε</i>₀<i>A</i>/<i>d</i></span></div>
-    <div><b>원통형</b><span class="m"><i>C</i> = 2π<i>ε</i>₀<i>L</i>/ln(<i>b</i>/<i>a</i>)</span></div>
-    <div><b>구형 / 고립된 구</b><span class="m"><i>C</i> = 4π<i>ε</i>₀<i>ab</i>/(<i>b</i>−<i>a</i>), &nbsp;4π<i>ε</i>₀<i>R</i></span></div>
+    <div><b>평행판</b><span class="m"><i>C</i> = <i>ε</i><sub>0</sub><i>A</i>/<i>d</i></span></div>
+    <div><b>원통형</b><span class="m"><i>C</i> = 2π<i>ε</i><sub>0</sub><i>L</i>/ln(<i>b</i>/<i>a</i>)</span></div>
+    <div><b>구형 / 고립된 구</b><span class="m"><i>C</i> = 4π<i>ε</i><sub>0</sub><i>ab</i>/(<i>b</i>−<i>a</i>), &nbsp;4π<i>ε</i><sub>0</sub><i>R</i></span></div>
     <div><b>연결</b><span class="m">병렬: Σ<i>C<sub>j</sub></i>; &nbsp;직렬: 1/<i>C</i><sub>eq</sub> = Σ1/<i>C<sub>j</sub></i></span></div>
-    <div><b>에너지</b><span class="m"><i>U</i> = <i>q</i>²/(2<i>C</i>) = (1/2)<i>CV</i>², &nbsp;<i>u</i> = (1/2)<i>ε</i>₀<i>E</i>²</span></div>
+    <div><b>에너지</b><span class="m"><i>U</i> = <i>q</i>²/(2<i>C</i>) = ½<i>CV</i>², &nbsp;<i>u</i> = ½<i>ε</i><sub>0</sub><i>E</i>²</span></div>
     <div><b>유전체</b><span class="m"><i>C</i> → <i>κC</i>; &nbsp;V 일정: <i>q</i> → <i>κq</i>; &nbsp;q 일정: <i>V</i> → <i>V</i>/<i>κ</i></span></div>
-    <div><b>일부만 채운 유전체</b><span class="m"><i>C</i> = <i>ε</i>₀<i>A</i>/[<i>d</i> − (1−1/<i>κ</i>)<i>b</i>]</span></div>
+    <div><b>유전체와 에너지</b><span class="m">q 일정: <i>U</i> → <i>U</i>/<i>κ</i>; &nbsp;V 일정: <i>U</i> → <i>κU</i>, Δ<i>U</i><sub>B</sub> = 2Δ<i>U</i>; &nbsp;<i>W</i> &gt; 0, 끌어당김</span></div>
+    <div><b>일부만 채운 유전체</b><span class="m"><i>C</i> = <i>ε</i><sub>0</sub><i>A</i>/[<i>d</i> − (1−1/<i>κ</i>)<i>b</i>]</span></div>
   </div>
   <div class="quiz" id="quiz"></div>
 </section>
 
-<footer>경상국립대학교 물리학과 이상훈 교수의 전기용량 강의 노트를 바탕으로 Claude Opus 5.5가 제작했습니다. 수치 계산에는 ε₀ = 8.854 × 10⁻¹² F/m를 사용했습니다.</footer>
+<footer>경상국립대학교 물리학과 이상훈 교수의 전기용량 강의 노트를 바탕으로 Claude Opus 5.5가 제작했습니다. 수치 계산에는 <i>ε</i><sub>0</sub> = 8.854 × 10<sup>−12</sup> F/m를 사용했습니다.</footer>
 </div>
 
 <script>
@@ -901,7 +966,7 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     const list = $('#capList'); list.innerHTML = '';
     caps.forEach((c,i) => {
       const row = document.createElement('div'); row.className = 'capline';
-      row.innerHTML = `<span class="tag">C${sub(i)}</span><input type="range" min="1" max="20" step="1" value="${c}" aria-label="C${i+1} (µF)"><output>${c} µF</output><button aria-label="C${i+1} 삭제" ${caps.length<=1?'disabled':''}>×</button>`;
+      row.innerHTML = `<span class="tag"><i>C</i><sub>${i+1}</sub></span><input type="range" min="1" max="20" step="1" value="${c}" aria-label="C${i+1} (µF)"><output>${c} µF</output><button aria-label="C${i+1} 삭제" ${caps.length<=1?'disabled':''}>×</button>`;
       const inp = row.querySelector('input');
       inp.addEventListener('input', () => { caps[i] = +inp.value; row.querySelector('output').textContent = caps[i] + ' µF'; render(); });
       row.querySelector('button').addEventListener('click', () => { caps.splice(i,1); buildList(); render(); });
@@ -931,7 +996,7 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
         const x = xs[i], w = 26 + 30*c/maxC;
         s += `<path class="wire" d="M${x} 40 V110 M${x} 130 V200"/>`;
         s += `<rect x="${x-w/2}" y="106" width="${w}" height="4" class="plate"/><rect x="${x-w/2}" y="130" width="${w}" height="4" class="plate"/>`;
-        s += `<text x="${x+w/2+5}" y="125" font-style="italic" fill="var(--ink)">C${sub(i)}</text>`;
+        s += `<text x="${x+w/2+5}" y="125" fill="var(--ink)"><tspan font-style="italic">C</tspan><tspan baseline-shift="sub" font-size="10">${i+1}</tspan></text>`;
         s += `<text x="${x}" y="98" text-anchor="middle" class="pos" font-size="13">+${qs[i].toFixed(0)} µC</text>`;
         s += `<text x="${x}" y="152" text-anchor="middle" class="neg" font-size="13">−${qs[i].toFixed(0)} µC</text>`;
         s += `<circle cx="${x}" cy="40" r="3" fill="var(--ink)"/><circle cx="${x}" cy="200" r="3" fill="var(--ink)"/>`;
@@ -947,7 +1012,7 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
         const x = xs[i], h = 26 + 26*c/maxC;
         s += `<rect x="${x-8}" y="${40-h/2}" width="4" height="${h}" class="plate"/><rect x="${x+4}" y="${40-h/2}" width="4" height="${h}" class="plate"/>`;
         s += `<text x="${x-16}" y="${40-h/2-4}" class="pos" font-size="12">+</text><text x="${x+10}" y="${40-h/2-4}" class="neg" font-size="12">−</text>`;
-        s += `<text x="${x}" y="${40+h/2+18}" text-anchor="middle" font-style="italic" fill="var(--ink)">C${sub(i)}</text>`;
+        s += `<text x="${x}" y="${40+h/2+18}" text-anchor="middle" fill="var(--ink)"><tspan font-style="italic">C</tspan><tspan baseline-shift="sub" font-size="10">${i+1}</tspan></text>`;
         s += `<text x="${x}" y="${40+h/2+36}" text-anchor="middle" fill="var(--field)" font-size="14">${vs[i].toFixed(2)} V</text>`;
         if(i < n-1){ const xm = (xs[i]+xs[i+1])/2; s += `<ellipse cx="${xm}" cy="40" rx="${(xs[i+1]-xs[i])/2-2}" ry="16" fill="none" stroke="var(--die)" stroke-width="2" stroke-dasharray="4 3"/>`; }
       });
@@ -957,7 +1022,7 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     s += bat;
     $('#comboSvg').innerHTML = s;
     let t = '<tr><th></th><th>C (µF)</th><th>q (µC)</th><th>V (V)</th><th>U (µJ)</th></tr>';
-    caps.forEach((c,i) => t += `<tr><td><i>C${sub(i)}</i></td><td>${c}</td><td>${qs[i].toFixed(1)}</td><td>${vs[i].toFixed(2)}</td><td>${(0.5*c*vs[i]*vs[i]).toFixed(1)}</td></tr>`);
+    caps.forEach((c,i) => t += `<tr><td><i>C</i><sub>${i+1}</sub></td><td>${c}</td><td>${qs[i].toFixed(1)}</td><td>${vs[i].toFixed(2)}</td><td>${(0.5*c*vs[i]*vs[i]).toFixed(1)}</td></tr>`);
     t += `<tr><td><b>eq</b></td><td><b>${Ceq.toFixed(2)}</b></td><td><b>${(Ceq*V).toFixed(1)}</b></td><td><b>${V}</b></td><td><b>${(0.5*Ceq*V*V).toFixed(1)}</b></td></tr>`;
     $('#comboTable').innerHTML = t;
   }
@@ -1072,17 +1137,18 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
 /* ---------- 6. dielectric ---------- */
 (function(){
   const A = 0.01, d = 0.001, C0 = EPS0*A/d, V0 = 12, q0 = C0*V0, E0vac = V0/d, U0 = 0.5*C0*V0*V0;
-  let kappa = 3.5, inserted = false, mode = 'bat', ins = 0, align = 0, last = performance.now();
+  let kappa = 3.5, target = 0, mode = 'bat', ins = 0, align = 0, last = performance.now();
   const kSl = $('#kSl');
   const setK = k => { kappa = k; kSl.value = Math.log10(k); $('#kOut').textContent = k < 1.01 ? k.toFixed(5) : k.toFixed(k < 10 ? 2 : 1); table(); };
   kSl.addEventListener('input', () => { kappa = Math.pow(10, +kSl.value); $('#kOut').textContent = kappa < 1.01 ? kappa.toFixed(5) : kappa.toFixed(kappa < 10 ? 2 : 1); table(); });
   $$('[data-k]').forEach(b => b.addEventListener('click', () => setK(+b.dataset.k)));
   const dmBtns = $$('[data-dm]');
-  dmBtns.forEach(b => b.addEventListener('click', () => { mode = b.dataset.dm; pressGroup(dmBtns, b); table(); }));
-  $('#insBtn').addEventListener('click', () => { inserted = !inserted; $('#insBtn').textContent = inserted ? '유전체 빼기' : '유전체 넣기'; table(); });
+  dmBtns.forEach(b => b.addEventListener('click', () => { mode = b.dataset.dm; dmBtns.forEach(x => x.setAttribute('aria-pressed', x.dataset.dm === mode ? 'true' : 'false')); table(); }));
+  const syncIns = () => { $('#insBtn').textContent = target > 0.999 ? '유전체 빼기' : '유전체 넣기'; };
+  $('#insBtn').addEventListener('click', () => { target = target > 0.999 ? 0 : 1; syncIns(); });
   const rnd = Array.from({length:18}, () => Math.random()*360);
   function state(){
-    const k = inserted ? kappa : 1;
+    const k = 1 + (kappa-1)*ins;
     const C = k*C0;
     const V = mode === 'bat' ? V0 : q0/C;
     const q = C*V, E = V/d, Ef = q/(EPS0*A);
@@ -1096,8 +1162,8 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
   }
   function table(){
     const s = state();
-    const rows = [['C', C0, s.C, 'F'], ['q', q0, s.q, 'C'], ['V', V0, s.V, 'V'], ['E (전체)', E0vac, s.E, 'V/m'], ['U', U0, s.U, 'J']];
-    $('#dTable').innerHTML = '<tr><th></th><th>진공</th><th>현재</th><th>변화</th></tr>' + rows.map(r => `<tr><td><i>${r[0]}</i></td><td>${fmt(r[1],r[3])}</td><td>${fmt(r[2],r[3])}</td><td>${ratio(r[2],r[1])}</td></tr>`).join('');
+    const rows = [['<i>C</i>', C0, s.C, 'F'], ['<i>q</i>', q0, s.q, 'C'], ['<i>V</i>', V0, s.V, 'V'], ['<i>E</i> (전체)', E0vac, s.E, 'V/m'], ['<i>U</i>', U0, s.U, 'J']];
+    $('#dTable').innerHTML = '<tr><th></th><th>진공</th><th>현재</th><th>변화</th></tr>' + rows.map(r => `<tr><td>${r[0]}</td><td>${fmt(r[1],r[3])}</td><td>${fmt(r[2],r[3])}</td><td>${ratio(r[2],r[1])}</td></tr>`).join('');
   }
   function draw(){
     const s = state();
@@ -1131,19 +1197,124 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     if(qRel > 2.4) h += `<text x="${xR+6}" y="${yT-6}" class="lbl">q ×${qRel.toFixed(1)}</text>`;
     // field components gauge
     const gx = 430, gTop = 70, L = 150;
-    const lE0 = L, lEp = L*(s.Ep/s.Ef), lE = L*(s.E/s.Ef);
+    const kg = 1 + (kappa-1)*align, lE0 = L, lEp = L*(1 - 1/kg), lE = L/kg;
     h += `<line x1="${gx}" y1="${gTop}" x2="${gx}" y2="${gTop+lE0}" stroke="var(--neg)" stroke-width="3" marker-end="url(#mdb)"/>`;
     if(lEp > 3) h += `<line x1="${gx+18}" y1="${gTop+lEp}" x2="${gx+18}" y2="${gTop}" stroke="var(--pos)" stroke-width="3" marker-end="url(#mdr)"/>`;
     h += `<line x1="${gx+36}" y1="${gTop}" x2="${gx+36}" y2="${gTop+Math.max(lE,3)}" stroke="var(--field)" stroke-width="3" marker-end="url(#mdf)"/>`;
-    h += `<text x="${gx-4}" y="${gTop-10}" font-size="13" fill="var(--neg)">E₀</text><text x="${gx+13}" y="${gTop-10}" font-size="13" fill="var(--pos)">E′</text><text x="${gx+32}" y="${gTop-10}" font-size="13" fill="var(--field)">E</text>`;
+    h += `<text x="${gx-4}" y="${gTop-10}" font-size="13" fill="var(--neg)"><tspan font-style="italic">E</tspan><tspan baseline-shift="sub" font-size="10">0</tspan></text><text x="${gx+13}" y="${gTop-10}" font-size="13" fill="var(--pos)" font-style="italic">E′</text><text x="${gx+32}" y="${gTop-10}" font-size="13" fill="var(--field)" font-style="italic">E</text>`;
     $('#dSvg').innerHTML = h;
+    drawEnergy();
   }
+  // ---- energy bookkeeping graph ----
+  const Lside = 0.1, enSvg = $('#enSvg2'), fillSl = $('#fillSl');
+  const EX0 = 62, EX1 = 540, EYT = 22, EYB = 272;
+  function enAt(x){
+    const g = 1 + (kappa-1)*x;
+    if(mode === 'bat'){ const dU = U0*(kappa-1)*x; return {U: U0+dU, dU, dUB: 2*dU, W: dU, F: U0*(kappa-1)/Lside}; }
+    const U = U0/g; return {U, dU: U-U0, dUB: 0, W: U0-U, F: U0*(kappa-1)/(g*g)/Lside};
+  }
+  function niceStep(max){ const raw = max/5, p = Math.pow(10, Math.floor(Math.log10(raw))), m = raw/p; return (m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10)*p; }
+  function drawEnergy(){
+    const x = ins, e = enAt(x);
+    const ymax = mode === 'bat' ? 1 + 2*(kappa-1) : 1;
+    const top = ymax*1.08, step = niceStep(top);
+    const PX = t => EX0 + t*(EX1-EX0), PY = v => EYB - v/top*(EYB-EYT);
+    let s = '';
+    for(let v = 0; v <= top + 1e-9; v += step){ s += `<line x1="${EX0}" y1="${PY(v)}" x2="${EX1}" y2="${PY(v)}" class="gridl"/><text x="${EX0-8}" y="${PY(v)+4}" text-anchor="end" font-size="12" fill="var(--muted)">${+v.toFixed(3)}</text>`; }
+    const N = 80, xs = Array.from({length:N+1}, (_,i) => i/N);
+    const Us = xs.map(t => enAt(t).U/U0), Ws = xs.map(t => enAt(t).W/U0);
+    const line = arr => xs.map((t,i) => `${PX(t).toFixed(1)},${PY(arr[i]).toFixed(1)}`).join(' ');
+    const tops = Us.map((u,i) => u + Ws[i]);
+    s += `<polygon points="${PX(0)},${PY(0)} ${line(Us)} ${PX(1)},${PY(0)}" fill="var(--hl-cyan)"/>`;
+    s += `<polygon points="${line(Us)} ${xs.slice().reverse().map((t,j) => `${PX(t).toFixed(1)},${PY(tops[N-j]).toFixed(1)}`).join(' ')}" fill="var(--die-soft)"/>`;
+    s += `<polyline points="${line(Us)}" fill="none" stroke="var(--neg)" stroke-width="2.4"/>`;
+    s += `<polyline points="${line(tops)}" fill="none" stroke="${mode === 'bat' ? 'var(--accent)' : 'var(--die)'}" stroke-width="2.4"/>`;
+    s += `<line x1="${PX(0)}" y1="${PY(1)}" x2="${PX(1)}" y2="${PY(1)}" stroke="var(--muted)" stroke-dasharray="5 4"/>`;
+    // cursor
+    const cx = PX(x), u = e.U/U0, w = e.W/U0;
+    s += `<rect x="${cx-0.5}" y="${EYT}" width="1" height="${EYB-EYT}" fill="var(--ink)" opacity=".55"/>`;
+    s += `<circle cx="${cx}" cy="${PY(u)}" r="5" fill="var(--neg)"/><circle cx="${cx}" cy="${PY(u+w)}" r="5" fill="${mode === 'bat' ? 'var(--accent)' : 'var(--die)'}"/>`;
+    const lx = x > 0.62 ? cx - 10 : cx + 10, an = x > 0.62 ? 'end' : 'start';
+    if(PY(0) - PY(u) > 18) s += `<text x="${lx}" y="${(PY(0)+PY(u))/2+5}" text-anchor="${an}" font-size="14" font-weight="600" fill="var(--neg)">U</text>`;
+    if(PY(u) - PY(u+w) > 18) s += `<text x="${lx}" y="${(PY(u)+PY(u+w))/2+5}" text-anchor="${an}" font-size="14" font-weight="600" fill="var(--die)">W</text>`;
+    // axes
+    s += `<line x1="${EX0}" y1="${EYB}" x2="${EX1}" y2="${EYB}" class="axis"/><line x1="${EX0}" y1="${EYB}" x2="${EX0}" y2="${EYT}" class="axis"/>`;
+    [0,0.25,0.5,0.75,1].forEach(t => s += `<text x="${PX(t)}" y="${EYB+18}" text-anchor="middle" font-size="12" fill="var(--muted)">${t}</text>`);
+    s += `<text x="${(EX0+EX1)/2}" y="${EYB+44}" text-anchor="middle" class="lbl">x (극판 사이를 채운 비율)</text>`;
+    s += `<text x="16" y="${(EYT+EYB)/2}" text-anchor="middle" class="lbl" transform="rotate(-90 16 ${(EYT+EYB)/2})">에너지 / <tspan font-style="italic">U</tspan><tspan baseline-shift="sub" font-size="10">i</tspan></text>`;
+    enSvg.innerHTML = s;
+    drawMini(e);
+    // readout
+    $('#fillOut').textContent = x.toFixed(2);
+    $('#enK').textContent = 'κ = {k} (위 슬라이더로 설정)'.replace('{k}', kappa < 1.01 ? kappa.toFixed(5) : kappa.toFixed(kappa < 10 ? 2 : 1));
+    $('#enUi').textContent = fmt(U0,'J'); $('#enU').textContent = fmt(e.U,'J');
+    $('#enDU').textContent = (e.dU > 0 ? '+' : '') + fmt(e.dU,'J');
+    $('#enDUB').textContent = mode === 'bat' ? fmt(e.dUB,'J') : '0 (전지 없음)';
+    $('#enW').textContent = fmt(e.W,'J');
+    $('#enF').textContent = kappa < 1.0001 ? '0 N' : x < 0.005 ? '— (가장자리)' : x > 0.995 ? '0 (가운데 정지)' : fmt(e.F,'N') + ', 안쪽으로';
+    $('#enEq').innerHTML = mode === 'bat' ? 'Δ<i>U</i><sub>B</sub> = 2Δ<i>U</i>, &nbsp;<i>W</i> = Δ<i>U</i>' : 'Δ<i>U</i> = −<i>W</i> &lt; 0';
+    $('#enLgB').style.display = mode === 'bat' ? '' : 'none';
+    if(document.activeElement !== fillSl) fillSl.value = x;
+  }
+
+  function drawMini(e){
+    const x = ins, xL = 150, xR = 450, W = xR - xL, yT = 52, yB = 140;
+    let h = `<defs>${arrowMarker('mmf','var(--ink)')}<clipPath id="mclip"><rect x="0" y="0" width="560" height="200"/></clipPath></defs>`;
+    // battery on the left
+    const bop = mode === 'bat' ? 1 : 0.25;
+    h += `<g opacity="${bop}"><path class="wire" d="M${xL} ${yT-4} H60 V${(yT+yB)/2-12}"/><path class="wire" d="M60 ${(yT+yB)/2+12} V${yB+4} H${xL}"/>`;
+    h += `<line x1="44" y1="${(yT+yB)/2-12}" x2="76" y2="${(yT+yB)/2-12}" stroke="var(--ink)" stroke-width="2.4"/><line x1="52" y1="${(yT+yB)/2+12}" x2="68" y2="${(yT+yB)/2+12}" stroke="var(--ink)" stroke-width="6"/></g>`;
+    if(mode !== 'bat') h += `<line x1="50" y1="${yT+4}" x2="70" y2="${yT+24}" stroke="var(--pos)" stroke-width="2.5"/><line x1="70" y1="${yT+4}" x2="50" y2="${yT+24}" stroke="var(--pos)" stroke-width="2.5"/><text x="60" y="${yB+30}" text-anchor="middle" class="lbl">연결 끊김</text>`;
+    // fringing field at both edges
+    [12,24,36].forEach((r,i) => {
+      h += `<path d="M${xR-4} ${yT+6} Q${xR+r*1.6} ${(yT+yB)/2} ${xR-4} ${yB-2}" fill="none" stroke="var(--field)" stroke-width="1.3" stroke-dasharray="4 3" opacity="${0.75-0.18*i}"/>`;
+      h += `<path d="M${xL+4} ${yT+6} Q${xL-r*1.6} ${(yT+yB)/2} ${xL+4} ${yB-2}" fill="none" stroke="var(--field)" stroke-width="1.3" stroke-dasharray="4 3" opacity="${0.5-0.12*i}"/>`;
+    });
+    h += `<text x="${xR+52}" y="${yT-30}" text-anchor="middle" class="lbl" style="fill:var(--field)">가장자리 전기장</text>`;
+    // slab entering from the right
+    const sL = xL + (1-x)*W;
+    h += `<g clip-path="url(#mclip)"><rect x="${sL}" y="${yT+8}" width="${W}" height="${yB-yT-16}" fill="var(--die-soft)" stroke="var(--die)" stroke-width="1.5"/></g>`;
+    // vertical field lines inside the gap (E = V/d is the same over both parts)
+    for(let j=0;j<7;j++){ const fx = xL + 22 + j*(W-44)/6; h += `<line x1="${fx}" y1="${yT+8}" x2="${fx}" y2="${yB-6}" class="fld" stroke-width="1.1" opacity=".45" marker-end="url(#mdf)"/>`; }
+    // plates
+    h += `<rect x="${xL}" y="${yT-8}" width="${W}" height="8" class="plate"/><rect x="${xL}" y="${yB}" width="${W}" height="8" class="plate"/>`;
+    // free charge: density on the empty part vs the filled part
+    const g = 1 + (kappa-1)*x, sE = mode === 'bat' ? 1 : 1/g, sF = kappa*sE;
+    const marks = (a, b, dens) => { if(b - a < 4) return; const sp = Math.max(6, 24/dens); for(let px = a + sp/2; px < b; px += sp){ h += `<text x="${px}" y="${yT-12}" class="pos" font-size="12" text-anchor="middle">+</text><text x="${px}" y="${yB+22}" class="neg" font-size="13" text-anchor="middle">−</text>`; } };
+    marks(xL, sL, sE); marks(sL, xR, sF);
+    if(x > 0.08 && kappa > 1.05) h += `<text x="${(sL+xR)/2}" y="${yT-26}" text-anchor="middle" class="lbl"><tspan font-style="italic">σ</tspan> ×${(sF/sE).toFixed(sF/sE < 10 ? 2 : 1)}</text>`;
+    // force arrow on the slab
+    const Fmax = U0*(kappa-1)/Lside;
+    if(kappa > 1.0001 && x > 0.005 && x < 0.995){
+      const len = 26 + 74*e.F/Fmax, ay = (yT+yB)/2 + 8, ax = Math.min(sL + W/2, 500);
+      h += `<line x1="${ax+len/2}" y1="${ay}" x2="${ax-len/2}" y2="${ay}" stroke="var(--ink)" stroke-width="3.2" marker-end="url(#mmf)"/>`;
+      h += `<text x="${ax}" y="${ay-10}" text-anchor="middle" font-size="13" font-weight="600" fill="var(--ink)">F (끌어당김)</text>`;
+    }
+    // x bracket
+    if(x > 0.01){ const by = yB + 34; h += `<path d="M${sL} ${by-5} V${by} H${xR} V${by-5}" fill="none" stroke="var(--die)" stroke-width="1.6"/><text x="${(sL+xR)/2}" y="${by+15}" text-anchor="middle" class="lbl"><tspan font-style="italic">x</tspan> = ${x.toFixed(2)}</text>`; }
+    $('#enMini').innerHTML = h;
+  }
+  function setFill(t){ target = Math.max(0, Math.min(1, t)); ins = target; syncIns(); table(); }
+  fillSl.addEventListener('input', () => setFill(+fillSl.value));
+  let enDrag = false;
+  const enX = ev => { const r = enSvg.getBoundingClientRect(); return ((ev.clientX - r.left)/r.width*560 - EX0)/(EX1-EX0); };
+  enSvg.addEventListener('pointerdown', ev => { enDrag = true; enSvg.setPointerCapture(ev.pointerId); setFill(enX(ev)); });
+  enSvg.addEventListener('pointermove', ev => { if(enDrag) setFill(enX(ev)); });
+  enSvg.addEventListener('pointerup', () => enDrag = false);
+  enSvg.addEventListener('pointercancel', () => enDrag = false);
+  enSvg.addEventListener('keydown', ev => {
+    if(ev.key === 'ArrowRight' || ev.key === 'ArrowUp'){ setFill(ins + 0.05); ev.preventDefault(); }
+    else if(ev.key === 'ArrowLeft' || ev.key === 'ArrowDown'){ setFill(ins - 0.05); ev.preventDefault(); }
+    else if(ev.key === 'Home'){ setFill(0); ev.preventDefault(); } else if(ev.key === 'End'){ setFill(1); ev.preventDefault(); }
+  });
+
   function frame(t){
     const dt = Math.min(0.05,(t-last)/1000); last = t;
     const sp = reduceMotion ? 20 : 2.2;
-    const ti = inserted ? 1 : 0;
-    ins += Math.sign(ti-ins)*Math.min(Math.abs(ti-ins), dt*sp);
-    const ta = (inserted && ins > 0.98) ? 1 : 0;
+    const prev = ins;
+    ins += Math.sign(target-ins)*Math.min(Math.abs(target-ins), dt*sp);
+    if(ins !== prev) table();
+    const ta = ins > 0.01 ? 1 : 0;
     align += Math.sign(ta-align)*Math.min(Math.abs(ta-align), dt*sp*(ta ? 0.9 : 3));
     draw();
     requestAnimationFrame(frame);
@@ -1179,32 +1350,32 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     }
     s += `<rect x="${cxL}" y="${cy0-8}" width="${cw}" height="8" class="plate"/><rect x="${cxL}" y="${cy0+ch}" width="${cw}" height="8" class="plate"/>`;
     s += `<text x="${cxL+cw/2}" y="${cy0-14}" text-anchor="middle" class="pos">+q</text><text x="${cxL+cw/2}" y="${cy0+ch+26}" text-anchor="middle" class="neg">−q</text>`;
-    if(beta > 0.12) s += `<text x="${cxL+cw/2}" y="${Y(0.5)+5}" text-anchor="middle" class="lbl" style="fill:var(--ink)">κ = ${k.toFixed(1)}</text>`;
+    if(beta > 0.12) s += `<text x="${cxL+cw/2}" y="${Y(0.5)+5}" text-anchor="middle" class="lbl" style="fill:var(--ink)"><tspan font-style="italic">κ</tspan> = ${k.toFixed(1)}</text>`;
     // graphs: x axis vertical to match? Use horizontal graphs on right.
     const gx = 220, gw = 320;
     const gE = {y0: 180, h: 130}, gV = {y0: 380, h: 150};
     const GX = x => gx + x*gw;
     // E(x)
-    s += `<text x="${gx}" y="${gE.y0-gE.h-12}" class="lbl">E(x)</text>`;
+    s += `<text x="${gx}" y="${gE.y0-gE.h-12}" class="lbl" font-family="var(--math)" font-size="15"><tspan font-style="italic">E</tspan>(<tspan font-style="italic">x</tspan>)</text>`;
     s += `<line x1="${gx}" y1="${gE.y0}" x2="${gx+gw}" y2="${gE.y0}" class="axis"/><line x1="${gx}" y1="${gE.y0}" x2="${gx}" y2="${gE.y0-gE.h}" class="axis"/>`;
     const EY = e => gE.y0 - e*gE.h*0.85;
     s += `<polygon points="${GX(0)},${gE.y0} ${GX(0)},${EY(1)} ${GX(x1)},${EY(1)} ${GX(x1)},${EY(1/k)} ${GX(x2)},${EY(1/k)} ${GX(x2)},${EY(1)} ${GX(1)},${EY(1)} ${GX(1)},${gE.y0}" fill="var(--hl-mag)"/>`;
     s += `<polyline points="${GX(0)},${EY(1)} ${GX(x1)},${EY(1)} ${GX(x1)},${EY(1/k)} ${GX(x2)},${EY(1/k)} ${GX(x2)},${EY(1)} ${GX(1)},${EY(1)}" fill="none" stroke="var(--neg)" stroke-width="2.4"/>`;
     s += `<text x="${gx-6}" y="${EY(1)+4}" text-anchor="end" font-size="12" fill="var(--muted)">1</text>`;
-    if(k > 1.05) s += `<text x="${gx-6}" y="${EY(1/k)+4}" text-anchor="end" font-size="12" fill="var(--muted)">1/κ</text>`;
+    if(k > 1.05) s += `<text x="${gx-6}" y="${EY(1/k)+4}" text-anchor="end" font-size="12" fill="var(--muted)">1/<tspan font-style="italic">κ</tspan></text>`;
     s += `<text x="${GX(0.5)}" y="${gE.y0-6}" text-anchor="middle" class="lbl">색칠한 넓이 = V</text>`;
     // V(x)
     const Vtot = 1 - (1-1/k)*beta;
     const VY = v => gV.y0 - v*gV.h*0.9;
     const pts = [[0,Vtot],[x1,Vtot-x1],[x2,x1],[1,0]];
-    s += `<text x="${gx}" y="${gV.y0-gV.h-12}" class="lbl">V(x), − 극판 기준</text>`;
+    s += `<text x="${gx}" y="${gV.y0-gV.h-12}" class="lbl"><tspan font-family="var(--math)" font-size="15"><tspan font-style="italic">V</tspan>(<tspan font-style="italic">x</tspan>)</tspan>, − 극판 기준</text>`;
     s += `<line x1="${gx}" y1="${gV.y0}" x2="${gx+gw}" y2="${gV.y0}" class="axis"/><line x1="${gx}" y1="${gV.y0}" x2="${gx}" y2="${gV.y0-gV.h}" class="axis"/>`;
     s += `<line x1="${GX(0)}" y1="${VY(1)}" x2="${GX(1)}" y2="${VY(0)}" stroke="var(--muted)" stroke-dasharray="4 4"/>`;
     s += `<polyline points="${pts.map(p => GX(p[0])+','+VY(p[1])).join(' ')}" fill="none" stroke="var(--pos)" stroke-width="2.6"/>`;
     pts.forEach(p => s += `<circle cx="${GX(p[0])}" cy="${VY(p[1])}" r="3.5" fill="var(--pos)"/>`);
     s += `<text x="${GX(1)-4}" y="${VY(1)+6}" text-anchor="end" font-size="12" fill="var(--muted)">점선: 유전체 없음</text>`;
     s += `<text x="${gx-6}" y="${VY(Vtot)+4}" text-anchor="end" font-size="12" fill="var(--muted)">${Vtot.toFixed(2)}</text>`;
-    [[x1,'(d−b)/2'],[x2,'(d+b)/2'],[1,'d']].forEach(([x,l]) => { s += `<line x1="${GX(x)}" y1="${gE.y0-gE.h}" x2="${GX(x)}" y2="${gV.y0}" stroke="var(--line)" stroke-dasharray="3 4"/><text x="${GX(x)}" y="${gV.y0+16}" text-anchor="middle" font-size="12" fill="var(--muted)">${l}</text>`; });
+    [[x1,'(<tspan font-style="italic">d</tspan> − <tspan font-style="italic">b</tspan>)/2'],[x2,'(<tspan font-style="italic">d</tspan> + <tspan font-style="italic">b</tspan>)/2'],[1,'<tspan font-style="italic">d</tspan>']].forEach(([x,l]) => { s += `<line x1="${GX(x)}" y1="${gE.y0-gE.h}" x2="${GX(x)}" y2="${gV.y0}" stroke="var(--line)" stroke-dasharray="3 4"/><text x="${GX(x)}" y="${gV.y0+16}" text-anchor="middle" font-size="12" fill="var(--muted)">${l}</text>`; });
     $('#pSvg').innerHTML = s;
   }
   ['#pb','#pk'].forEach(s => $(s).addEventListener('input', draw));
@@ -1218,7 +1389,8 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     {p:'6 µF 축전기 3개를 직렬로 연결했습니다. 등가 전기용량(C_eq)은?', o:['18 µF','6 µF','2 µF','0.5 µF'], a:2, e:'1/C_eq = 1/6 + 1/6 + 1/6 = 1/2이므로 C_eq = 2 µF입니다. 병렬이면 18 µF가 됩니다.'},
     {p:'충전된 뒤 고립된(q 일정) 평행판 축전기의 극판 간격을 2배로 늘리면 저장된 에너지는?', o:['절반이 된다','변하지 않는다','2배가 된다','4배가 된다'], a:2, e:'C = ε₀A/d가 절반이 되고 U = q²/2C이므로 U는 2배가 됩니다. 늘어난 에너지는 서로 끌어당기는 극판을 떼어 놓으며 해 준 일에서 옵니다.'},
     {p:'전지를 연결한 채로 유전상수 κ인 유전체로 극판 사이를 채우면 극판의 전하는?', o:['κ배가 된다','1/κ배가 된다','변하지 않는다','0이 된다'], a:0, e:'전지가 V를 유지하고 C가 κC가 되므로 q = CV는 κq가 됩니다.'},
-    {p:'전기장에 저장된 단위 부피당 에너지(에너지 밀도)는?', o:['(1/2)CV²','ε₀E','(1/2)ε₀E²','q²/2C'], a:2, e:'u = (1/2)ε₀E²는 전기장이 있는 곳 어디서나 성립합니다. (1/2)CV²와 q²/2C는 전체 에너지입니다.'}
+    {p:'전기장에 저장된 단위 부피당 에너지(에너지 밀도)는?', o:['½CV²','ε₀E','½ε₀E²','q²/2C'], a:2, e:'u = ½ε₀E²는 전기장이 있는 곳 어디서나 성립합니다. ½CV²와 q²/2C는 전체 에너지입니다.'},
+    {p:'전지를 연결한 채로 유전체를 극판 사이에 밀어 넣었더니 저장 에너지가 U에서 κU로 커졌다. 유전체는 어떻게 되는가?', o:['전기장의 에너지가 커지므로 힘을 써서 밀어 넣어야 한다','끌려 들어간다. 전지가 2ΔU를 공급하고 그 절반이 유전체를 끌어당기는 일이 된다','계가 에너지를 낮추려 하므로 밖으로 밀려난다','V가 변하지 않으므로 힘이 작용하지 않는다'], a:1, e:'전지가 추가 전하 (κ−1)q를 전압 V로 옮기며 (κ−1)CV² = 2ΔU를 공급합니다. 절반은 저장 에너지 증가에, 나머지 절반 W = ΔU > 0은 유전체를 끌어당기는 일에 쓰입니다.'}
   ];
   const root = $('#quiz');
   Q.forEach((q,qi) => {
