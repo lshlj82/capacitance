@@ -92,6 +92,8 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(-
 .frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .12em;line-height:1.15}
 .frac>span:first-child{border-bottom:1.4px solid currentColor;padding:0 .18em}
 .frac>span{padding:0 .18em}
+.frac.sm{font-size:.74em;line-height:1.08;margin:0 .08em;vertical-align:middle;position:relative;top:-.08em}
+.frac.sm>span{padding:0 .12em}
 .eq{display:inline-block;font-family:var(--math);font-size:1.45rem;padding:10px 22px;margin:10px 0;border-radius:4px;background:var(--paper);box-shadow:0 0 0 5px var(--hl-cyan)}
 .eq.green{box-shadow:0 0 0 5px var(--hl-green)}
 .eq i{font-style:italic}
@@ -386,8 +388,8 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
       <p class="small">More slices make the staircase converge on the triangle, which is the integral.</p>
     </div>
     <div class="qvrow">
-      <figure class="qv"><svg id="uqSvg" viewBox="0 0 360 272" role="img" tabindex="0" aria-label="Graph of stored energy U against charge q"></svg><figcaption class="small"><i>U</i> = <i>q</i>²/(2<i>C</i>) is a parabola in <i>q</i>. Its slope d<i>U</i>/d<i>q</i> is <i>V</i>, which keeps rising, so each extra microcoulomb costs more than the last. Pink dots are the running sum of the slices in the graph above. Drag across the graph (or use ← →) to change <i>q</i>.</figcaption></figure>
-      <figure class="qv"><svg id="uvSvg" viewBox="0 0 360 272" role="img" tabindex="0" aria-label="Graph of stored energy U against voltage V"></svg><figcaption class="small"><i>U</i> = ½<i>CV</i>² is a parabola in <i>V</i>, and its slope d<i>U</i>/d<i>V</i> is <i>q</i> = <i>CV</i>. Move the <i>C</i> slider and compare each curve with its dashed starting curve: at fixed <i>q</i> a larger <i>C</i> stores less energy, while at fixed <i>V</i> it stores more. The <i>V</i> axis spans what the <i>q</i> slider can reach. Drag here to change <i>V</i>; <i>q</i> follows as <i>CV</i>.</figcaption></figure>
+      <figure class="qv"><svg id="uqSvg" viewBox="0 0 360 272" role="img" tabindex="0" aria-label="Graph of stored energy U against charge q"></svg><figcaption class="small"><i>U</i> = <span class="frac sm"><span><i>q</i>²</span><span>2<i>C</i></span></span> is a parabola in <i>q</i>. Its slope d<i>U</i>/d<i>q</i> is <i>V</i>, which keeps rising, so each extra microcoulomb costs more than the last. Pink dots are the running sum of the slices in the graph above. Drag across the graph (or use ← →) to change <i>q</i>.</figcaption></figure>
+      <figure class="qv"><svg id="uvSvg" viewBox="0 0 360 272" role="img" tabindex="0" aria-label="Graph of stored energy U against voltage V"></svg><figcaption class="small"><i>U</i> = <span class="frac sm"><span>1</span><span>2</span></span><i>CV</i>² is a parabola in <i>V</i>, and its slope d<i>U</i>/d<i>V</i> is <i>q</i> = <i>CV</i>. Move the <i>C</i> slider and compare each curve with its dashed starting curve: at fixed <i>q</i> a larger <i>C</i> stores less energy, while at fixed <i>V</i> it stores more. The <i>V</i> axis spans what the <i>q</i> slider can reach. Drag here to change <i>V</i>; <i>q</i> follows as <i>CV</i>.</figcaption></figure>
     </div>
   </div>
   <div class="prose">
@@ -442,7 +444,7 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
   <div class="cases">
     <div>
       <h4>(1) Battery removed: <i>q</i> fixed</h4>
-      <p>Use <span class="m"><i>U</i> = <i>q</i>²/2<i>C</i></span>. With <i>q</i> unchanged and <i>C</i> → <i>κC</i>, the energy drops: <span class="m"><i>U</i><sub>i</sub> → <i>U</i><sub>i</sub>/<i>κ</i></span>.</p>
+      <p>Use <span class="m"><i>U</i> = <span class="frac sm"><span><i>q</i>²</span><span>2<i>C</i></span></span></span>. With <i>q</i> unchanged and <i>C</i> → <i>κC</i>, the energy drops: <span class="m"><i>U</i><sub>i</sub> → <i>U</i><sub>i</sub>/<i>κ</i></span>.</p>
       <p>The battery is gone, so the lost energy has nowhere to go except into work <i>W</i> done <em>by the capacitor on the slab</em>:</p>
       <div class="eq">Δ<i>U</i> = <span class="frac"><span>1</span><span>2</span></span><span class="paren">(</span><span class="frac"><span>1</span><span><i>κ</i></span></span> − 1<span class="paren">)</span><span class="frac"><span><i>q</i>²</span><span><i>C</i></span></span> = −<i>W</i> &lt; 0</div>
       <div class="eq green"><i>W</i> = <span class="frac"><span>1</span><span>2</span></span><span class="paren">(</span>1 − <span class="frac"><span>1</span><span><i>κ</i></span></span><span class="paren">)</span><span class="frac"><span><i>q</i>²</span><span><i>C</i></span></span></div>
@@ -450,7 +452,7 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
     </div>
     <div>
       <h4>(2) Battery connected: <i>V</i> fixed</h4>
-      <p>Use <span class="m"><i>U</i> = ½<i>CV</i>²</span>. With <i>V</i> held and <i>C</i> → <i>κC</i>, the energy rises: <span class="m"><i>U</i><sub>i</sub> → <i>κU</i><sub>i</sub></span>, so <span class="m">Δ<i>U</i> = ½(<i>κ</i> − 1)<i>CV</i>² &gt; 0</span>.</p>
+      <p>Use <span class="m"><i>U</i> = <span class="frac sm"><span>1</span><span>2</span></span><i>CV</i>²</span>. With <i>V</i> held and <i>C</i> → <i>κC</i>, the energy rises: <span class="m"><i>U</i><sub>i</sub> → <i>κU</i><sub>i</sub></span>, so <span class="m">Δ<i>U</i> = <span class="frac sm"><span>1</span><span>2</span></span>(<i>κ</i> − 1)<i>CV</i>² &gt; 0</span>.</p>
       <p>But <i>q</i> is not fixed: it grows to <i>κq</i>, so the battery pushes an extra <span class="m">Δ<i>q</i> = (<i>κ</i> − 1)<i>q</i></span> through the voltage <i>V</i>:</p>
       <div class="eq">Δ<i>U</i><sub>B</sub> = (<i>κ</i> − 1)<i>qV</i> = (<i>κ</i> − 1)<i>CV</i>² = 2Δ<i>U</i></div>
       <p>Energy conservation, <span class="m">Δ<i>U</i> = Δ<i>U</i><sub>B</sub> − <i>W</i></span>, then gives <span class="m"><i>W</i> = 2Δ<i>U</i> − Δ<i>U</i> = Δ<i>U</i></span>.</p>
@@ -526,7 +528,7 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
     <div><b>Cylinder</b><span class="m"><i>C</i> = 2π<i>ε</i><sub>0</sub><i>L</i>/ln(<i>b</i>/<i>a</i>)</span></div>
     <div><b>Sphere / isolated sphere</b><span class="m"><i>C</i> = 4π<i>ε</i><sub>0</sub><i>ab</i>/(<i>b</i>−<i>a</i>), &nbsp;4π<i>ε</i><sub>0</sub><i>R</i></span></div>
     <div><b>Combinations</b><span class="m">parallel: Σ<i>C<sub>j</sub></i>; &nbsp;series: 1/<i>C</i><sub>eq</sub> = Σ1/<i>C<sub>j</sub></i></span></div>
-    <div><b>Energy</b><span class="m"><i>U</i> = <i>q</i>²/(2<i>C</i>) = ½<i>CV</i>², &nbsp;<i>u</i> = ½<i>ε</i><sub>0</sub><i>E</i>²</span></div>
+    <div><b>Energy</b><span class="m"><i>U</i> = <span class="frac sm"><span><i>q</i>²</span><span>2<i>C</i></span></span> = <span class="frac sm"><span>1</span><span>2</span></span><i>CV</i>², &nbsp;<i>u</i> = <span class="frac sm"><span>1</span><span>2</span></span><i>ε</i><sub>0</sub><i>E</i>²</span></div>
     <div><b>Dielectric</b><span class="m"><i>C</i> → <i>κC</i>; &nbsp;V fixed: <i>q</i> → <i>κq</i>; &nbsp;q fixed: <i>V</i> → <i>V</i>/<i>κ</i></span></div>
     <div><b>Dielectric energy</b><span class="m">q fixed: <i>U</i> → <i>U</i>/<i>κ</i>; &nbsp;V fixed: <i>U</i> → <i>κU</i>, Δ<i>U</i><sub>B</sub> = 2Δ<i>U</i>; &nbsp;<i>W</i> &gt; 0, pulled in</span></div>
     <div><b>Partial slab</b><span class="m"><i>C</i> = <i>ε</i><sub>0</sub><i>A</i>/[<i>d</i> − (1−1/<i>κ</i>)<i>b</i>]</span></div>
@@ -1391,7 +1393,7 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     {p:'Three 6 µF capacitors are connected in series. What is C_eq?', o:['18 µF','6 µF','2 µF','0.5 µF'], a:2, e:'1/C_eq = 1/6 + 1/6 + 1/6 = 1/2, so C_eq = 2 µF. In parallel they would give 18 µF.'},
     {p:'An isolated, charged parallel-plate capacitor (q fixed) has its plate separation doubled. Its stored energy…', o:['halves','stays the same','doubles','quadruples'], a:2, e:'C = ε₀A/d halves, and U = q²/2C, so U doubles. The extra energy comes from the work you do pulling the attracting plates apart.'},
     {p:'With the battery still connected, a slab of constant κ fills the gap. The charge on the plates…', o:['is multiplied by κ','is divided by κ','stays the same','drops to zero'], a:0, e:'V is held by the battery and C becomes κC, so q = CV becomes κq.'},
-    {p:'Which expression gives the energy per unit volume stored in an electric field?', o:['½CV²','ε₀E','½ε₀E²','q²/2C'], a:2, e:'u = ½ε₀E² holds anywhere there is a field. ½CV² and q²/2C are total energies.'},
+    {p:'Which expression gives the energy per unit volume stored in an electric field?', o:['CV²/2','ε₀E','ε₀E²/2','q²/2C'], a:2, e:'u = ε₀E²/2 holds anywhere there is a field. CV²/2 and q²/2C are total energies.'},
     {p:'With the battery still connected, a dielectric slab is slid into the gap and the stored energy rises from U to κU. What happens to the slab?', o:['You must push it in, since the field gains energy','It is pulled in; the battery supplies 2ΔU and half of that is work done on the slab','It is pushed out, since the system tries to lower its energy','No force acts, since V does not change'], a:1, e:'The battery moves an extra (κ−1)q through V, supplying (κ−1)CV² = 2ΔU. Half raises the stored energy and the other half, W = ΔU > 0, is work done pulling the slab in.'}
   ];
   const root = $('#quiz');
