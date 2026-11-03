@@ -430,7 +430,7 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
   </div>
   <div class="prose">
     <h3 style="margin-top:28px">Why does the field shrink?</h3>
-    <p>Molecules in the dielectric are electric dipoles (water is a polar molecule). The external field <i>E</i><sub>0</sub> exerts a torque that lines them up. The aligned dipoles leave a sheet of −<i>q′</i> just under the + plate and +<i>q′</i> just above the − plate, and that induced charge makes its own field <i>E′</i> pointing the other way. The net field is the vector sum, <span class="m"><i>E</i> = <i>E</i><sub>0</sub> − <i>E′</i></span>. In a conductor the cancellation is perfect, <i>E′</i> = −<i>E</i><sub>0</sub>, which is why the field inside a conductor is zero.</p>
+    <p>Molecules in the dielectric are electric dipoles (water is a polar molecule). The external field <i>E</i><sub>0</sub> exerts a torque that lines them up. The aligned dipoles leave a sheet of −<i>q′</i> just under the + plate and +<i>q′</i> just above the − plate, and that induced charge makes its own field <i>E′</i> pointing the other way. The net field is the vector sum, <span class="m"><b>E</b> = <b>E</b><sub>0</sub> + <b>E′</b></span>; because <b>E′</b> points against <b>E</b><sub>0</sub>, the magnitudes give <span class="m"><i>E</i> = <i>E</i><sub>0</sub> − <i>E′</i></span> (the form used in the figure legend). In a conductor the cancellation is perfect, <span class="m"><b>E′</b> = −<b>E</b><sub>0</sub></span> (equal magnitudes, <i>E′</i> = <i>E</i><sub>0</sub>), which is why the field inside a conductor is zero.</p>
     <p>Gauss's law inside a dielectric therefore counts only free charge if you multiply by κ:</p>
     <div class="eq"><i>κε</i><sub>0</sub>∮<i>E</i>·d<i>A</i> = <i>q</i></div>
     <p>Comparing with <span class="m"><i>ε</i><sub>0</sub>∮<i>E</i>·d<i>A</i> = <i>q</i> − <i>q′</i></span> gives <span class="m"><i>q</i> − <i>q′</i> = <i>q</i>/<i>κ</i></span>. A point charge in a dielectric produces <span class="m"><i>E</i> = <i>q</i>/4π<i>κε</i><sub>0</sub><i>r</i>²</span>, and the field just outside a conductor is <span class="m"><i>σ</i>/<i>κε</i><sub>0</sub></span>: in both cases the vacuum value divided by κ. In the notes this is written with <i>D</i> = <i>κE</i>; the standard SI convention puts the <i>ε</i><sub>0</sub> inside, <i>D</i> = <i>κε</i><sub>0</sub><i>E</i>, so that ∮<i>D</i>·d<i>A</i> = <i>q</i><sub>free</sub>.</p>
@@ -439,7 +439,7 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
     <h3 style="margin-top:28px">Energy bookkeeping as the slab goes in</h3>
     <p>Before the slab goes in, the stored energy can be written three equal ways:</p>
     <div class="eq"><i>U</i><sub>i</sub> = <span class="frac"><span>1</span><span>2</span></span><i>CV</i>² = <span class="frac"><span><i>q</i>²</span><span>2<i>C</i></span></span> = <span class="frac"><span>1</span><span>2</span></span><i>qV</i></div>
-    <p>Once <i>C</i> becomes <i>κC</i>, the three forms stop agreeing about what happens, because only one of <i>q</i> and <i>V</i> stays fixed. Pick the form that holds the fixed quantity, and then ask where the energy difference went.</p>
+    <p>Once <i>C</i> becomes <i>κC</i>, the three forms still give one and the same value, as long as <i>q</i> = <i>CV</i> is applied with the new <i>C</i>. What differs between the two experiments is which of <i>q</i> and <i>V</i> stays fixed, and the energy changes in opposite directions in the two cases. Pick the form that contains the fixed quantity, because then only <i>C</i> changes in it and the result is immediate, and then ask where the energy difference went.</p>
   </div>
   <div class="cases">
     <div>
@@ -1141,7 +1141,7 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
 /* ---------- 6. dielectric ---------- */
 (function(){
   const A = 0.01, d = 0.001, C0 = EPS0*A/d, V0 = 12, q0 = C0*V0, E0vac = V0/d, U0 = 0.5*C0*V0*V0;
-  let kappa = 3.5, target = 0, mode = 'bat', ins = 0, align = 0, last = performance.now();
+  let kappa = 3.5, target = 0, mode = 'bat', ins = 0, align = 0, last = performance.now(), drawnKey = '';
   const kSl = $('#kSl');
   const setK = k => { kappa = k; kSl.value = Math.log10(k); $('#kOut').textContent = k < 1.01 ? k.toFixed(5) : k.toFixed(k < 10 ? 2 : 1); table(); };
   kSl.addEventListener('input', () => { kappa = Math.pow(10, +kSl.value); $('#kOut').textContent = kappa < 1.01 ? kappa.toFixed(5) : kappa.toFixed(kappa < 10 ? 2 : 1); table(); });
@@ -1320,7 +1320,9 @@ const arrowMarker = (id, color) => `<marker id="${id}" viewBox="0 0 10 10" refX=
     if(ins !== prev) table();
     const ta = ins > 0.01 ? 1 : 0;
     align += Math.sign(ta-align)*Math.min(Math.abs(ta-align), dt*sp*(ta ? 0.9 : 3));
-    draw();
+    // rebuild the SVG only when something it shows has changed (idle frames do nothing)
+    const key = kappa + '|' + mode + '|' + ins + '|' + align;
+    if(key !== drawnKey){ drawnKey = key; draw(); }
     requestAnimationFrame(frame);
   }
   setK(3.5);
